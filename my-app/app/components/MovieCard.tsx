@@ -37,12 +37,9 @@ function MovieCard({props}: {props: MovieCardProps}){
             displayTimeout = setTimeout(() => {
                 movieCardBookmarkRef.current?.classList.add("hidden");
                 moveCardDescriptionRef.current?.classList.add("hidden");
-            }, 250);
+            }, 200);
         }, 200);
     }
-
-    const type = props.type === 0 ? "MOVIE" : "TV SHOW";
-    const bgColor = props.type === 0 ? "#5B3B02" : "#03405A";
 
     return (
         <a href="/stranica" ref={movieCardRef} className="movieCard relative" onMouseEnter={hoverHandler} onMouseLeave={hoverEndHandler}>
@@ -54,8 +51,8 @@ function MovieCard({props}: {props: MovieCardProps}){
                         <h3>{props.title}</h3>
 
                         <span className="flex h-fit items-center gap-1">
-                            <span className="type" style={{backgroundColor: `${bgColor}`}}>
-                                {type}
+                            <span className="type" style={{backgroundColor: `${props.type === 0 ? "#5B3B02" : "#03405A"}`}}>
+                                {props.type === 0 ? "MOVIE" : "TV SHOW"}
                             </span>
 
                             <span className="flex gap-0.5 items-center">
