@@ -3,5 +3,6 @@ export interface MovieCardProps{
     type: 0 | 1,
     banner: string,
     rating: number,
-    description?: string
+    description?: string,
+    id?: number
 }

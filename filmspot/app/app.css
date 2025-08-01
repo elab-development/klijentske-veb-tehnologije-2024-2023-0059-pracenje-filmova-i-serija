@@ -188,7 +188,8 @@ footer .followUs h2{
   width: 100%;
 }
 .movieCard:hover{
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 15px 0 #43dfd760;
 }
 .movieCard img{
   position: absolute;
@@ -201,7 +202,7 @@ footer .followUs h2{
   transition: transform .15s ease;
 }
 .movieCard:hover img{
-  transform: scale(1.04);
+  transform: scale3d(1.09, 1.09, 1);
 }
 .movieCard .type{
   padding-block: 2px;
@@ -265,35 +266,12 @@ footer .followUs h2{
   place-items: center;
   background-color: var(--textAccentColor);
   pointer-events: none;
-  transform: translate(20px, -20px);
+  transform: translate3d(20px, -20px, 0) scale3d(.2, .2, 1);
 }
 .movieCard:hover .bookmark{
   opacity: 1;
   pointer-events: all;
-  transform: translate(0, 0);
-}
-.movieCard .bookmark:hover{
-  animation: jibble 0.5s ease-in-out;
-}
-@keyframes jibble {
-  0% {animation: jibble 0.5s ease-in-out;
-    transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(-1px, 0);
-  }
-  40% {
-    transform: translate(1px, 0);
-  }
-  60% {
-    transform: translate(-1px, 0);
-  }
-  80% {
-    transform: translate(0px, 0);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
 }
 /* MOVIE CARD */
 

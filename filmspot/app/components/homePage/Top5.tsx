@@ -7,7 +7,8 @@ const top5MoviesList: MovieCardProps[] = [
         title: "Happy Gilmore",
         type: 0,
         banner: "https://assets-prd.ignimgs.com/2025/06/23/happy-gilmore-two-xlg-1750679818642.jpg",
-        rating: 7.3
+        rating: 7.3,
+        id: 113
     },
     {
         title: "The Fantastic Fourrrrrrrrrrrrr",

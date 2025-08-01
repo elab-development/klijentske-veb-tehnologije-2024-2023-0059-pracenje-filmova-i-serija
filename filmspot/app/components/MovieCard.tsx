@@ -1,16 +1,18 @@
-import { useRef } from "react";
+import { Link } from "react-router";
 import type { MovieCardProps } from "~/types";
 
 function MovieCard({props}: {props: MovieCardProps}){
     return (
-        <a href="/stranica" className="movieCard relative">
+        <div className="movieCard relative">
             <img src={props.banner} alt="Background" />
 
-            <button className="bookmark absolute button">
+            <button className="bookmark absolute button z-1">
                 <svg width="15" height="15" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M1 3C1 1.89543 1.89543 1 3 1H12C13.1046 1 14 1.89543 14 3V17.6779C14 18.5555 12.9505 19.0074 12.3129 18.4045L7.5 13.8529L2.68711 18.4045C2.04954 19.0074 1 18.5555 1 17.6779V3Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
+
+            <Link to={`/movie/${props.id}`} className="absolute top-0 left-0 w-full h-full" />
 
             <span className="moreInfo absolute left-0 w-full h-full pointer-events-none">
                 <span className="flex justify-between relative">
@@ -32,9 +34,10 @@ function MovieCard({props}: {props: MovieCardProps}){
                     </span>
                 </span>
             </span>
+
             <span className="bottomShadow"></span>
             <span className="topShadow"></span>
-        </a>
+        </div>
     );
 }
 
