@@ -21,7 +21,7 @@ export default function HomePage(){
 
         <Header />
 
-        <main id="moviesHolder" className="min-h-[100dvh] max-w-[1800px] mx-auto">
+        <main id="moviesHolder" className="min-h-[100dvh] max-w-[1400px] mx-auto">
             <Top5 />
 
             <Trending />

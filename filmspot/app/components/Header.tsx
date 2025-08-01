@@ -26,7 +26,7 @@ export default function Header(){
                     </span>
 
                     <span className="content flex h-fit items-center gap-7">
-                        <input ref={searchRef} type="text" placeholder="Seach movies" className="p-1" onChange={e => da(e.target.value)} />
+                        <input ref={searchRef} type="text" placeholder="Seach movies" className="!rounded-lg" onChange={e => da(e.target.value)} />
                         <a href="">About</a>
                         <a href="">Sign in</a>
                     </span>

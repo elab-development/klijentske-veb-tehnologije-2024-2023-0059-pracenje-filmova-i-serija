@@ -24,7 +24,7 @@ body {
 }
 
 body{
-  background-color: #06000f;
+  background-color: #11151C;
 }
 
 button{
@@ -182,9 +182,13 @@ footer .followUs h2{
   flex-direction: column;
   padding: 10px;
   cursor: pointer;
+  transition: all .15s ease-in-out;
 }
 #top5 .movieCard{
   width: 100%;
+}
+.movieCard:hover{
+  border: 1px solid rgba(255, 255, 255, 0.7);
 }
 .movieCard img{
   position: absolute;
@@ -193,6 +197,11 @@ footer .followUs h2{
   height: 100%;
   width: 100%;
   z-index: -1;
+  will-change: transform;
+  transition: transform .15s ease;
+}
+.movieCard:hover img{
+  transform: scale(1.04);
 }
 .movieCard .type{
   padding-block: 2px;
@@ -210,16 +219,25 @@ footer .followUs h2{
   z-index: -1;
   background-image: linear-gradient(0, rgb(0, 0, 0), rgba(0, 0, 0, .8), transparent);
 }
+.movieCard .topShadow{
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 35%;
+  width: 100%;
+  z-index: -1;
+  transition: opacity .2s ease-in-out;
+  background-image: linear-gradient(0, transparent, rgba(0, 0, 0, 0.75));
+}
+.movieCard:hover .topShadow{
+  opacity: 1;
+}
 .movieCard .moreInfo{
   top: calc(100% - 77px);
   background-color: rgba(0, 0, 0, 0);
   padding: 15px;
   transition: all .2s ease-in-out;
-}
-.movieCard .moreInfo.open{
-  top: 0;
-  background-color: rgba(0, 0, 0, .7);
-  backdrop-filter: blur(5px);
 }
 .movieCard .moreInfo h3{
   font-size: clamp(15px, 1.1rem, 1.2rem);
@@ -234,36 +252,48 @@ footer .followUs h2{
   font-size: .75rem;
 }
 
-.movieCard .moreInfo .bookmark{
+.movieCard .bookmark{
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, .3);
+  top: 12px;
+  right: 12px;
   opacity: 0;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   flex-shrink: 0;
   display: grid;
   place-items: center;
   background-color: var(--textAccentColor);
   pointer-events: none;
+  transform: translate(20px, -20px);
 }
-.movieCard .moreInfo.open .bookmark{
+.movieCard:hover .bookmark{
   opacity: 1;
   pointer-events: all;
+  transform: translate(0, 0);
 }
-
-.movieCard .moreInfo .description{
-  opacity: 0;
-  will-change: opacity;
-  transition: all .2s ease-in-out;
-  margin-top: 10px;
-  color: var(--textSecondaryColor);
-  font-size: clamp(10px, .9rem, 1rem);
-  line-height: clamp(14px, 1.2rem, 1.3rem);
-  font-weight: 300;
-  height: 60%;
-  overflow: hidden;
+.movieCard .bookmark:hover{
+  animation: jibble 0.5s ease-in-out;
 }
-.movieCard .moreInfo.open .description{
-  opacity: 1;
+@keyframes jibble {
+  0% {animation: jibble 0.5s ease-in-out;
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-1px, 0);
+  }
+  40% {
+    transform: translate(1px, 0);
+  }
+  60% {
+    transform: translate(-1px, 0);
+  }
+  80% {
+    transform: translate(0px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 /* MOVIE CARD */
 
@@ -271,7 +301,7 @@ footer .followUs h2{
 #moviesHolder{
   height: fit-content;
   padding-block: 100px;
-  padding-inline: max(30px, 10%);
+  padding-inline: 40px;
 }
 #moviesHolder .title{
   display: flex;
