@@ -9,24 +9,24 @@ export default function HomePage(){
         <LightRays
             raysOrigin="top-center"
             raysColor="#00ffff"
-            raysSpeed={1.2}
-            lightSpread={0.3}
-            rayLength={10}
+            raysSpeed={.5}
+            lightSpread={1}
+            rayLength={5}
             followMouse={true}
-            mouseInfluence={0.1}
+            mouseInfluence={0.025}
             noiseAmount={0.1}
             distortion={0.1}
-            className="custom-rays !absolute"
+            className="custom-rays !fixed brightness-170"
         />
 
         <Header />
 
-        <main id="moviesHolder" className="min-h-[100dvh] max-w-[1700px] mx-auto">
+        <main id="moviesHolder" className="min-h-[100dvh] max-w-[1800px] mx-auto">
             <Top5 />
 
             <Trending />
-
-            <Footer />
         </main>
+
+        <Footer />
     </>;
 }

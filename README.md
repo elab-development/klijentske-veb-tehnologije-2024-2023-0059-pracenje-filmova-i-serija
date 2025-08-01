@@ -5,12 +5,11 @@ Projekat je pozeljno povuci na racunar pomocu modernog okruzenja kao sto je Gith
 
 # Pokretanje projekta
 
-Posle preuzimanja direktorijuma potrebno je instalirati node.js dependencies kako bi aplikacija mogla da se pokrene.
-Potrebna komanda je: npm -i
+Posle preuzimanja direktorijuma potrebno je instalirati node.js dependencies kako bi aplikacija mogla da se pokrene. Potrebno je otici u folder FilmSpot komandom: cd FilmSpot, zatim: npm i
 
-U projektu se koriste elementi koji su instalirani pa je za normalno funkcionisanje potrebno pokrenuti i sledecu komandu: npm -i ogl
+U projektu se koriste elementi koji su instalirani pa je za normalno funkcionisanje potrebno pokrenuti i sledecu komandu: npm i ogl
 
-Nakon gore navedenih stavki je potrebno uci u my-app direktorujum projekta pomocu komande: cd my-app, ukoliko ste u root direktorijumu projekta
+Nakon gore navedenih stavki je potrebno uci u FilmSpot direktorujum projekta pomocu komande: cd FilmSpot, ukoliko ste u root direktorijumu projekta
 
 Projekat koristi react-routerV7 pa je pokretanje na lokalnoj masini moguce komandom: npm run dev
 

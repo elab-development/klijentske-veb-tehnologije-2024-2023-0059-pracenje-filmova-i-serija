@@ -7,10 +7,11 @@
   --backgroundTransparentPrimary: rgba(0, 0, 0, .5);
   --backgroundTransparentSecondary: rgba(0, 0, 0, .3);
 
-  --borderColorPrimary: rgba(255, 255, 255, .5);
+  --borderColorPrimary: rgba(255, 255, 255, .3);
   --borderColorSecondary: rgba(255, 255, 255, .3);
 
   --textAccentColor: #43DFD7;
+  --textSecondaryColor: rgba(255, 255, 255, .7);
 }
 
 html,
@@ -24,6 +25,17 @@ body {
 
 body{
   background-color: #06000f;
+}
+
+button{
+  cursor: pointer;
+}
+.button{
+  will-change: filter;
+  transition: all .2s ease-in-out;
+}
+.button:hover{
+  filter: brightness(.8);
 }
 
 img{
@@ -45,6 +57,37 @@ header input{
 header input::placeholder{
   font-weight: 300;
 }
+
+  /* GLASS */
+.liquidGlass-wrapper {
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+}
+.liquidGlass-effect {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  backdrop-filter: blur(18px);
+  filter: url(#glass-distortion);
+  overflow: hidden;
+  isolation: isolate;
+}
+.liquidGlass-tint {
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 15, 20, 0.2);
+}
+.liquidGlass-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+}
+.liquidGlass-text {
+  z-index: 3;
+}
+  /* GLASS */
 /* HEADER */
 
 /* FOOTER */
@@ -52,7 +95,13 @@ footer .followUs h2{
   font-size: max(14px, 1.2rem);
 }
 /* FOOTER */
-
+.movieHolder{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  width: 100%;
+  gap: 30px;
+  margin-top: 1rem;
+}
 /* TOP5 */
 #top5{
   margin-inline: auto;
@@ -61,13 +110,13 @@ footer .followUs h2{
 #top5 .title{
   width: 100%;
 }
-#top5 .movieHolder{
+/* #top5 .movieHolder{
   display: flex;
   width: 100%;
   justify-content: center;
   gap: 40px;
   margin-top: 1rem;
-}
+} */
 #top5 .movieHolder .topMovie{
   position: relative;
   width: 100%;
@@ -81,6 +130,9 @@ footer .followUs h2{
   font-size: clamp(20px, 7rem, 8rem);
   line-height: clamp(20px, 7rem, 8rem);
   font-weight: 700;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 #top5 .movieHolder .topMovie h2{
   background-clip: text;
@@ -108,6 +160,12 @@ footer .followUs h2{
 }
 /* TOP5 */
 
+/* TRENDING */
+#trending .movieHolder .movieCard{
+  flex-basis: 20%;
+}
+/* TRENDING */
+
 /* MOVIE CARD */
 .movieCard{
   border-radius: 15px;
@@ -123,12 +181,10 @@ footer .followUs h2{
   align-items: center;
   flex-direction: column;
   padding: 10px;
+  cursor: pointer;
 }
 #top5 .movieCard{
   width: 100%;
-}
-#trending .movieCard{
-  width: 18%; 
 }
 .movieCard img{
   position: absolute;
@@ -142,23 +198,77 @@ footer .followUs h2{
   padding-block: 2px;
   border-radius: 20px;
   font-size: 10px;
-  width: 40%;
+  width: 35%;
   text-align: center;
 }
 .movieCard .bottomShadow{
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 30%;
+  height: 35%;
   width: 100%;
   z-index: -1;
-  background-image: linear-gradient(0, rgb(0, 0, 0), rgba(0, 0, 0, .7), transparent);
+  background-image: linear-gradient(0, rgb(0, 0, 0), rgba(0, 0, 0, .8), transparent);
+}
+.movieCard .moreInfo{
+  top: calc(100% - 77px);
+  background-color: rgba(0, 0, 0, 0);
+  padding: 15px;
+  transition: all .2s ease-in-out;
+}
+.movieCard .moreInfo.open{
+  top: 0;
+  background-color: rgba(0, 0, 0, .7);
+  backdrop-filter: blur(5px);
+}
+.movieCard .moreInfo h3{
+  font-size: clamp(15px, 1.1rem, 1.2rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: max(20px, 1.5rem);
+  margin-bottom: 5px;
+  max-width: 83%;
+}
+.movieCard .moreInfo p{
+  font-size: .75rem;
+}
+
+.movieCard .moreInfo .bookmark{
+  opacity: 0;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background-color: var(--textAccentColor);
+  pointer-events: none;
+}
+.movieCard .moreInfo.open .bookmark{
+  opacity: 1;
+  pointer-events: all;
+}
+
+.movieCard .moreInfo .description{
+  opacity: 0;
+  will-change: opacity;
+  transition: all .2s ease-in-out;
+  margin-top: 10px;
+  color: var(--textSecondaryColor);
+  font-size: clamp(10px, .9rem, 1rem);
+  line-height: clamp(14px, 1.2rem, 1.3rem);
+  font-weight: 300;
+  height: 60%;
+  overflow: hidden;
+}
+.movieCard .moreInfo.open .description{
+  opacity: 1;
 }
 /* MOVIE CARD */
 
 /* MOVIES HOLDER */
 #moviesHolder{
-  /* background-color: #06000f; */
   height: fit-content;
   padding-block: 100px;
   padding-inline: max(30px, 10%);
