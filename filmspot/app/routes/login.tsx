@@ -1,51 +1,81 @@
 import React, { useState } from 'react';
 import LightRays from '~/components/ReachBitsLightRays';
 
-export default function FilmSpotLogin() {
+export default function FilmSpotAuth() {
+  const [isSignUp, setIsSignUp] = useState(false);
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
-    console.log('Login attempt:', { username, password });
-    // Add your login logic here
+    if (isSignUp) {
+      console.log('Sign up attempt:', { username, email, password });
+    } else {
+      console.log('Login attempt:', { username, password });
+    }
   };
 
   const handleGoogleSignIn = () => {
     console.log('Google sign in clicked');
-    // Add Google OAuth logic here
+  };
+
+  const switchToSignUp = () => {
+    setIsSignUp(true);
+  };
+
+  const switchToLogin = () => {
+    setIsSignUp(false);
   };
 
   return (
     <div className="min-h-screen flex items-start lg:items-center justify-center p-4 max-[600px]:px-0">
       
       <LightRays
-            raysOrigin="right"
-            raysColor="#00ffff"
-            raysSpeed={.4}
-            lightSpread={0.5}
-            rayLength={2}
-            followMouse={true}
-            mouseInfluence={0.025}
-            noiseAmount={0.1}
-            distortion={0.1}
-            className="custom-rays !fixed brightness-170"
-        />
+        raysOrigin="right"
+        raysColor="#00ffff"
+        raysSpeed={.4}
+        lightSpread={0.5}
+        rayLength={2}
+        followMouse={true}
+        mouseInfluence={0.025}
+        noiseAmount={0.1}
+        distortion={0.1}
+        className="custom-rays !fixed brightness-170"
+      />
         
       <div className="w-full max-w-6xl flex flex-col-reverse lg:grid lg:grid-cols-2 gap-5 lg:gap-15 items-center z-40 p-5">
-        {/* Left side - Login Form */}
         <div className="w-full bg-[var(--backgroundTransparentSecondary)] backdrop-blur-sm border border-[var(--borderColorSecondary)] rounded-2xl p-10 pb-20 max-[600px]:p-6 shadow-2xl shrink-0">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Sign in</h1>
-            <p className="text-gray-400">
-              New user?{' '}
-              <button className="text-[#43DFD7] hover:brightness-120 transition-all">
-                Create an account
-              </button>
+            <h1 className="text-3xl font-bold text-white mb-2 transition-all duration-300">
+              {isSignUp ? 'Create an account' : 'Sign in'}
+            </h1>
+            <p className="text-gray-400 transition-all duration-300">
+              {isSignUp ? (
+                <>
+                  Have an account?{' '}
+                  <button 
+                    onClick={switchToLogin}
+                    className="text-[#43DFD7] hover:brightness-120 transition-all"
+                  >
+                    Log in
+                  </button>
+                </>
+              ) : (
+                <>
+                  New user?{' '}
+                  <button 
+                    onClick={switchToSignUp}
+                    className="text-[#43DFD7] hover:brightness-120 transition-all"
+                  >
+                    Create an account
+                  </button>
+                </>
+              )}
             </p>
           </div>
 
           <div className="space-y-6">
-            <div>
+            <div className="transform transition-all duration-500 ease-in-out">
               <input
                 type="text"
                 placeholder="Username"
@@ -55,7 +85,21 @@ export default function FilmSpotLogin() {
               />
             </div>
 
-            <div>
+            <div className={`transform transition-all duration-500 ease-in-out overflow-hidden p-[2px] mx-[-2px] ${
+              isSignUp 
+                ? 'opacity-100 max-h-20 translate-y-0'
+                : 'opacity-0 max-h-0 -translate-y-4 my-[-0.1rem]'
+            }`}>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 bg-[var(--backgroundTransparentSecondary)] border border-[var(--borderColorSecondary)] rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#43DFD7] focus:border-transparent transition-all"
+              />
+            </div>
+
+            <div className="transform transition-all duration-500 ease-in-out">
               <input
                 type="password"
                 placeholder="Password"
@@ -68,9 +112,9 @@ export default function FilmSpotLogin() {
             <button
               type="button"
               onClick={handleSubmit}
-              className="w-full bg-[#43DFD7] hover:bg-[#a1fffa] text-slate-900 font-semibold py-3 px-4 rounded-lg transition-all"
+              className="w-full bg-[#43DFD7] hover:bg-[#a1fffa] text-slate-900 font-semibold py-3 px-4 rounded-lg transition-all transform hover:scale-[1.02]"
             >
-              Sign in
+              {isSignUp ? 'Start your journey' : 'Sign in'}
             </button>
           </div>
 
@@ -86,7 +130,7 @@ export default function FilmSpotLogin() {
 
             <button
               onClick={handleGoogleSignIn}
-              className="w-full mt-4 bg-[#ffffff10] hover:bg-[#ffffff20] text-white font-medium py-3 px-4 rounded-lg border border-slate-600 transition-colors flex items-center justify-center space-x-2"
+              className="w-full mt-4 bg-[#ffffff10] hover:bg-[#ffffff20] text-white font-medium py-3 px-4 rounded-lg border border-slate-600 transition-all flex items-center justify-center space-x-2 transform hover:scale-[1.02]"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
@@ -111,7 +155,6 @@ export default function FilmSpotLogin() {
           </div>
         </div>
 
-        {/* Right side - Welcome Section */}
         <div className="text-center lg:text-left mb-5 max-[600px]:mb-0">
           <div className="flex items-center justify-center lg:justify-start mb-6 max-[600px]:mb-0 gap-3">
             <svg className='ml-[-5px]' width="60" height="60" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,10 +166,13 @@ export default function FilmSpotLogin() {
           </div>
 
           <div className="space-y-4 text-slate-300">
-            <p className="text-lg leading-relaxed max-[600px]:hidden">
-              Welcome to the world of movies and TV shows! Create an account to keep a list of your favorite movies, rank and rate them. It's free, always.
+            <p className="text-lg leading-relaxed max-[600px]:hidden transition-all duration-300">
+              {
+                isSignUp ? 'Join our community of movie enthusiasts! Create your account to start building your personal movie collection and discover new favorites.'
+                : `Welcome to the world of movies and TV shows! Create an account to keep a list of your favorite movies, rank and rate them. It's free, always.`
+              }
             </p>
-            <p className="text-sm text-slate-400 max-[600px]:hidden">
+            <p className="text-sm text-slate-400 max-[600px]:hidden transition-all duration-300">
               By signing in you accept our{' '}
               <button className="text-[#43DFD7] hover:text-cyan-300 transition-colors underline">
                 Terms of Use
