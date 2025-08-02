@@ -214,7 +214,7 @@ footer .followUs h2{
   font-size: 10px;
   width: 35%;
 }
-.movieCard .bottomShadow{
+.bottomShadow{
   position: absolute;
   bottom: 0;
   left: 0;
@@ -419,5 +419,81 @@ main{
   font-size: .85rem;
   line-height: .95rem;
   color: var(--textAccentColor);
+}
+
+.similarMovies .content{
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: flex-start;
+  overflow: visible;
+}
+.similarMovies .content .contentItem{
+  width: 400px;
+  flex-shrink: 0;
+  height: 200px;
+  border-radius: 20px;
+  border: 1px solid var(--borderColorPrimary);
+  position: relative;
+  place-content: end;
+  overflow: hidden;
+  background-color: #03405A;
+}
+.similarMovies .content .contentItem img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.similarMovies .content .contentItem > span{
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  align-items: center;
+}
+.similarMovies .content .contentItem h3{
+  font-size: clamp(15px, 1.2rem, 1.2rem);
+  font-weight: 500;
+  z-index: 1;
+  position: relative;
+}
+.similarMovies .content .contentItem .type{
+  z-index: 1;
+  padding-block: 2px;
+  font-weight: 300;
+}
+.similarMovies .content .contentItem .bottomShadow{
+  z-index: 0;
+  /* background-image: linear-gradient(0, rgba(0, 0, 0, 1), transparent); */
+}
+.similarMovies .rightShadow{
+  position: absolute;
+  right: 0;
+  height: 200px;
+  width: min(12%, 200px);
+  transform: translateY(-100%);
+  background-image: linear-gradient(90deg, transparent, black);
+  z-index: 1;
+}
+
+.similarMovies .navigation{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  width: calc(100% + 46px);
+  left: -23px;
+  justify-content: space-between;
+  z-index: 2;
+}
+.similarMovies .navigation button{
+  width: 45px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
 }
 /* MOVIE PAGE */
