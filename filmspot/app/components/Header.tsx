@@ -3,7 +3,6 @@ import { useRef } from "react"
 export default function Header(){
     const searchRef = useRef<HTMLInputElement>(null);
 
-    console.log("New render");
     function da(value: string){
         console.log("Value: ", value);
     }

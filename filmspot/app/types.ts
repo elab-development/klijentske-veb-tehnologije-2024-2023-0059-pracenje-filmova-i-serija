@@ -4,5 +4,12 @@ export interface MovieCardProps{
     banner: string,
     rating: number,
     description?: string,
-    id?: number
+}
+
+export interface MovieCardClassProps extends MovieCardProps{
+    id: string
+}
+
+export interface Top5MovieCardProps extends MovieCardClassProps{
+    index: number
 }

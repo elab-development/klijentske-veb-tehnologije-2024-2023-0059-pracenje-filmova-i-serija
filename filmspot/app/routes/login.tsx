@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useRef, useState } from 'react';
 import LightRays from '~/components/ReachBitsLightRays';
 
 export default function FilmSpotAuth() {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const username = useRef('');
+  const email = useRef('');
+  const password = useRef('');
 
   const handleSubmit = () => {
     if (isSignUp) {
@@ -79,8 +79,7 @@ export default function FilmSpotAuth() {
               <input
                 type="text"
                 placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={e => username.current = e.target.value}
                 className="w-full px-4 py-3 bg-[var(--backgroundTransparentSecondary)] border border-[var(--borderColorSecondary)] rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#43DFD7] focus:border-transparent transition-all"
               />
             </div>
@@ -93,8 +92,7 @@ export default function FilmSpotAuth() {
               <input
                 type="email"
                 placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => email.current = e.target.value}
                 className="w-full px-4 py-3 bg-[var(--backgroundTransparentSecondary)] border border-[var(--borderColorSecondary)] rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#43DFD7] focus:border-transparent transition-all"
               />
             </div>
@@ -103,8 +101,7 @@ export default function FilmSpotAuth() {
               <input
                 type="password"
                 placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => password.current = e.target.value}
                 className="w-full px-4 py-3 bg-[var(--backgroundTransparentSecondary)] border border-[var(--borderColorSecondary)] rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#43DFD7] focus:border-transparent transition-all"
               />
             </div>

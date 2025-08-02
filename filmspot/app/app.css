@@ -11,7 +11,7 @@
   --borderColorSecondary: rgba(255, 255, 255, .3);
 
   --textAccentColor: #43DFD7;
-  --textSecondaryColor: rgba(255, 255, 255, .7);
+  --textSecondaryColor: rgba(255, 255, 255, .8);
 }
 
 html,
@@ -25,6 +25,7 @@ body {
 
 body{
   background-color: #11151C;
+  min-height: 100dvh;
 }
 
 button{
@@ -40,6 +41,8 @@ button{
 
 img{
   object-fit: cover;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* HEADER */
@@ -110,13 +113,6 @@ footer .followUs h2{
 #top5 .title{
   width: 100%;
 }
-/* #top5 .movieHolder{
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  gap: 40px;
-  margin-top: 1rem;
-} */
 #top5 .movieHolder .topMovie{
   position: relative;
   width: 100%;
@@ -204,12 +200,19 @@ footer .followUs h2{
 .movieCard:hover img{
   transform: scale3d(1.09, 1.09, 1);
 }
-.movieCard .type{
-  padding-block: 2px;
+.type{
+  padding: 4px 15px;
   border-radius: 20px;
+  font-size: .8rem;
+  text-align: center;
+  background-color: #5B3B02;
+}
+.type.series{
+  background-color: #03405A;
+}
+.movieCard .type{
   font-size: 10px;
   width: 35%;
-  text-align: center;
 }
 .movieCard .bottomShadow{
   position: absolute;
@@ -276,7 +279,7 @@ footer .followUs h2{
 /* MOVIE CARD */
 
 /* MOVIES HOLDER */
-#moviesHolder{
+main{
   height: fit-content;
   padding-block: 100px;
   padding-inline: 40px;
@@ -291,3 +294,130 @@ footer .followUs h2{
   font-weight: 500;
 }
 /* MOVIES HOLDER */
+
+/* MOVIE PAGE */
+.movieInfoHolder{
+  display: flex;
+  flex-direction: column;
+}
+
+.movieInfoHolder .bannerHolder{
+  flex-shrink: 0;
+}
+.movieInfoHolder .bannerHolder img{
+  width: 300px;
+  aspect-ratio: 3/4.3;
+  border-radius: 20px;
+  border: 1px solid var(--borderColorPrimary);
+}
+.movieInfoHolder .bannerHolder .rating{
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.movieInfoHolder .bannerHolder .rating .progress{
+  border-radius: 50%;
+  z-index: 0;
+  background-color: var(--textAccentColor);
+}
+.movieInfoHolder .bannerHolder .rating p{
+  z-index: 1;
+  background-color: #11151C;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: clamp(12px, 1rem, 1.2rem);
+  font-weight: 300;
+}
+
+.movieInfoHolder .importantHolder > h2{
+  font-size: 2rem;
+  font-weight: 600;
+}
+.movieInfoHolder .importantHolder .infoPart{
+  display: inline-flex;
+  padding-inline: 10px;
+  gap: 10px;
+  border-left: 1px solid white;
+  margin-left: 10px;
+}
+.movieInfoHolder .importantHolder .infoPart .type{
+  background-color: #472424;
+  border: 1px solid var(--borderColorPrimary);
+  padding-block: 3px;
+}
+.movieInfoHolder .importantHolder .infoPart.genre .type{
+  background-color: rgba(100, 100, 100, .3);
+}
+.movieInfoHolder .importantHolder .infoChild{
+  border: 1px solid var(--borderColorPrimary);
+}
+
+.movieInfoHolder .importantHolder .buttonHolder{
+  display: flex;
+  padding-block: 10px;
+  gap: 15px;
+}
+.movieInfoHolder .importantHolder .buttonHolder button{
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
+  gap: 10px;
+  color: black;
+  font-weight: 500;
+  border-radius: 30px;
+}
+.movieInfoHolder .importantHolder .buttonHolder button.addToWatchlist{
+  background-color: var(--textAccentColor);
+}
+.movieInfoHolder .importantHolder .buttonHolder button.rateMovie{
+  background-color: #DFCD43;
+}
+
+.movieInfoHolder .importantHolder .description{
+  font-size: clamp(12px, 1.1rem, 1.2rem);
+  color: var(--textSecondaryColor);
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.movieInfoHolder .castButton{
+  display: flex;
+  font-size: clamp(15px, 1.5rem, 1.5rem);
+  align-items: center;
+  gap: 15px;
+  margin-block: 10px;
+}
+.movieInfoHolder .cast{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.movieInfoHolder .castItem{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.movieInfoHolder .castItem img{
+  background-color: var(--backgroundTransparentPrimary);
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
+.movieInfoHolder .castItem h3{
+  font-size: 1.2rem;
+  line-height: 1.3rem;
+  font-weight: 500;
+}
+.movieInfoHolder .castItem p{
+  font-size: .85rem;
+  line-height: .95rem;
+  color: var(--textAccentColor);
+}
+/* MOVIE PAGE */
