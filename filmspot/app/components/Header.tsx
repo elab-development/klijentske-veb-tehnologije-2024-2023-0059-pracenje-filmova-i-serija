@@ -14,7 +14,7 @@ export default function Header(){
                 <div className="liquidGlass-tint"></div>
                 <div className="liquidGlass-shine"></div>
                 <div className="liquidGlass-text py-2 px-5 h-full border-b-1 border-[var(--borderColorPrimary)] w-full z-1000 relative flex items-center justify-between">
-                    <span className="title flex items-center gap-2">
+                    <a href="/" className="title flex items-center gap-2">
                         <svg width="50" height="50" viewBox="0 0 55 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6.50931 12.4432C6.50931 8.74028 9.51458 5.735 13.2175 5.735H42.2976C46.0005 5.735 49.0058 8.74028 49.0058 12.4432V41.5233C49.0058 45.2262 46.0005 48.2315 42.2976 48.2315H13.2175C9.51458 48.2315 6.50931 45.2262 6.50931 41.5233V12.4432Z" fill="white"/>
                             <path d="M12.1308 16.5956C12.0235 14.3752 13.7408 12.4902 15.9612 12.3828L38.1586 11.3565C40.379 11.2491 42.264 12.9664 42.3647 15.1869L43.3977 37.3843C43.4983 39.6047 41.781 41.4897 39.5606 41.5903L17.3699 42.6234C15.1495 42.724 13.2645 41.0067 13.1571 38.7863L12.1308 16.5956Z" fill="#43DFD7"/>
@@ -22,7 +22,7 @@ export default function Header(){
                         </svg>
 
                         <h1 className="font-medium"><span className="text-[var(--textAccentColor)] font-bold">Film</span>Spot</h1>
-                    </span>
+                    </a>
 
                     <span className="content flex h-fit items-center gap-7">
                         <input ref={searchRef} type="text" placeholder="Seach movies" className="!rounded-lg" onChange={e => da(e.target.value)} />

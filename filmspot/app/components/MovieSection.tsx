@@ -10,7 +10,7 @@ type MovieSectionProps = {
 
 function MovieSection({props}: {props: MovieSectionProps}){
     return (
-        <div id={props?.id ?? ''} className={props?.class ?? ''}>
+        <div id={props?.id ?? ''} className={`${props?.class ?? ''} movieSection`}>
             <span className="title">
                 {props.image}
 

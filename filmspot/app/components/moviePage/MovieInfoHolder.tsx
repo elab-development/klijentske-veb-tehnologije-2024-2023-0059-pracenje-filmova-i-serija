@@ -1,17 +1,17 @@
-import type { MovieCardProps } from "~/types";
+import type { MovieInfo } from "~/types";
 import ContentType from "../ContentType";
 import MovieInfoPart from "./MovieInfoPart";
 import ButtonWithArrow from "../ButtonWithArrow";
 
-function MovieInfoHolder({props}: {props: MovieCardProps}){
+function MovieInfoHolder({props}: {props: MovieInfo}){
     return <>
         <div className="flex items-start gap-10">
             <span className="bannerHolder relative w-fit block">
-                <img src={props.banner} alt="Banner" />
+                <img src={`${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${props.poster_path}`} alt="Banner" />
 
                 <span className="rating absolute top-[-20px] right-[-20px]">
                     <circle className="progress absolute w-full h-full"></circle>
-                    <p>{props.rating}</p>
+                    <p>{props.vote_average.toFixed(1)}</p>
                 </span>
             </span>
 
@@ -19,7 +19,7 @@ function MovieInfoHolder({props}: {props: MovieCardProps}){
                 <h2 className="mb-2">{props.title}</h2>
 
                 <span className="infoPartsHolder">
-                    <ContentType type={props.type} additionalClasses="infoChild"/>
+                    <ContentType type={props.media_type} additionalClasses="infoChild"/>
                     <MovieInfoPart items={["2021", "1h 58m", "PG-13"]} />
                     <MovieInfoPart items={["Action", "Comedy", "Crime"]} additionalClasses="genre" />
                 </span>
@@ -40,7 +40,7 @@ function MovieInfoHolder({props}: {props: MovieCardProps}){
                     </button>
                 </span>
 
-                <p className="description">{props.description}</p>
+                <p className="description">{props.overview}</p>
 
                 <span>
                     <ButtonWithArrow title="Cast" additionalClasses="castButton" />

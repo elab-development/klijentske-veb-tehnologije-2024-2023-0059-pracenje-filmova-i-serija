@@ -212,7 +212,6 @@ footer .followUs h2{
 }
 .movieCard .type{
   font-size: 10px;
-  width: 35%;
 }
 .bottomShadow{
   position: absolute;
@@ -292,6 +291,10 @@ main{
 #moviesHolder .title h2{
   font-size: max(15px, 1.4rem);
   font-weight: 500;
+}
+
+.movieSection + .movieSection{
+  margin-top: 50px;
 }
 /* MOVIES HOLDER */
 
