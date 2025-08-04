@@ -33,7 +33,7 @@ button{
 }
 .button{
   will-change: filter;
-  transition: all .2s ease-in-out;
+  transition: all .15s ease-in-out;
 }
 .button:hover{
   filter: brightness(.8);
@@ -49,13 +49,33 @@ img{
 header h1, footer h2{
   font-size: max(20px, 1.5rem);
 }
-header input{
+header .content div{
+  display: flex;
+  align-items: center;
   background-color: rgba(0, 0, 0, .3);
   border-radius: 10px;
   border: 1px solid var(--borderColorSecondary);
-  padding: 7px 10px;
   outline: none;
   font-size: max(12px, .9rem);
+}
+header .content div input{
+  height: 100% !important;
+  padding: 8px 10px;
+  outline: none;
+}
+header .content div:focus-within{
+  border-color: var(--textAccentColor);
+  background-color: rgba(19, 92, 88, 0.2);
+}
+header .content div button{
+  padding: 7px;
+  will-change: transform;
+  outline: none;
+  transition: all .15s ease;
+}
+header .content div button:hover{
+  filter: brightness(.8);
+  transform: scale(1.1);
 }
 header input::placeholder{
   font-weight: 300;
@@ -400,6 +420,7 @@ main{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
+  width: fit-content;
 }
 
 .movieInfoHolder .castItem{
@@ -409,8 +430,9 @@ main{
 }
 .movieInfoHolder .castItem img{
   background-color: var(--backgroundTransparentPrimary);
-  width: 80px;
-  height: 80px;
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
   border-radius: 10px;
 }
 .movieInfoHolder .castItem h3{

@@ -5,4 +5,5 @@ export default [
     route("login", "routes/login.tsx"),
     route("content/:URLParams", "routes/movie.tsx"),
     route("profile", "routes/profile.tsx"),
+    route("search/:searchParams", "routes/search.tsx"),
 ] satisfies RouteConfig;

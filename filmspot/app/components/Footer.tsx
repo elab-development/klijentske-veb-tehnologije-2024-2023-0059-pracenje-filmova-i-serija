@@ -3,12 +3,12 @@ function Footer(){
         <footer className="pt-6 bg-[var(--backgroundTransparentSecondary)] z-100 relative border-t border-[var(--borderColorSecondary)]">
             <div className="max-w-[1400px] mx-auto px-[40px] mb-6">
                 <span className="flex items-center justify-between">
-                    <h2 className="font-medium"><span className="font-bold text-[var(--textAccentColor)]">Film</span>Spot</h2>
+                    <a href="/" className="font-medium text-2xl"><span className="font-bold text-[var(--textAccentColor)]">Film</span>Spot</a>
                     
                     <span className="flex gap-7">
-                        <a href="">Search</a>
-                        <a href="">About</a>
-                        <a href="">Sign in</a>
+                        <a href="#searchInput" className="button">Search</a>
+                        <a href="" className="button">About</a>
+                        <a href="/login" className="button">Sign in</a>
                     </span>
                 </span>
 
@@ -18,7 +18,7 @@ function Footer(){
                     <h2 className="font-medium">Follow us on</h2>
                     
                     <span className="socials ml-5 flex items-center gap-3">
-                        <a className="instagram" href="https://www.instagram.com/">
+                        <a className="button" href="https://www.instagram.com/">
                             <svg width="20" height="20" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M22.994 8.77765C22.0006 8.7796 21.1929 7.97525 21.1909 6.98185C21.189 5.98845 21.9933 5.18071 22.9872 5.17877C23.9811 5.17683 24.7888 5.98164 24.7907 6.97505C24.7922 7.96845 23.9879 8.77571 22.994 8.77765Z" fill="white"/>
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0143 22.7013C10.7614 22.7095 7.30638 19.2686 7.29813 15.0146C7.28985 10.7615 10.7317 7.30602 14.9847 7.29775C19.2387 7.28949 22.6941 10.7324 22.7024 14.9849C22.7107 19.239 19.2678 22.693 15.0143 22.7013ZM14.99 10.0004C12.2296 10.0053 9.99493 12.2482 9.99979 15.0092C10.0051 17.7707 12.2485 20.0049 15.009 19.9996C17.7705 19.9942 20.0051 17.7518 19.9997 14.9903C19.9944 12.2288 17.751 9.9951 14.99 10.0004Z" fill="white"/>
@@ -26,7 +26,7 @@ function Footer(){
                             </svg>
                         </a>
 
-                        <a className="facebook" href="https://www.facebook.com/">
+                        <a className="button" href="https://www.facebook.com/">
                             <svg width="20" height="20" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_93_255)">
                                     <path d="M15 0C23.2842 0 30 6.71574 30 15C30 22.669 24.2444 28.993 16.8173 29.8901V19.5837L20.8751 19.5837L21.7168 15H16.8173V13.3789C16.8173 12.1677 17.0548 11.3292 17.5998 10.7935C18.1449 10.2578 18.9973 10.0249 20.2271 10.0249C20.5384 10.0249 20.8249 10.028 21.0791 10.0342C21.4488 10.0432 21.7502 10.0588 21.96 10.0808V5.9256C21.8762 5.9023 21.7772 5.87901 21.6663 5.85608C21.4151 5.80413 21.1028 5.75405 20.767 5.71008C20.0654 5.61817 19.2616 5.55288 18.6992 5.55288C16.428 5.55288 14.7115 6.03878 13.5134 7.04524C12.0674 8.25989 11.3764 10.2328 11.3764 13.0248V15H8.28323V19.5837H11.3764V29.5583C4.8429 27.9373 0 22.0347 0 15C0 6.71574 6.71574 0 15 0Z" fill="white"/>
@@ -39,13 +39,13 @@ function Footer(){
                             </svg>
                         </a>
 
-                        <a className="tiktok" href="https://www.tiktok.com/">
+                        <a className="button" href="https://www.tiktok.com/">
                             <svg width="20" height="20" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M21.3407 0H16.2848V20.4347C16.2848 22.8696 14.3402 24.8696 11.9203 24.8696C9.50042 24.8696 7.55586 22.8696 7.55586 20.4347C7.55586 18.0435 9.45721 16.0869 11.7907 16V10.8696C6.6484 10.9565 2.5 15.1739 2.5 20.4347C2.5 25.7392 6.73482 30 11.9636 30C17.1922 30 21.427 25.6957 21.427 20.4347V9.9565C23.3284 11.3478 25.6619 12.1739 28.125 12.2174V7.08696C24.3223 6.95652 21.3407 3.82608 21.3407 0Z" fill="white"/>
                             </svg>
                         </a>
 
-                        <a className="youtube" href="https://www.youtube.com/">
+                        <a className="button" href="https://www.youtube.com/">
                             <svg width="20" height="20" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_93_251)">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M28.4332 6.0427C28.8986 6.51116 29.2329 7.09365 29.4025 7.73188C30.0298 10.0876 30.0298 15.0001 30.0298 15.0001C30.0298 15.0001 30.0298 19.9126 29.4025 22.2682C29.2329 22.9065 28.8986 23.489 28.4332 23.9574C27.9677 24.4259 27.3874 24.7639 26.7502 24.9376C24.4048 25.5682 15.0298 25.5682 15.0298 25.5682C15.0298 25.5682 5.65479 25.5682 3.30933 24.9376C2.6722 24.7639 2.09186 24.4259 1.62639 23.9574C1.16093 23.489 0.826667 22.9065 0.657058 22.2682C0.0297852 19.9126 0.0297852 15.0001 0.0297852 15.0001C0.0297852 15.0001 0.0297852 10.0876 0.657058 7.73188C0.826667 7.09365 1.16093 6.51116 1.62639 6.0427C2.09186 5.57425 2.6722 5.23626 3.30933 5.06257C5.65479 4.43188 15.0298 4.43188 15.0298 4.43188C15.0298 4.43188 24.4048 4.43188 26.7502 5.06257C27.3874 5.23626 27.9677 5.57425 28.4332 6.0427ZM19.8025 15.0001L11.9616 10.5393V19.4609L19.8025 15.0001Z" fill="white"/>
