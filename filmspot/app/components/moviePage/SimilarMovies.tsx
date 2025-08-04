@@ -3,7 +3,7 @@ import ContentType from "../ContentType";
 
 function SimilarMovies(){
     return <>
-        <div className="similarMovies mt-[50px]">
+        <div className="similarMovies mt-[50px] z-1">
             <ButtonWithArrow title="Similar Movies"/>
 
             <span className="relative">

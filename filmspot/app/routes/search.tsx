@@ -25,11 +25,15 @@ function SearchPage(){
 
         <main className="movieInfoHolder min-h-[100dvh] max-w-[1400px] mx-auto z-3 relative">
             <h1 className="text-white text-2xl font-bold">Search "{searchParams}"</h1>
+            <div className="filters">
+                <span className="flex items-center gap-2">
+                    <button className="button pl-1.5 pr-4 py-1.5 rounded-full flex gap-2"><span className="px-2 rounded-full">239</span>Movies</button>
+                    <button className="button pl-1.5 pr-4 py-1.5 rounded-full flex gap-2"><span className="px-2 rounded-full">60</span>TV Shows</button>
+                    <span className="dash"></span>
+                </span>
+            </div>
             <div id="searchResults">
-                <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/5lUmWTGkEcYnXujixXn31o9q2T0.jpg" alt="" />
-                <div>
-                    
-                </div>
+                
             </div>
         </main>
 

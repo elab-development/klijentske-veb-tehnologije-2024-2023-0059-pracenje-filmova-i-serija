@@ -9,12 +9,13 @@ const queryClient = new QueryClient();
 
 function MoviePage(){
     const {URLParams} = useParams();
+    console.log(URLParams);
 
     return <>
         <QueryClientProvider client={queryClient}>
             <Header />
 
-            <main className="movieInfoHolder min-h-[100dvh] max-w-[1400px] mx-auto">
+            <main className="movieInfoHolder min-h-[100dvh] max-w-[1400px] mx-auto mt-10">
                 {URLParams && <MovieHolder URLParams={URLParams} />}
             </main>
 

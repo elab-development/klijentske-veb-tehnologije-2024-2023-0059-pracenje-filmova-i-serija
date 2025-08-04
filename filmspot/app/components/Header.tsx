@@ -31,7 +31,11 @@ export default function Header(){
 
                     <span className="content flex h-fit items-center gap-7">
                         <div>
-                            <input ref={searchRef} type="text" placeholder="Search movies and tv shows" id="searchInput" />
+                            <input ref={searchRef} type="text" placeholder="Search movies and tv shows" id="searchInput" onKeyUp={(e) => {
+      if (e.key === "Enter") {
+        search();
+      }
+    }} />
                             <button onClick={search}>
                                 <svg width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M15.5558 15.5558L20 20M10.7692 17.5385C14.5078 17.5385 17.5385 14.5078 17.5385 10.7692C17.5385 7.03069 14.5078 4 10.7692 4C7.03069 4 4 7.03069 4 10.7692C4 14.5078 7.03069 17.5385 10.7692 17.5385Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

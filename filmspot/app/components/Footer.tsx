@@ -12,7 +12,9 @@ function Footer(){
                     </span>
                 </span>
 
-                <p className="mt-5 font-light">FilmSpot® is an online platform dedicated to film enthusiasts and lovers of the seventh art. On this site you can find everything you need to enjoy the world of film. It offers you the latest movie descriptions, trailers, reviews and many other information about your favorite movies.</p>
+                <p className="mt-5 font-light">FilmSpot® is an online platform dedicated to film enthusiasts and lovers of the seventh art. On this site you can find everything you need to enjoy the world of film. It offers you the latest movie descriptions, trailers, reviews and many other information about your favorite movies.
+                    Powered by <img className="w-22 inline" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="TMDB Logo" />
+                </p>
             
                 <span className="followUs mt-7 flex items-center">
                     <h2 className="font-medium">Follow us on</h2>

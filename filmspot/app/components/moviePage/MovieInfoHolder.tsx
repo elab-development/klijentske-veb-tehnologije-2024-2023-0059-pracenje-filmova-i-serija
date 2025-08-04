@@ -32,7 +32,11 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
 
     return <>
         <div className="flex items-start gap-10">
-            <span className="bannerHolder relative w-fit block">
+            <div className="pageBackground">
+                <img src={`${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${props.poster_path}`} alt="" />
+                <span></span>
+            </div>
+            <span className="bannerHolder relative w-fit block z-1">
                 <img src={`${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${props.poster_path}`} alt="Banner" />
 
                 <span className="rating absolute top-[-20px] right-[-20px]">
@@ -41,7 +45,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
                 </span>
             </span>
 
-            <span className="importantHolder">
+            <span className="importantHolder z-1">
                 <h2 className="mb-2">{props.title}</h2>
 
                 {castStatus === "success" && 
@@ -80,10 +84,10 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
             </span>
         </div>
 
-        <span className="trailer mt-15 w-full p-[20px] bg-[var(--backgroundTransparentPrimary)] border-1 border-[var(--borderColorPrimary)] rounded-[20px]">
+        <span className="trailer mt-15 w-full p-[20px] z-1 bg-[var(--backgroundTransparentSecondary)] backdrop-blur-[18px] border-1 border-[var(--borderColorPrimary)] rounded-[20px]">
             <h2 className="text-[1.4rem] text-center">Watch the trailer</h2>
 
-            {videosStatus === "success" && <iframe src={`https://www.youtube.com/embed/${trailer ? trailer.key : ''}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="w-full aspect-[16/9] rounded-[12px] border-1 border-[var(--borderColorPrimary)] mt-2 mx-auto" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
+            {videosStatus === "success" && <iframe src={`https://www.youtube.com/embed/${trailer ? trailer.key : ''}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="w-[calc(100%-40px)] aspect-[16/9] rounded-[12px] border-1 border-[var(--borderColorPrimary)] mt-3 mb-4 mx-auto" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
         </span>
     </>;
 }
