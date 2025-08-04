@@ -2,6 +2,7 @@ import type { CastInfo, MovieHolderInfo } from "~/types";
 import ContentType from "../ContentType";
 import MovieInfoPart from "./MovieInfoPart";
 import ButtonWithArrow from "../ButtonWithArrow";
+import CircularRating from "./MovieRating";
 import { useQuery } from "@tanstack/react-query";
 import { getSingleCast, getSingleTrailer } from "../APICalls";
 import CastItem from "./CastItem";
@@ -24,7 +25,6 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
 
         preGenres.current.push(props.release_date.split('-')[0]);
         preGenres.current.push(Math.floor(props.runtime / 60) + 'h' + ' ' + props.runtime % 60 + 'm');
-        preGenres.current.push("PG - 70")
 
         for(let i = 0; (i < 3 && props.genres[i]); i++)
             genres.current.push(props.genres[i].name);
@@ -40,8 +40,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
                 <img src={`${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${props.poster_path}`} alt="Banner" />
 
                 <span className="rating absolute top-[-20px] right-[-20px]">
-                    <circle className="progress absolute w-full h-full"></circle>
-                    <p>{props.vote_average.toFixed(1)}</p>
+                    <CircularRating value={Number(props.vote_average)} />
                 </span>
             </span>
 
