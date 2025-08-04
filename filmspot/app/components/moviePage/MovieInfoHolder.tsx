@@ -20,6 +20,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
     let genres = useRef<string[]>([]);
 
     useEffect(() => {
+        console.log("Changed")
         preGenres.current = [];
         genres.current = [];
 
@@ -28,7 +29,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
 
         for(let i = 0; (i < 3 && props.genres[i]); i++)
             genres.current.push(props.genres[i].name);
-    }, []);
+    }, [props]);
 
     return <>
         <div className="flex items-start gap-10">
@@ -49,7 +50,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
 
                 {castStatus === "success" && 
                     <span className="infoPartsHolder">
-                        <ContentType type={props.media_type} additionalClasses="infoChild"/>
+                        {props && <ContentType type={props.type} additionalClasses="infoChild"/>}
                         <MovieInfoPart items={preGenres.current} />
                         <MovieInfoPart items={genres.current} additionalClasses="genre" />
                     </span>

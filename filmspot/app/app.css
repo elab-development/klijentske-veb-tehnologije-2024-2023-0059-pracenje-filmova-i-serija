@@ -26,6 +26,7 @@ body {
 body{
   background-color: #11151C;
   min-height: 100dvh;
+  overflow-x: hidden;
 }
 
 button{
@@ -176,7 +177,7 @@ footer .followUs h2{
   filter: drop-shadow(0 0 5px #C7FFFC);
 }
 #top5 .movieHolder .topMovie:nth-child(5) h2{
-  background-image: linear-gradient(135deg, #FFFFFF, #C7FFFC);
+  background-image: linear-gradient(135deg, #FFFFFF, #31FF80);
   filter: drop-shadow(0 0 5px #C7FFFC);
 }
 /* TOP5 */
@@ -500,6 +501,9 @@ main{
   overflow: hidden;
   background-color: #03405A;
 }
+.similarMovies .content .contentItem *{
+  pointer-events: none;
+}
 .similarMovies .content .contentItem img{
   position: absolute;
   top: 0;
@@ -518,6 +522,10 @@ main{
   font-weight: 500;
   z-index: 1;
   position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 75%;
+  white-space: nowrap;
 }
 .similarMovies .content .contentItem .type{
   z-index: 1;
@@ -528,27 +536,11 @@ main{
   z-index: 0;
   /* background-image: linear-gradient(0, rgba(0, 0, 0, 1), transparent); */
 }
-.similarMovies .rightShadow{
-  position: absolute;
-  right: 0;
-  height: 200px;
-  width: min(12%, 200px);
-  transform: translateY(-100%);
-  background-image: linear-gradient(90deg, transparent, black);
-  z-index: 1;
-}
-
-.similarMovies .navigation{
+.similarMovies > span > button{
   position: absolute;
   top: 50%;
+  left: -15px;
   transform: translateY(-50%);
-  display: flex;
-  width: calc(100% + 46px);
-  left: -23px;
-  justify-content: space-between;
-  z-index: 2;
-}
-.similarMovies .navigation button{
   width: 45px;
   height: 45px;
   display: grid;
@@ -556,5 +548,8 @@ main{
   background-color: white;
   border-radius: 50%;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
+}
+.similarMovies > span > button.right{
+  left: calc(100% - 30px);
 }
 /* MOVIE PAGE */
