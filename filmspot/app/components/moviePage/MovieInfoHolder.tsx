@@ -1,9 +1,35 @@
-import type { MovieInfo } from "~/types";
+import type { CastInfo, MovieHolderInfo } from "~/types";
 import ContentType from "../ContentType";
 import MovieInfoPart from "./MovieInfoPart";
 import ButtonWithArrow from "../ButtonWithArrow";
+import { useQuery } from "@tanstack/react-query";
+import { getSingleCast, getSingleTrailer } from "../APICalls";
+import CastItem from "./CastItem";
+import { useEffect, useRef } from "react";
 
-function MovieInfoHolder({props}: {props: MovieInfo}){
+function MovieInfoHolder({props}: {props: MovieHolderInfo}){
+    const { status: castStatus, error: castError, data: castInfo } = useQuery({queryKey: [`cast${props.type}${props.id}`], queryFn: () => getSingleCast({id: props.id, type: props.type})})
+    const cast = castInfo?.cast?.slice(0, 6)?.map((item: CastInfo) => {
+        return <CastItem props={item}></CastItem>
+    });
+
+    const { status: videosStatus, error: videosError, data: trailer } = useQuery({queryKey: [`videos${props.type}${props.id}`], queryFn: () => getSingleTrailer({id: props.id, type: props.type})})
+
+    let preGenres = useRef<string[]>([]);
+    let genres = useRef<string[]>([]);
+
+    useEffect(() => {
+        preGenres.current = [];
+        genres.current = [];
+
+        preGenres.current.push(props.release_date.split('-')[0]);
+        preGenres.current.push(Math.floor(props.runtime / 60) + 'h' + ' ' + props.runtime % 60 + 'm');
+        preGenres.current.push("PG - 70")
+
+        for(let i = 0; (i < 3 && props.genres[i]); i++)
+            genres.current.push(props.genres[i].name);
+    }, []);
+
     return <>
         <div className="flex items-start gap-10">
             <span className="bannerHolder relative w-fit block">
@@ -18,11 +44,13 @@ function MovieInfoHolder({props}: {props: MovieInfo}){
             <span className="importantHolder">
                 <h2 className="mb-2">{props.title}</h2>
 
-                <span className="infoPartsHolder">
-                    <ContentType type={props.media_type} additionalClasses="infoChild"/>
-                    <MovieInfoPart items={["2021", "1h 58m", "PG-13"]} />
-                    <MovieInfoPart items={["Action", "Comedy", "Crime"]} additionalClasses="genre" />
-                </span>
+                {castStatus === "success" && 
+                    <span className="infoPartsHolder">
+                        <ContentType type={props.media_type} additionalClasses="infoChild"/>
+                        <MovieInfoPart items={preGenres.current} />
+                        <MovieInfoPart items={genres.current} additionalClasses="genre" />
+                    </span>
+                }
 
                 <span className="buttonHolder">
                     <button className="addToWatchlist button">
@@ -46,59 +74,7 @@ function MovieInfoHolder({props}: {props: MovieInfo}){
                     <ButtonWithArrow title="Cast" additionalClasses="castButton" />
 
                     <span className="cast">
-                        <span className="castItem">
-                            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8beMp4Bxy_9m2J-sC3LGc_qrLVL9Xs51Dl1cze1dM8jms0Ae9TvZBfPj4VkBiXNrKZClqrgv8WSAYLXGCf9LJrreOxgOc9srg3qtTsbg_SA" alt="Profile" />
-
-                            <span>
-                                <h3>Rawson Thurber</h3>
-                                <p>Producer</p>
-                            </span>
-                        </span>
-
-                        <span className="castItem">
-                            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8beMp4Bxy_9m2J-sC3LGc_qrLVL9Xs51Dl1cze1dM8jms0Ae9TvZBfPj4VkBiXNrKZClqrgv8WSAYLXGCf9LJrreOxgOc9srg3qtTsbg_SA" alt="Profile" />
-
-                            <span>
-                                <h3>Rawson Thurber</h3>
-                                <p>Producer</p>
-                            </span>
-                        </span>
-
-                        <span className="castItem">
-                            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8beMp4Bxy_9m2J-sC3LGc_qrLVL9Xs51Dl1cze1dM8jms0Ae9TvZBfPj4VkBiXNrKZClqrgv8WSAYLXGCf9LJrreOxgOc9srg3qtTsbg_SA" alt="Profile" />
-
-                            <span>
-                                <h3>Rawson Thurber</h3>
-                                <p>Producer</p>
-                            </span>
-                        </span>
-
-                        <span className="castItem">
-                            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8beMp4Bxy_9m2J-sC3LGc_qrLVL9Xs51Dl1cze1dM8jms0Ae9TvZBfPj4VkBiXNrKZClqrgv8WSAYLXGCf9LJrreOxgOc9srg3qtTsbg_SA" alt="Profile" />
-
-                            <span>
-                                <h3>Rawson Thurber</h3>
-                                <p>Producer</p>
-                            </span>
-                        </span>
-
-                        <span className="castItem">
-                            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8beMp4Bxy_9m2J-sC3LGc_qrLVL9Xs51Dl1cze1dM8jms0Ae9TvZBfPj4VkBiXNrKZClqrgv8WSAYLXGCf9LJrreOxgOc9srg3qtTsbg_SA" alt="Profile" />
-
-                            <span>
-                                <h3>Rawson Thurber</h3>
-                                <p>Producer</p>
-                            </span>
-                        </span>
-
-                        <span className="castItem">
-                            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8beMp4Bxy_9m2J-sC3LGc_qrLVL9Xs51Dl1cze1dM8jms0Ae9TvZBfPj4VkBiXNrKZClqrgv8WSAYLXGCf9LJrreOxgOc9srg3qtTsbg_SA" alt="Profile" />
-
-                            <span>
-                                <h3>Rawson Thurber</h3>
-                                <p>Producer</p>
-                            </span>
-                        </span>
+                        {castStatus === "success" && cast}
                     </span>
                 </span>
             </span>
@@ -107,7 +83,7 @@ function MovieInfoHolder({props}: {props: MovieInfo}){
         <span className="trailer mt-15 w-full p-[20px] bg-[var(--backgroundTransparentPrimary)] border-1 border-[var(--borderColorPrimary)] rounded-[20px]">
             <h2 className="text-[1.4rem] text-center">Watch the trailer</h2>
 
-            <iframe src="https://www.youtube.com/embed/ezP4kbOvs_E?si=sYvzv3CMzUlbLY73" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="w-full aspect-[16/9] rounded-[12px] border-1 border-[var(--borderColorPrimary)] mt-2 mx-auto" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+            {videosStatus === "success" && <iframe src={`https://www.youtube.com/embed/${trailer ? trailer.key : ''}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="w-full aspect-[16/9] rounded-[12px] border-1 border-[var(--borderColorPrimary)] mt-2 mx-auto" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
         </span>
     </>;
 }

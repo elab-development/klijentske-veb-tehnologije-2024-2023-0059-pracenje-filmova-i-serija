@@ -1,9 +1,13 @@
 function MovieInfoPart({items, additionalClasses}: {items: string[], additionalClasses?: string}){
+    console.log("Genres: ", items)
+    
+    const itemsList = items.map(item => {
+        return <span className="type">{item}</span>
+    })
+    
     return (
-        <span className={`infoPart ${additionalClasses}`}>
-            <span className="type">{items?.[0]}</span>
-            <span className="type">{items?.[1]}</span>
-            <span className="type">{items?.[2]}</span>
+        <span className={`infoPart ${additionalClasses ?? ''}`}>
+            {itemsList}
         </span>
     );
 }

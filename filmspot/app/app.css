@@ -364,7 +364,7 @@ main{
 }
 .movieInfoHolder .importantHolder .infoPart{
   display: inline-flex;
-  padding-inline: 10px;
+  padding-left: 10px;
   gap: 10px;
   border-left: 1px solid white;
   margin-left: 10px;

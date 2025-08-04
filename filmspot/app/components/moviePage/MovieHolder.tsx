@@ -3,15 +3,17 @@ import MovieInfoHolder from "~/components/moviePage/MovieInfoHolder";
 import SameGenreMovies from "~/components/moviePage/SameGenreMovies";
 import SimilarMovies from "~/components/moviePage/SimilarMovies";
 import { getSingle } from "../APICalls";
+import type { MovieHolderInfo } from "~/types";
 
 function MovieHolder({URLParams}: {URLParams: any}){
     const [type, id] = URLParams?.split(".") ?? [0, "movie"];
     const { status, error, data: movieInfo } = useQuery({queryKey: [`${type}${id}`], queryFn: () => getSingle({id: id, type: type})})
+    console.log(movieInfo);
 
     return <>
         {status === "success"
             ? <>
-                <MovieInfoHolder props={movieInfo} />
+                <MovieInfoHolder props={{...movieInfo as MovieHolderInfo, type: type}} />
                 <SimilarMovies />
                 <SameGenreMovies />
             </>

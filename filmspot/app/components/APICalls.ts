@@ -1,4 +1,4 @@
-import type { MovieInfo } from "~/types";
+import type { MovieInfo, VideoInfo } from "~/types";
 
 export function getContent({type, content}: {type: "movie" | "tv", content: "trending" | "upcoming" | "popular"}){
     // import.meta.env.VITE_TMDB_API_KEY
@@ -38,7 +38,33 @@ export function getSingle({id, type}: {id: string, type: "movie" | "tv"}){
         return res.json();
     })
     .then(data => {
-        console.log(data);
         return data as MovieInfo;
+    })
+}
+
+export function getSingleCast({id, type}: {id: number, type: "movie" | "tv"}){
+    return fetch(`https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US`)
+    .then(res => {
+        return res.json();
+    })
+    .then(data => {
+        return data;
+    })
+}
+
+export function getSingleTrailer({id, type}: {id: number, type: "movie" | "tv"}){
+    return fetch(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US`)
+    .then(res => {
+        return res.json();
+    })
+    .then(data => {
+        const trailer = data.results.find(
+          (vid: VideoInfo) =>
+            vid.site === 'YouTube' &&
+            vid.type === 'Trailer' &&
+            vid.official === true
+        );
+        
+        return trailer;
     })
 }
