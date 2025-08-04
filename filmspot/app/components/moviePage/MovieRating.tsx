@@ -7,7 +7,7 @@ type CircularRatingProps = {
 
 export default function CircularRating({ value }: CircularRatingProps) {
   const radius = 30;
-  const stroke = 6;
+  const stroke = 7;
   const normalizedRadius = radius - stroke / 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const percentage = Math.min(Math.max(value, 0), 10) / 10;
@@ -28,7 +28,7 @@ export default function CircularRating({ value }: CircularRatingProps) {
     }
 
   return (
-    <svg height={radius * 2} width={radius * 2}>
+    <svg height={radius * 2} width={radius * 2} style={{ boxShadow: '-5px 5px 30px ' + color }}>
       <circle
         stroke="#2b2b2b"
         fill="#121212"
@@ -55,7 +55,7 @@ export default function CircularRating({ value }: CircularRatingProps) {
         dy=".3em"
         textAnchor="middle"
         fill="white"
-        fontSize="20px"
+        fontSize="18px"
         fontFamily="Arial"
       >
         {value.toFixed(1)}
