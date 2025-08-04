@@ -6,7 +6,7 @@ import CircularRating from "./MovieRating";
 import { useQuery } from "@tanstack/react-query";
 import { getSingleCast, getSingleTrailer } from "../APICalls";
 import CastItem from "./CastItem";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 function MovieInfoHolder({props}: {props: MovieHolderInfo}){
     const { status: castStatus, error: castError, data: castInfo } = useQuery({queryKey: [`cast${props.type}${props.id}`], queryFn: () => getSingleCast({id: props.id, type: props.type})})
@@ -16,20 +16,19 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
 
     const { status: videosStatus, error: videosError, data: trailer } = useQuery({queryKey: [`videos${props.type}${props.id}`], queryFn: () => getSingleTrailer({id: props.id, type: props.type})})
 
-    let preGenres = useRef<string[]>([]);
-    let genres = useRef<string[]>([]);
+    const [preGenres, setPreGenres] = useState<string[]>([]);
+    const [genres, setGenres] = useState<string[]>([]);
 
     useEffect(() => {
-        console.log("Changed")
-        preGenres.current = [];
-        genres.current = [];
+        setPreGenres([]);
+        setGenres([]);
 
-        preGenres.current.push(props.release_date.split('-')[0]);
-        preGenres.current.push(Math.floor(props.runtime / 60) + 'h' + ' ' + props.runtime % 60 + 'm');
+        setPreGenres(prev => [...prev, props.release_date.split('-')[0]]);
+        setPreGenres(prev => [...prev, Math.floor(props.runtime / 60) + 'h' + ' ' + props.runtime % 60 + 'm']);
 
         for(let i = 0; (i < 3 && props.genres[i]); i++)
-            genres.current.push(props.genres[i].name);
-    }, [props]);
+            setGenres(prev => [...prev, props.genres[i].name]);
+    }, []);
 
     return <>
         <div className="flex items-start gap-10">
@@ -51,8 +50,8 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
                 {castStatus === "success" && 
                     <span className="infoPartsHolder">
                         {props && <ContentType type={props.type} additionalClasses="infoChild"/>}
-                        <MovieInfoPart items={preGenres.current} />
-                        <MovieInfoPart items={genres.current} additionalClasses="genre" />
+                        <MovieInfoPart items={preGenres} />
+                        <MovieInfoPart items={genres} additionalClasses="genre" />
                     </span>
                 }
 
