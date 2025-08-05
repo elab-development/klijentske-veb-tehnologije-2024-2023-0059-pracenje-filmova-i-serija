@@ -133,6 +133,10 @@ function SearchPage() {
     fetchResults();
   }, [searchParams, state.selectedType, state.currentPage]);
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [state.currentPage]);
+
   const { results, genreMap, counts, loading, error, currentPage, totalPages, selectedType } = state;
 
   return (
@@ -162,7 +166,7 @@ function SearchPage() {
           {results.map((item: SearchInfo) => {
             const image = item.poster_path || item.profile_path;
             const title = item.title || item.name;
-            const link = selectedType === "person" ? `#` : `/content/${selectedType}.${item.id}`;
+            const link = `/content/${selectedType}.${item.id}`;
 
             return (
               image && (
@@ -195,7 +199,7 @@ function SearchPage() {
               <button
                 key={page}
                 onClick={() => dispatch({ type: "SET_PAGE", payload: page })}
-                className={`px-3 py-1 border rounded ${currentPage === page ? "bg-white text-black font-bold" : "text-white border-white"}`}
+                className={`px-3 py-1 border rounded-md ${currentPage === page ? "bg-white text-black font-bold" : "text-white border-white hover:bg-white/20"}`}
               >
                 {page}
               </button>
