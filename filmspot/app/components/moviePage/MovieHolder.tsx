@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import MovieInfoHolder from "~/components/moviePage/MovieInfoHolder";
-import { getSingle } from "../APICalls";
+import { getSingle } from "../../APICalls";
 import type { MovieHolderInfo } from "~/types";
 import SimilarOrRecommended from "./SimilarOrRecommended";
 

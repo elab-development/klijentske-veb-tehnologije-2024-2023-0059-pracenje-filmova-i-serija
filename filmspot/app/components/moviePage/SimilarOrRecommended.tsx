@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import ButtonWithArrow from "../ButtonWithArrow";
 import ContentType from "../ContentType";
-import { getSimilarOrRecommended } from "../APICalls";
+import { getSimilarOrRecommended } from "../../APICalls";
 import type { MovieInfo } from "~/types";
 import { useRef } from "react";
 import NoBanner from "app/assets/NoBanner.png";

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getContent } from "../APICalls";
+import { getContent } from "../../APICalls";
 import MovieCard from "~/classes/MovieCardClass";
 import MovieSection from "../MovieSection";
 

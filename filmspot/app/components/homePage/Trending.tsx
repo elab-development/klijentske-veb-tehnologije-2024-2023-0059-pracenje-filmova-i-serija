@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import MovieSection from "../MovieSection";
 import MovieCard from "~/classes/MovieCardClass";
-import { getContent } from "../APICalls";
+import { getContent } from "../../APICalls";
 
 function Trending(){
     const { status, error, data: moviesList } = useQuery({queryKey: ["popular"], queryFn: () => getContent({type: "movie", content: "popular"})})

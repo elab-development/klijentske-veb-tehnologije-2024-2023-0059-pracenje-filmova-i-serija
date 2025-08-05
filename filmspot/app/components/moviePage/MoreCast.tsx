@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import type { CastInfo } from "~/types";
-import CastItem from "./CastItem";
+import CastItem from "../CastItem";
 import { toggleElementWD } from "~/functions";
 
 type Props = {

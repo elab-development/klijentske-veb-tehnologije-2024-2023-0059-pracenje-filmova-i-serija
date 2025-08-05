@@ -1,33 +1,35 @@
 import type { MovieInfo, VideoInfo } from "~/types";
 
+const urlBase = import.meta.env.VITE_TMDB_BASE_URL;
+const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 export function getContent({type, content}: {type: "movie" | "tv", content: "trending" | "upcoming" | "popular"}){
-    // import.meta.env.VITE_TMDB_API_KEY
+    // apiKey
 
-    let fetchURL = import.meta.env.VITE_TMDB_BASE_URL;
+    let fetchURL = urlBase;
     const filter = "&language=en-US&page=1&include_adult=false";
     if(type === "movie"){
         switch(content){
             case "popular": case "upcoming": {
-                fetchURL+=`/${type}/${content}?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
+                fetchURL+=`/${type}/${content}?api_key=${apiKey}${filter}`;
                 break;
             }
             case "trending": {
-                fetchURL+=`/trending/movie/week?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
+                fetchURL+=`/trending/movie/week?api_key=${apiKey}${filter}`;
                 break;
             }
         }
     }else{
         switch(content){
             case "popular": {
-                fetchURL+=`/tv/popular?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
+                fetchURL+=`/tv/popular?api_key=${apiKey}${filter}`;
                 break;
             }
             case "upcoming": {
-                fetchURL+=`/tv/on_the_air?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
+                fetchURL+=`/tv/on_the_air?api_key=${apiKey}${filter}`;
                 break;
             }
             case "trending": {
-                fetchURL+=`/trending/tv/week?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
+                fetchURL+=`/trending/tv/week?api_key=${apiKey}${filter}`;
                 break;
             }
         }
@@ -48,7 +50,7 @@ type SingleProps = {
 }
 
 export function getSingle({id, type}: SingleProps){
-    return fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US`)
+    return fetch(`${urlBase}/${type}/${id}?api_key=${apiKey}&language=en-US`)
     .then(res => {
         return res.json();
     })
@@ -58,7 +60,7 @@ export function getSingle({id, type}: SingleProps){
 }
 
 export function getSingleCast({id, type}: SingleProps){
-    return fetch(`https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US`)
+    return fetch(`${urlBase}/${type}/${id}/credits?api_key=${apiKey}&language=en-US`)
     .then(res => {
         return res.json();
     })
@@ -68,7 +70,7 @@ export function getSingleCast({id, type}: SingleProps){
 }
 
 export function getSingleTrailer({id, type}: SingleProps){
-    return fetch(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US`)
+    return fetch(`${urlBase}/${type}/${id}/videos?api_key=${apiKey}&language=en-US`)
     .then(res => {
         return res.json();
     })
@@ -85,11 +87,23 @@ export function getSingleTrailer({id, type}: SingleProps){
 }
 
 export function getSimilarOrRecommended({id, type, isSimilar}: SingleProps & {isSimilar: boolean}){
-    return fetch(`https://api.themoviedb.org/3/${type}/${id}/${isSimilar ? "similar" : "recommendations"}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
+    return fetch(`${urlBase}/${type}/${id}/${isSimilar ? "similar" : "recommendations"}?api_key=${apiKey}`)
     .then(res => {
         return res.json();
     })
     .then(data => {
         return data.results;
     })
+}
+
+export function fetchActorDetails({id}: {id: string}) {
+  return fetch(`${urlBase}/person/${id}?api_key=${apiKey}&language=en-US`)
+    .then(response => response.json())
+    .then(details => {
+      return fetch(`${urlBase}/person/${id}/combined_credits?api_key=${apiKey}&language=en-US`)
+        .then(response => response.json())
+        .then(credits => {
+          return { details, credits };
+        });
+    });
 }

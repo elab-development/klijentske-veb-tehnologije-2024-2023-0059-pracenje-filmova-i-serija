@@ -7,4 +7,5 @@ export default [
     route("profile", "routes/profile.tsx"),
     route("search/:searchParams", "routes/search.tsx"),
     route("about", "routes/about.tsx"),
+    route("person/:id", "routes/person.tsx"),
 ] satisfies RouteConfig;

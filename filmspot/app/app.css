@@ -475,6 +475,10 @@ main{
   font-size: 1.2rem;
   line-height: 1.3rem;
   font-weight: 500;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .movieInfoHolder .castItem p{
   font-size: .85rem;

@@ -1,7 +1,7 @@
 import MovieSection from "../MovieSection";
 import Top5MovieCard from "~/classes/Top5MovieCardClass";
 import { useQuery } from "@tanstack/react-query";
-import { getContent } from "../APICalls";
+import { getContent } from "../../APICalls";
 
 function Top5(){
     // const top5MoviesList = useContext(MovieContext);
