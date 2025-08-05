@@ -23,6 +23,8 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
     const [genres, setGenres] = useState<string[]>([]);
 
     useEffect(() => {
+        document.title = props.title ?? props.name;
+
         setPreGenres([]);
         setGenres([]);
 

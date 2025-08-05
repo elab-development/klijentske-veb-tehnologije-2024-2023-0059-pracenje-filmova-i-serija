@@ -11,8 +11,9 @@ export interface MovieInfo{
     release_date: string,
     title: string,
     video: boolean,
-    vote_average: number
-    vote_count: number
+    vote_average: number,
+    vote_count: number,
+    name: string
 }
 
 export interface MovieHolderInfo extends MovieInfo{
