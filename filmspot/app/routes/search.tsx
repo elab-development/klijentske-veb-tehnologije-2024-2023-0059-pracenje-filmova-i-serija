@@ -19,6 +19,10 @@ const initialState = {
   totalPages: 1,
   genreMap: {} as Record<number, string>,
   counts: { movie: 0, tv: 0, person: 0 },
+  selectedGenre: null as number | null,
+  selectedYear: null as number | null,
+  selectedRating: null as number | null,
+  allResults: [] as SearchInfo[],
 };
 
 function reducer(state: typeof initialState, action: any) {
@@ -27,25 +31,70 @@ function reducer(state: typeof initialState, action: any) {
       return { ...state, genreMap: action.payload };
     case "SET_COUNTS":
       return { ...state, counts: action.payload };
-    case "SET_RESULTS":
-      return {
-        ...state,
-        results: action.payload.results,
-        totalPages: action.payload.totalPages,
-        loading: false,
-        error: null,
-      };
-    case "SET_ERROR":
-      return { ...state, error: action.payload, loading: false };
+    case "SET_ALL_RESULTS":
+      const filtered = applyFilters(action.payload, state);
+      const totalPages = Math.ceil(filtered.length / 20);
+      const results = filtered.slice((state.currentPage - 1) * 20, state.currentPage * 20);
+      return { ...state, allResults: action.payload, results, totalPages, loading: false, error: null };
+    case "SET_FILTER":
+      const newState = { ...state, ...action.payload, currentPage: 1 };
+      const newFiltered = applyFilters(state.allResults, newState);
+      const newTotalPages = Math.ceil(newFiltered.length / 20);
+      const newResults = newFiltered.slice(0, 20);
+      return { ...newState, results: newResults, totalPages: newTotalPages };
+    case "SET_PAGE":
+      const pageFiltered = applyFilters(state.allResults, state);
+      const pageResults = pageFiltered.slice((action.payload - 1) * 20, action.payload * 20);
+      return { ...state, currentPage: action.payload, results: pageResults };
     case "SET_TYPE":
       return { ...state, selectedType: action.payload, currentPage: 1 };
-    case "SET_PAGE":
-      return { ...state, currentPage: action.payload };
+    case "SET_ERROR":
+      return { ...state, error: action.payload, loading: false };
     case "SET_LOADING":
       return { ...state, loading: true };
     default:
       return state;
   }
+}
+
+function applyFilters(results: SearchInfo[], state: any) {
+  return results.filter((item: any) => {
+    if (state.selectedGenre && !item.genre_ids?.includes(state.selectedGenre)) return false;
+    if (state.selectedRating && (item.vote_average || 0) < state.selectedRating) return false;
+    return true;
+  });
+}
+
+async function fetchAllPages(type: string, searchParams: string, selectedYear: number | null) {
+  const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+  const results: SearchInfo[] = [];
+  
+  for (let page = 1; page <= 10; page++) {
+    try {
+      const url = new URL(`https://api.themoviedb.org/3/search/${type}`);
+      url.searchParams.append("query", searchParams);
+      url.searchParams.append("api_key", apiKey);
+      url.searchParams.append("page", page.toString());
+      
+      if (selectedYear && type !== "person") {
+        const yearParam = type === "movie" ? "primary_release_year" : "first_air_date_year";
+        url.searchParams.append(yearParam, selectedYear.toString());
+      }
+
+      const res = await fetch(url);
+      const data = await res.json();
+      
+      if (!data.results?.length) break;
+      results.push(...data.results);
+      
+      if (page >= data.total_pages) break;
+    } catch (error) {
+      console.error(`Error fetching page ${page}:`, error);
+      break;
+    }
+  }
+  
+  return results;
 }
 
 function SearchPage() {
@@ -56,85 +105,68 @@ function SearchPage() {
     document.title = searchParams ? `Search "${searchParams}"` : "Search";
   }, [searchParams]);
 
+  // Fetch genres
   useEffect(() => {
     const fetchGenres = async () => {
       try {
         const apiKey = import.meta.env.VITE_TMDB_API_KEY;
         const [movieRes, tvRes] = await Promise.all([
-          fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`),
-          fetch(`https://api.themoviedb.org/3/genre/tv/list?api_key=${apiKey}&language=en-US`),
+          fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`),
+          fetch(`https://api.themoviedb.org/3/genre/tv/list?api_key=${apiKey}`),
         ]);
-        const [movieData, tvData] = await Promise.all([
-          movieRes.json(),
-          tvRes.json(),
-        ]);
+        const [movieData, tvData] = await Promise.all([movieRes.json(), tvRes.json()]);
         const genres = [...(movieData.genres || []), ...(tvData.genres || [])];
         dispatch({ type: "SET_GENRES", payload: Object.fromEntries(genres.map(g => [g.id, g.name])) });
       } catch (err) {
         console.error("Genre fetch failed", err);
       }
     };
-
     fetchGenres();
   }, []);
 
-  useEffect(() => {
-    if (!searchParams) return;
-
-    const fetchCounts = async () => {
-      try {
-        const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-        const common = `query=${encodeURIComponent(searchParams)}&api_key=${apiKey}&language=en-US&page=1`;
-        const base = `https://api.themoviedb.org/3/search`;
-
-        const [movie, tv, person] = await Promise.all([
-          fetch(`${base}/movie?${common}`).then(res => res.json()),
-          fetch(`${base}/tv?${common}`).then(res => res.json()),
-          fetch(`${base}/person?${common}`).then(res => res.json()),
-        ]);
-
-        dispatch({ type: "SET_COUNTS", payload: {
-          movie: movie.total_results || 0,
-          tv: tv.total_results || 0,
-          person: person.total_results || 0,
-        }});
-      } catch (err) {
-        console.error("Failed to fetch counts", err);
-      }
-    };
-
-    fetchCounts();
-  }, [searchParams]);
-
+  // Fetch results and counts
   useEffect(() => {
     if (!searchParams) return;
     dispatch({ type: "SET_LOADING" });
 
-    const fetchResults = async () => {
+    const fetchData = async () => {
       try {
-        const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-        const url = `https://api.themoviedb.org/3/search/${state.selectedType}?query=${encodeURIComponent(
-          searchParams
-        )}&api_key=${apiKey}&language=en-US&page=${state.currentPage}`;
+        const [movieResults, tvResults, personResults] = await Promise.all([
+          fetchAllPages("movie", searchParams, state.selectedYear),
+          fetchAllPages("tv", searchParams, state.selectedYear),
+          fetchAllPages("person", searchParams, null),
+        ]);
 
-        const res = await fetch(url);
-        const data = await res.json();
+        const currentTypeResults = state.selectedType === "movie" ? movieResults : 
+                                 state.selectedType === "tv" ? tvResults : personResults;
 
-        dispatch({ type: "SET_RESULTS", payload: {
-          results: data.results || [],
-          totalPages: data.total_pages || 1
+        dispatch({ type: "SET_ALL_RESULTS", payload: currentTypeResults });
+        dispatch({ type: "SET_COUNTS", payload: {
+          movie: applyFilters(movieResults, state).length,
+          tv: applyFilters(tvResults, state).length,
+          person: personResults.length,
         }});
       } catch {
         dispatch({ type: "SET_ERROR", payload: "Failed to fetch data." });
       }
     };
 
-    fetchResults();
-  }, [searchParams, state.selectedType, state.currentPage]);
+    fetchData();
+  }, [searchParams, state.selectedType, state.selectedYear]);
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }, [state.currentPage]);
+  // Update results when filters change
+  useEffect(() => {
+    if (state.allResults.length > 0) {
+      const filtered = applyFilters(state.allResults, state);
+      const totalPages = Math.ceil(filtered.length / 20);
+      const results = filtered.slice(0, 20);
+      dispatch({ type: "SET_FILTER", payload: { results, totalPages } });
+    }
+  }, [state.selectedGenre, state.selectedRating]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [state.currentPage]);
 
   const { results, genreMap, counts, loading, error, currentPage, totalPages, selectedType } = state;
 
@@ -152,9 +184,47 @@ function SearchPage() {
               className={`button ${selectedType === type ? "selected" : ""}`}
               onClick={() => dispatch({ type: "SET_TYPE", payload: type })}
             >
-              <span>{counts[type]}</span>{type == "tv" ? "TV Show" : type.charAt(0).toUpperCase() + type.slice(1)}
+              <span>{counts[type]}</span>{type === "tv" ? "TV Show" : type.charAt(0).toUpperCase() + type.slice(1)}
             </button>
           ))}
+          
+          {selectedType !== "person" && (
+            <>
+              <span className="dash"></span>
+              <select
+                className="button dropdown"
+                value={state.selectedGenre || ""}
+                onChange={(e) => dispatch({ type: "SET_FILTER", payload: { selectedGenre: e.target.value ? Number(e.target.value) : null } })}
+              >
+                <option value="">All Genres</option>
+                {Object.entries(genreMap).map(([id, name]) => (
+                  <option key={id} value={id}>{String(name)}</option>
+                ))}
+              </select>
+              
+              <select
+                className="button dropdown"
+                value={state.selectedYear || ""}
+                onChange={(e) => dispatch({ type: "SET_FILTER", payload: { selectedYear: e.target.value ? Number(e.target.value) : null } })}
+              >
+                <option value="">All Years</option>
+                {Array.from({ length: 40 }, (_, i) => 2025 - i).map(year => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </select>
+              
+              <select
+                className="button dropdown"
+                value={state.selectedRating || ""}
+                onChange={(e) => dispatch({ type: "SET_FILTER", payload: { selectedRating: e.target.value ? Number(e.target.value) : null } })}
+              >
+                <option value="">All Ratings</option>
+                {Array.from({ length: 10 }, (_, i) => 10 - i).map(rating => (
+                  <option key={rating} value={rating}>{rating}+</option>
+                ))}
+              </select>
+            </>
+          )}
         </div>
 
         <div id="searchResults" className="flex flex-col gap-6 mt-6">
@@ -193,16 +263,43 @@ function SearchPage() {
         </div>
 
         {totalPages > 1 && (
-          <div className="pagination mt-6 flex gap-2 flex-wrap">
-            {Array.from({ length: Math.min(10, totalPages) }, (_, i) => i + 1).map(page => (
+          <div className="pagination mt-6 flex gap-2 flex-wrap items-center">
+            {currentPage > 1 && (
               <button
-                key={page}
-                onClick={() => dispatch({ type: "SET_PAGE", payload: page })}
-                className={`px-3 py-1 border rounded-md ${currentPage === page ? "bg-white text-black font-bold" : "text-white border-white hover:bg-white/20"}`}
+                onClick={() => dispatch({ type: "SET_PAGE", payload: currentPage - 1 })}
+                className="px-3 py-1 border rounded-md text-white border-white hover:bg-white/20"
               >
-                {page}
+                ←
               </button>
-            ))}
+            )}
+            
+            {Array.from({ length: Math.min(10, totalPages) }, (_, i) => {
+              const page = totalPages <= 10 ? i + 1 : Math.max(1, Math.min(currentPage - 5, totalPages - 9)) + i;
+              return (
+                <button
+                  key={page}
+                  onClick={() => dispatch({ type: "SET_PAGE", payload: page })}
+                  className={`px-3 py-1 border rounded-md ${currentPage === page ? "bg-white text-black font-bold" : "text-white border-white hover:bg-white/20"}`}
+                >
+                  {page}
+                </button>
+              );
+            })}
+            
+            {currentPage < totalPages && (
+              <button
+                onClick={() => dispatch({ type: "SET_PAGE", payload: currentPage + 1 })}
+                className="px-3 py-1 border rounded-md text-white border-white hover:bg-white/20"
+              >
+                →
+              </button>
+            )}
+          </div>
+        )}
+        
+        {!loading && results.length > 0 && (
+          <div className="text-white text-sm mt-4 opacity-70">
+            Showing {((currentPage - 1) * 20) + 1}-{Math.min(currentPage * 20, applyFilters(state.allResults, state).length)} of {applyFilters(state.allResults, state).length} results
           </div>
         )}
       </main>
