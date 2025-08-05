@@ -3,7 +3,7 @@ import ButtonWithArrow from "../ButtonWithArrow";
 import ContentType from "../ContentType";
 import { getSimilarOrRecommended } from "../APICalls";
 import type { MovieInfo } from "~/types";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 type Props = {
     title: string,
@@ -22,23 +22,14 @@ function SimilarOrRecommended({props}: {props: Props}){
         }
     };
 
-    useEffect(() => {
-        const el = scrollRef.current;
-        if (!el) return;
+    const handleScroll = () => {
+        if(scrollRef.current === null) return;
+        const atStart = scrollRef.current.scrollLeft <= 5;
+        const atEnd = scrollRef.current.scrollLeft + scrollRef.current.clientWidth >= scrollRef.current.scrollWidth - 5;
 
-        const handleScroll = () => {
-            const atStart = el.scrollLeft <= 5;
-            const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 5;
-
-            el.classList.toggle("no-left", atStart);
-            el.classList.toggle("no-right", atEnd);
-        };
-
-        el.addEventListener("scroll", handleScroll);
-        handleScroll(); // initial
-
-        return () => el.removeEventListener("scroll", handleScroll);
-    }, []);
+        scrollRef.current.classList.toggle("no-left", atStart);
+        scrollRef.current.classList.toggle("no-right", atEnd);
+    };
     
     const more = moreContent?.map((item: MovieInfo) => {
         return <>
@@ -69,7 +60,7 @@ function SimilarOrRecommended({props}: {props: Props}){
                 <ButtonWithArrow title={props.title}/>
 
                 <span className="relative">
-                    <span className="content fade-mask" ref={scrollRef}>
+                    <span className="content fade-mask no-left" ref={scrollRef} onScroll={handleScroll}>
                         {more}
                     </span>
 
