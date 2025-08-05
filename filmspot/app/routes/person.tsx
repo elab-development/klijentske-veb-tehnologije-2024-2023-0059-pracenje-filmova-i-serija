@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import Footer from "~/components/Footer";
 import Header from "~/components/Header";
 import type { Route } from "./+types/person";
-import PersonHolder from "~/components/personPage/personHolder";
+import PersonHolder from "~/components/personPage/PersonHolder";
 
 export function meta({}: Route.MetaArgs) {
     return [

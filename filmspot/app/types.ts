@@ -58,3 +58,54 @@ export type ToggleFnProps = {
     element: HTMLElement | HTMLSpanElement, 
     time: number
 }
+
+export type PersonXMovie = {
+    adult: boolean,
+    backdrop_path: string,
+    genre_ids: number[],
+    id: number,
+    media_type: "movie" | "tv" | "person",
+    original_title: string,
+    overview: string,
+    popularity: number
+    poster_path: string,
+    release_date: string,
+    title: string,
+    video: boolean,
+    vote_average: number,
+    vote_count: number,
+    name: string,
+    also_known_as: string[],
+    biography: string,
+    birthday: string,
+    deathday: string | null,
+    gender: 1 | 2 | 3,
+    homepage: string,
+    imdb_id: string,
+    known_for_department: string,
+    place_of_birth: string,
+    profile_path: string
+}
+
+export type PersonInfo = {
+    credits: {
+        cast: PersonXMovie[],
+        crew: MovieInfo[]
+    },
+    details: {
+        adult: boolean,
+        also_known_as: string[],
+        biography: string,
+        birthday: string,
+        deathday: string | null,
+        gender: 1 | 2 | 3,
+        homepage: string,
+        id: number,
+        imdb_id: string,
+        known_for_department: string,
+        name: string,
+        place_of_birth: string,
+        popularity: number,
+        profile_path: string
+    }
+}
