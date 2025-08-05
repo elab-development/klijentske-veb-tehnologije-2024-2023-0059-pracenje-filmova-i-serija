@@ -4,23 +4,33 @@ export function getContent({type, content}: {type: "movie" | "tv", content: "tre
     // import.meta.env.VITE_TMDB_API_KEY
 
     let fetchURL = import.meta.env.VITE_TMDB_BASE_URL;
+    const filter = "&language=en-US&page=1&include_adult=false";
     if(type === "movie"){
         switch(content){
-            case "popular": {
-                fetchURL+=`/movie/popular?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US&page=1&include_adult=false`;
-                break;
-            }
-            case "upcoming": {
-                fetchURL+=`/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US&page=1&include_adult=false`;
+            case "popular": case "upcoming": {
+                fetchURL+=`/${type}/${content}?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
                 break;
             }
             case "trending": {
-                fetchURL+=`/trending/movie/week?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US&page=1&include_adult=false`;
+                fetchURL+=`/trending/movie/week?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
                 break;
             }
         }
     }else{
-
+        switch(content){
+            case "popular": {
+                fetchURL+=`/tv/popular?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
+                break;
+            }
+            case "upcoming": {
+                fetchURL+=`/tv/on_the_air?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
+                break;
+            }
+            case "trending": {
+                fetchURL+=`/trending/tv/week?api_key=${import.meta.env.VITE_TMDB_API_KEY}${filter}`;
+                break;
+            }
+        }
     }
     
     return fetch(fetchURL)
@@ -70,19 +80,16 @@ export function getSingleTrailer({id, type}: SingleProps){
             vid.official === true
         );
 
-        return trailer ?? data.results[0];
+        return trailer ?? data.results[0] ?? false;
     })
 }
 
 export function getSimilarOrRecommended({id, type, isSimilar}: SingleProps & {isSimilar: boolean}){
-    console.log("Similar: ", isSimilar);
-    
     return fetch(`https://api.themoviedb.org/3/${type}/${id}/${isSimilar ? "similar" : "recommendations"}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
     .then(res => {
         return res.json();
     })
     .then(data => {
-        console.log(data.results);
         return data.results;
     })
 }

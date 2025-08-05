@@ -6,7 +6,10 @@ import CircularRating from "./MovieRating";
 import { useQuery } from "@tanstack/react-query";
 import { getSingleCast, getSingleTrailer } from "../APICalls";
 import CastItem from "./CastItem";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import NoBanner from "app/assets/NoBanner.png";
+import MoreCast from "./MoreCast";
+import { toggleElementWD } from "~/functions";
 
 function MovieInfoHolder({props}: {props: MovieHolderInfo}){
     const { status: castStatus, error: castError, data: castInfo } = useQuery({queryKey: [`cast${props.type}${props.id}`], queryFn: () => getSingleCast({id: props.id, type: props.type})})
@@ -23,12 +26,19 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
         setPreGenres([]);
         setGenres([]);
 
-        setPreGenres(prev => [...prev, props.release_date.split('-')[0]]);
-        setPreGenres(prev => [...prev, Math.floor(props.runtime / 60) + 'h' + ' ' + props.runtime % 60 + 'm']);
+        if(props.release_date)
+            setPreGenres(prev => [...prev, props.release_date.split('-')[0]]);
+        if(props.runtime){
+            const hours = Math.floor(props.runtime / 60);
+            const minutes = props.runtime % 60;
+            setPreGenres(prev => [...prev, (hours > 0 ? hours + 'h' : '') + ' ' + (minutes > 0 ? minutes +'m' : '')]);
+        }
 
         for(let i = 0; (i < 3 && props.genres[i]); i++)
             setGenres(prev => [...prev, props.genres[i].name]);
     }, []);
+
+    const allCastRef = useRef<HTMLSpanElement>(null);
 
     return <>
         <div className="flex items-start gap-10">
@@ -37,7 +47,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
                 <span></span>
             </div>
             <span className="bannerHolder relative w-fit block z-1">
-                <img src={`${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${props.poster_path}`} alt="Banner" />
+                <img src={props.poster_path?.length > 0 ? `${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${props.poster_path}` : NoBanner} alt="Banner" />
 
                 <span className="rating absolute top-[-20px] right-[-20px]">
                     <CircularRating value={Number(props.vote_average)} />
@@ -48,10 +58,10 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
                 <h2 className="mb-2">{props.title}</h2>
 
                 {castStatus === "success" && 
-                    <span className="infoPartsHolder">
+                    <span className="infoPartsHolder flex items-center">
                         {props && <ContentType type={props.type} additionalClasses="infoChild"/>}
-                        <MovieInfoPart items={preGenres} />
-                        <MovieInfoPart items={genres} additionalClasses="genre" />
+                        {preGenres?.length > 0 && <MovieInfoPart items={preGenres} />}
+                        {genres?.length > 0 && <MovieInfoPart items={genres} additionalClasses="genre" />}
                     </span>
                 }
 
@@ -71,23 +81,28 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
                     </button>
                 </span>
 
-                <p className="description">{props.overview}</p>
+                <p className="description">{props.overview?.length > 0 ? props.overview : "No description available" }</p>
 
-                <span>
-                    <ButtonWithArrow title="Cast" additionalClasses="castButton" />
+                {castInfo?.cast?.length > 0 
+                    ? <span>
+                        <ButtonWithArrow title="Top Cast" additionalClasses="castButton" onClick={() => toggleElementWD({element: allCastRef.current!, time: 200})}/>
 
-                    <span className="cast">
-                        {castStatus === "success" && cast}
+                        <span className="cast">
+                            {castStatus === "success" && cast}
+                        </span>
                     </span>
-                </span>
+                    : <p className="mt-5 text-xl">No cast available</p>
+                }
             </span>
         </div>
 
         <span className="trailer mt-15 w-full p-[20px] z-1 bg-[var(--backgroundTransparentSecondary)] backdrop-blur-[18px] border-1 border-[var(--borderColorPrimary)] rounded-[20px]">
-            <h2 className="text-[1.4rem] text-center">Watch the trailer</h2>
+            <h2 className="text-[1.4rem] text-center">{trailer ? "Watch the trailer" : "No trailer available"}</h2>
 
-            {videosStatus === "success" && <iframe src={`https://www.youtube.com/embed/${trailer ? trailer.key : ''}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="w-[calc(100%-40px)] aspect-[16/9] rounded-[12px] border-1 border-[var(--borderColorPrimary)] mt-3 mb-4 mx-auto" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
+            {trailer && <iframe src={`https://www.youtube.com/embed/${trailer ? trailer.key : ''}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" className="w-[calc(100%-40px)] aspect-[16/9] rounded-[12px] border-1 border-[var(--borderColorPrimary)] mt-3 mb-4 mx-auto" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
         </span>
+
+        <MoreCast ref={allCastRef} castInfo={castInfo} />
     </>;
 }
 

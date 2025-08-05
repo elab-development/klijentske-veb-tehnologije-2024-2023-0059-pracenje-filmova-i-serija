@@ -16,7 +16,6 @@ const queryClient = new QueryClient();
 
 function MoviePage(){
     const {URLParams} = useParams();
-    console.log(URLParams);
 
     return <>
         <QueryClientProvider client={queryClient}>

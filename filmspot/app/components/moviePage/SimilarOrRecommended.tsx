@@ -4,6 +4,7 @@ import ContentType from "../ContentType";
 import { getSimilarOrRecommended } from "../APICalls";
 import type { MovieInfo } from "~/types";
 import { useRef } from "react";
+import NoBanner from "app/assets/NoBanner.png";
 
 type Props = {
     title: string,
@@ -36,7 +37,7 @@ function SimilarOrRecommended({props}: {props: Props}){
             <a key={item.id} href={`/content/${props.type}.${item.id}`} className="contentItem">
                 <span className="topShadow"></span>
                 
-                <img src={`${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${item.poster_path}`} alt="Banner" />
+                <img src={item.poster_path?.length > 0 ? `${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${item.poster_path}` : NoBanner} alt="Banner" />
 
                 <span>
                     <h3>{item.title}</h3>

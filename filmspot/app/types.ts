@@ -52,3 +52,8 @@ export type VideoInfo = {
     size: number,
     type: string
 }
+
+export type ToggleFnProps = {
+    element: HTMLElement | HTMLSpanElement, 
+    time: number
+}
