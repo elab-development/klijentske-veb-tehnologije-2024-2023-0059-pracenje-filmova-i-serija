@@ -21,7 +21,7 @@ function MoviePage(){
         <QueryClientProvider client={queryClient}>
             <Header />
 
-            <main className="movieInfoHolder min-h-[100dvh] max-w-[1400px] mx-auto mt-10">
+            <main className="movieInfoHolder w-full max-w-[1400px] mx-auto mt-10">
                 {URLParams && <MovieHolder URLParams={URLParams} />}
             </main>
 

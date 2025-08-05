@@ -6,7 +6,6 @@ import Footer from "~/components/Footer";
 import type { MovieInfo } from "~/types";
 
 interface SearchInfo extends MovieInfo {
-  name?: string;
   profile_path?: string;
   known_for?: Array<{ title?: string; name?: string }>;
 }
@@ -143,7 +142,7 @@ function SearchPage() {
     <>
       <LightRays raysOrigin="top-center" raysColor="#00ffff" raysSpeed={0.5} lightSpread={1} rayLength={5} followMouse mouseInfluence={0.025} noiseAmount={0.1} distortion={0.1} className="custom-rays !fixed brightness-170" />
       <Header />
-      <main className="movieInfoHolder min-h-[100dvh] max-w-[1400px] mx-auto z-3 relative">
+      <main className="w-full max-w-[1400px] mx-auto z-3 relative">
         <h1 className="text-white text-2xl font-bold">Search "{searchParams}"</h1>
 
         <div className="filters mt-2">

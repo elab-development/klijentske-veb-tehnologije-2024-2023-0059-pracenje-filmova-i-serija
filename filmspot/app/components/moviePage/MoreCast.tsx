@@ -19,12 +19,12 @@ const MoreCast = forwardRef<HTMLSpanElement, Props>((props, ref) => {
 
     return <>
         <span ref={ref} className="allCast">
-            <span className="w-[50dvw] h-[70dvh] overflow-hidden">
+            <span className="overflow-hidden">
                 <div className="flex justify-between">
                     <h2 className="mb-5 text-3xl font-medium">Full Cast</h2>
                     <button className="button h-[35px] w-[35px] grid place-items-center rounded-[10px] bg-[#DF354B]" onClick={handleClick}>
                         <svg width="30" height="30" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M32.9802 16.9902L15.99 33.9803M32.9802 33.9803L15.99 16.9902" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M32.9802 16.9902L15.99 33.9803M32.9802 33.9803L15.99 16.9902" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </button>
                 </div>
@@ -33,6 +33,7 @@ const MoreCast = forwardRef<HTMLSpanElement, Props>((props, ref) => {
                     {content}
                 </span>
             </span>
+            <div className="w-full h-full fixed top-0 left-0 z-[-1]" onClick={handleClick}></div>
         </span>
     </>;
 })

@@ -26,6 +26,9 @@ body {
 body{
   background-color: #11151C;
   min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow-x: hidden;
 }
 
@@ -454,6 +457,12 @@ main{
   display: flex;
   gap: 20px;
   align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .15s ease-in-out;
+}
+.movieInfoHolder .castItem:hover{
+  background-color: rgba(255, 255, 255, .1);
 }
 .movieInfoHolder .castItem img{
   background-color: var(--backgroundTransparentPrimary);
@@ -496,13 +505,17 @@ main{
   transform: scale3d(1, 1, 1);
 }
 .movieInfoHolder .allCast > span{
+  width: calc(100dvw - 40px);
+  height: calc(100dvh - 40px);
+  max-width: 850px;
+  max-height: 650px;
   transform: scale3d(.3, .3, 1);
   backdrop-filter: blur(7px);
   background-color: var(--backgroundTransparentPrimary);
   border: 1px solid var(--borderColorSecondary);
   border-radius: 20px;
   padding: 20px;
-  transition: all .15s ease-in-out;
+  transition: transform .15s ease-in-out;
 }
 .movieInfoHolder .allCast.open > span{
   transform: scale3d(1, 1, 1);

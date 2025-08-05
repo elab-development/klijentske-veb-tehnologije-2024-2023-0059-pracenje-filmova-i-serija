@@ -26,7 +26,7 @@ export default function HomePage(){
         <QueryClientProvider client={queryClient}>
             <Header />
 
-            <main id="moviesHolder" className="min-h-[100dvh] max-w-[1400px] mx-auto">
+            <main id="moviesHolder" className="w-full max-w-[1400px] mx-auto">
                 <Top5 />
 
                 <Upcoming />
