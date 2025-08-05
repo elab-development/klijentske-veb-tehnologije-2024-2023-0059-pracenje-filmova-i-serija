@@ -171,9 +171,9 @@ export default function FilmSpotAuth() {
             </p>
             <p className="text-sm text-slate-400 max-[600px]:hidden transition-all duration-300">
               By signing in you accept our{' '}
-              <button className="text-[#43DFD7] hover:text-cyan-300 transition-colors underline">
+              <a href='/about' className="text-[#43DFD7] hover:text-cyan-300 transition-colors underline">
                 Terms of Use
-              </button>
+              </a>
             </p>
           </div>
         </div>
