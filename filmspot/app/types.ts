@@ -3,7 +3,7 @@ export interface MovieInfo{
     backdrop_path: string,
     genre_ids: number[],
     id: number,
-    media_type: "movie" | "tv",
+    media_type: "movie" | "tv" | "person",
     original_title: string,
     overview: string,
     popularity: number

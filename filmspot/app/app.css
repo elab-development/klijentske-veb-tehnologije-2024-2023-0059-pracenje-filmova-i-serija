@@ -598,7 +598,7 @@ main{
   margin-inline: 5px;
 }
 
-.filters button{
+.filters button, .tags span{
   display: flex;
   gap: 6px;
   align-items: center;
@@ -609,7 +609,7 @@ main{
   border-radius: 50px;
 }
 
-.filters button.dropdown{
+.filters button.dropdown, .tags span{
   padding: 6px 12px;
 }
 
@@ -636,4 +636,52 @@ main{
 }
 .filters button:nth-child(3).selected{
   background-color: rgba(0, 177, 44, 0.5);
+}
+
+#searchResults {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid var(--borderColorSecondary);
+  border-radius: 20px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+/* SEARCH RESULT */
+
+.searchResult{
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.07);
+  backdrop-filter: brightness(0.7);
+  webkitbnackdrop-filter: brightness(0.7);
+  transition: background-color 0.15s ease-in-out;
+}
+
+.searchResult:hover{
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.searchResult h2{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* MOVIE SEARCH RESULT */
+
+.movieSearchResult .tags{
+  display: flex;
+  gap: 5px;
+}
+
+.movieSearchResult .tags span{
+  padding: 3px 12px;
+}
+
+.movieSearchResult p{
+  margin-top: 5px;
+  font-size: 1rem;
+  color: var(--textSecondaryColor);
 }
