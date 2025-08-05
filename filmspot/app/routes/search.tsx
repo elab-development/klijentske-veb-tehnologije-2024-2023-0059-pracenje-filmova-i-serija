@@ -28,6 +28,7 @@ function SearchPage(){
             <div className="filters mt-2">
                 <button className="button selected"><span>239</span>Movies</button>
                 <button className="button"><span>60</span>TV Shows</button>
+                <button className="button"><span>12</span>People</button>
                 <span className="dash"></span>
                 <button className="button dropdown relative">Genre
                     <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">

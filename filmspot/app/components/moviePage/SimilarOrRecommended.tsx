@@ -3,6 +3,7 @@ import ButtonWithArrow from "../ButtonWithArrow";
 import ContentType from "../ContentType";
 import { getSimilarOrRecommended } from "../APICalls";
 import type { MovieInfo } from "~/types";
+import { useRef, useEffect } from "react";
 
 type Props = {
     title: string,
@@ -13,6 +14,32 @@ type Props = {
 
 function SimilarOrRecommended({props}: {props: Props}){
     const { status, error, data: moreContent } = useQuery({queryKey: [`${props.isSimilar ? "Similar" : "Recommended"}${props.type}${props.id}`], queryFn: () => getSimilarOrRecommended({id: props.id, type: props.type, isSimilar: props.isSimilar})})
+    
+    const scrollRef = useRef<HTMLSpanElement>(null);
+    const scrollBy = (offset: number) => {
+        if (scrollRef.current) {
+        scrollRef.current.scrollBy({ left: offset, behavior: "smooth" });
+        }
+    };
+
+    useEffect(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+
+        const handleScroll = () => {
+            const atStart = el.scrollLeft <= 5;
+            const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 5;
+
+            el.classList.toggle("no-left", atStart);
+            el.classList.toggle("no-right", atEnd);
+        };
+
+        el.addEventListener("scroll", handleScroll);
+        handleScroll(); // initial
+
+        return () => el.removeEventListener("scroll", handleScroll);
+    }, []);
+    
     const more = moreContent?.map((item: MovieInfo) => {
         return <>
             <a href={`/content/${props.type}.${item.id}`} className="contentItem">
@@ -42,16 +69,16 @@ function SimilarOrRecommended({props}: {props: Props}){
                 <ButtonWithArrow title={props.title}/>
 
                 <span className="relative">
-                    <span className="content">
+                    <span className="content fade-mask" ref={scrollRef}>
                         {more}
                     </span>
 
-                    <button className="button">
+                    <button className="button" onClick={() => scrollBy(-1000)}>
                         <svg className="ml-[-4px]" width="15" height="20" viewBox="0 0 15 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12.9834 23.1334L2.71676 12.8668L12.9834 2.6001" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
-                    <button className="button right">
+                    <button className="button right" onClick={() => scrollBy(1000)}>
                         <svg className="mr-[-2px]" width="15" height="20" viewBox="0 0 15 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.01672 23.1334L12.2834 12.8668L2.01672 2.6001" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>

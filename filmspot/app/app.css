@@ -473,7 +473,35 @@ main{
   gap: 20px;
   width: 100%;
   justify-content: flex-start;
-  overflow: visible;
+  overflow-x: scroll;
+  border-radius: 20px;
+}
+.fade-mask {
+  mask-image: linear-gradient(to right, transparent 1%, black 15%, black 90%, transparent 99%);
+  -webkit-mask-image: linear-gradient(to right, transparent 1%, black 15%, black 90%, transparent 99%);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  transition: mask-image 0.2s ease, -webkit-mask-image 0.2s ease;
+}
+
+.fade-mask.no-left {
+  mask-image: linear-gradient(to right, black 0%, black 90%, transparent 99%);
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 90%, transparent 99%);
+}
+
+.fade-mask.no-right {
+  mask-image: linear-gradient(to right, transparent 1%, black 10%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 1%, black 10%, black 100%);
+}
+
+.fade-mask.no-left.no-right {
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+.similarMovies .content::-webkit-scrollbar{
+  display: none;
 }
 .similarMovies .content .contentItem{
   position: relative;
@@ -596,10 +624,16 @@ main{
 .filters button:nth-child(2) span{
   background-color: rgba(0, 124, 177, 0.6);
 }
+.filters button:nth-child(3) span{
+  background-color: rgba(0, 177, 38, 0.6);
+}
 
 .filters button.selected{
   background-color: rgba(177, 115, 0, 0.5);
 }
 .filters button:nth-child(2).selected{
   background-color: rgba(0, 124, 177, 0.5);
+}
+.filters button:nth-child(3).selected{
+  background-color: rgba(0, 177, 44, 0.5);
 }
