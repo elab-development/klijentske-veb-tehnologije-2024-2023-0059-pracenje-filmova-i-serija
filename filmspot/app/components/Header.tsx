@@ -43,7 +43,7 @@ export default function Header(){
                             </button>
                         </div>
                         <a href="/about" className="button">About</a>
-                        <a href="/login" className="button">Sign in</a>
+                        <a href="/watchlist" className="button">Watchlist</a>
                     </span>
 
                     <svg className="hidden">

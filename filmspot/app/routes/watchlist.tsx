@@ -1,8 +1,8 @@
 import LightRays from "~/components/ReachBitsLightRays";
-import type { Route } from "./+types/profile";
+import type { Route } from "./+types/watchlist";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
-import ProfileWatchlist from "~/components/profilePage/profileWatchlist";
+import ProfileWatchlist from "~/components/profilePage/ProfileWatchlist";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -18,7 +18,7 @@ export default function Profile(){
         <Header />
 
         <main className="w-full min-h-[100dvh] max-w-[1400px] mx-auto z-3 relative">
-          <h2 className="text-3xl font-bold mb-2">Profile</h2>
+          {/* <h2 className="text-3xl font-bold mb-2">Profile</h2>
           
           <div className="profile-info w-fit flex bg-white/10 overflow-hidden rounded-3xl border border-[var(--borderColorPrimary)]">
             <img className="w-[180px] h-[180px]" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?cs=srgb&dl=pexels-stefan-stefancik-91227.jpg&fm=jpg" alt="Profile Photo" />
@@ -47,7 +47,7 @@ export default function Profile(){
               <p className="text-[var(--textSecondaryColor)]">Member Since: <span className="text-white font-medium float-end ml-7">Aug 2025</span></p>
               <p className="text-[var(--textSecondaryColor)]">Movies Rated: <span className="text-white font-medium float-end ml-7">19</span></p>
             </section>
-          </div>
+          </div> */}
 
           <h2 className="text-3xl font-bold mb-2 mt-10">My Watchlist</h2>
           <ProfileWatchlist />

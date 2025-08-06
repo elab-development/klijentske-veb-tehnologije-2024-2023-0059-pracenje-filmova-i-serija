@@ -8,7 +8,7 @@ function Footer(){
                     <span className="flex gap-7">
                         <a href="#searchInput" className="button">Search</a>
                         <a href="/about" className="button">About</a>
-                        <a href="/login" className="button">Sign in</a>
+                        <a href="/watchlist" className="button">Watchlist</a>
                     </span>
                 </span>
 

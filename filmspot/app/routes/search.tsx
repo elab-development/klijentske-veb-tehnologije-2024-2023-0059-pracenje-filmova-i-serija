@@ -235,7 +235,7 @@ function SearchPage() {
           {results.map((item: SearchInfo) => {
             const image = item.poster_path || item.profile_path;
             const title = item.title || item.name;
-            const link = `/content/${selectedType}.${item.id}`;
+            const link = selectedType == "person" ? `/person/${item.id}` : `/content/${selectedType}.${item.id}`;
 
             return (
               image && (
