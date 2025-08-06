@@ -10,7 +10,7 @@ class MovieCard<P extends MovieInfo = MovieInfo> extends React.Component<P>{
 
     render(){
         return (
-            <div className="movieCard relative">
+            <div className="movieCard relative snap-center">
                 <img src={`${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${this.props.poster_path}`} alt="Background" />
 
                 <button className="bookmark absolute button z-1">
@@ -27,7 +27,7 @@ class MovieCard<P extends MovieInfo = MovieInfo> extends React.Component<P>{
                             <h3>{this.props.title}</h3>
 
                             <span className="flex w-[175px] h-fit items-center gap-2">
-                                <ContentType type={this.props.media_type} />
+                                <ContentType type={this.props.media_type as "movie" | "tv"} />
 
                                 <span className="flex gap-1 items-center">
                                     <svg width="13" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">

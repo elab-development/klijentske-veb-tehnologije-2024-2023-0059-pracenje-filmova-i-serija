@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import type { ReactNode } from "react";
+import MovieCardLoadingTemplate from "./homePage/MovieCardLoadingTemplate";
 
 type MovieSectionProps = {
     id?: string,
@@ -11,11 +12,12 @@ type MovieSectionProps = {
 
 function MovieSection({ props }: { props: MovieSectionProps }) {
     const scrollRef = useRef<HTMLSpanElement>(null);
+    const disableButtons = useRef(false);
 
     const scroll = (direction: "left" | "right") => {
-        if (scrollRef.current) {
-            const offset = direction === "left" ? -300 : 300;
-            scrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+        if (scrollRef.current && props.content && !disableButtons.current) {
+            const scrollValue = scrollRef.current.offsetWidth;
+            scrollRef.current.scrollBy({ left: direction === "left" ? -scrollValue : scrollValue, behavior: 'smooth' });
         }
     };
 
@@ -47,8 +49,11 @@ function MovieSection({ props }: { props: MovieSectionProps }) {
                 </>
             )}
 
-            <span ref={scrollRef} className="movieHolder overflow-x-auto whitespace-nowrap scroll-smooth">
-                {props.content}
+            <span ref={scrollRef} className="movieHolder snap-x snap-mandatory" onScroll={() => disableButtons.current = true} onScrollEnd={() => disableButtons.current = false} >
+                {props.content
+                    ? props.content
+                    : <MovieCardLoadingTemplate />
+                }
             </span>
         </div>
     );

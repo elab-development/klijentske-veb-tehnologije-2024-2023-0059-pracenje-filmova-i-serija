@@ -2,7 +2,7 @@ import LightRays from "~/components/ReachBitsLightRays";
 import type { Route } from "./+types/watchlist";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
-import ProfileWatchlist from "~/components/profilePage/ProfileWatchlist";
+import ProfileWatchlist from "~/components/profilePage/profileWatchlist";
 
 export function meta({}: Route.MetaArgs) {
   return [

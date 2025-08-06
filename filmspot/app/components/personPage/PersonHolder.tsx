@@ -13,7 +13,7 @@ function PersonHolder({props}: {props: {id: string}}){
     console.log(personInfo);
     const starringList = personInfo?.credits?.cast?.map(item => {
         return (
-            <a key={item.id} href={`/content/${item.media_type}.${item.id}`} className="contentItem">
+            <a key={item.id} href={`/content/${item.media_type}.${item.id}`} className="contentItem snap-center">
                 <span className="topShadow"></span>
                 
                 <img src={item.poster_path?.length > 0 ? `${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${item.poster_path}` : NoBanner} alt="Banner" />
