@@ -29,6 +29,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  scroll-behavior: smooth;
   overflow-x: hidden;
 }
 
@@ -139,13 +140,28 @@ footer .followUs h2{
 #top5{
   margin-inline: auto;
   inset-inline: 0;
+  margin-bottom: -20px;
 }
 #top5 .title{
   width: 100%;
 }
+#top5 > button{
+  display: none;
+}
+#top5 .movieHolder{
+  display: flex !important;
+  margin-top: -0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow: visible;
+}
+#top5 .movieHolder::-webkit-scrollbar{
+  display: none;
+}
 #top5 .movieHolder .topMovie{
   position: relative;
   width: 100%;
+  min-width: 200px;
   aspect-ratio: 3/4.4;
 }
 #top5 .movieHolder .topMovie h2{
@@ -209,6 +225,30 @@ footer .followUs h2{
   padding: 10px;
   cursor: pointer;
   transition: all .15s ease-in-out;
+}
+.movieCard.loading{
+  pointer-events: none;
+  border: none;
+  justify-content: flex-start;
+}
+.movieCard.loading .background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--backgroundTransparentSecondary);
+  background-image: linear-gradient(135deg, rgba(0, 10, 20) 45%, rgba(255, 255, 255, .3) 55%, rgba(67, 223, 215, .05) 60%);
+  background-size: 400%;
+  animation: movieCardLoading 1.5s ease-in-out infinite alternate;
+}
+@keyframes movieCardLoading{
+  from{
+    background-position: 100% 100%;
+  }
+  to{
+    background-position: 0 0;
+  }
 }
 #top5 .movieCard{
   width: 100%;
@@ -470,6 +510,7 @@ main{
   height: 65px;
   object-fit: cover;
   border-radius: 10px;
+  flex-shrink: 0;
 }
 .movieInfoHolder .castItem h3{
   font-size: 1.2rem;
@@ -813,3 +854,55 @@ body:has(.movieInfoHolder .allCast.open) {
   stroke: #000000;
 }
 /* PERSON PAGE */
+
+/* RESPONSIVE */
+
+@media (max-width: 1250px) {
+  .movieHolder{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  #top5 .movieHolder{
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding-left: 30px;
+    padding-right: 50px;
+    mask-image: linear-gradient(to right, transparent 1%, black 15%, black 90%, transparent 99%);
+    -webkit-mask-image: linear-gradient(to right, transparent 1%, black 15%, black 90%, transparent 99%);
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+  }
+  #top5 > button{
+    display: flex;
+  }
+}
+@media (max-width: 950px) {
+  .movieHolder{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 750px) {
+  
+}
+@media (max-width: 600px) {
+  .movieHolder{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 450px) {
+  main{
+    padding-inline: 20px;
+  }
+  .movieHolder{
+    gap: 20px;
+  }
+  #top5 .movieHolder .topMovie{
+    min-width: calc(100vw - 120px);
+  }
+}
+@media (max-width: 330px) {
+  .movieHolder{
+    grid-template-columns: 1fr;
+  }
+}

@@ -14,6 +14,24 @@ export default function Header(){
 
     return (
         <header className="fixed top-0 left-0 w-full h-fit z-102">
+            <div className="mobileHeader fixed top-0 right-0 w-full h-full bg-[#11151C] z-103 p-6 hidden">
+                <span className="content flex h-fit items-end gap-7 flex-col">
+                    <div>
+                        <input ref={searchRef} type="text" placeholder="Search movies and tv shows" id="searchInput" onKeyUp={(e) => {
+                            if (e.key === "Enter") {
+                                search();
+                            }
+                        }} />
+                        <button onClick={search}>
+                            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.5558 15.5558L20 20M10.7692 17.5385C14.5078 17.5385 17.5385 14.5078 17.5385 10.7692C17.5385 7.03069 14.5078 4 10.7692 4C7.03069 4 4 7.03069 4 10.7692C4 14.5078 7.03069 17.5385 10.7692 17.5385Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <a href="/about" className="button">About</a>
+                    <a href="/watchlist" className="button">Watchlist</a>
+                </span>
+            </div>
             <div className="liquidGlass-wrapper w-full bg-[var(--backgroundTransparentPrimary)]">
                 <div className="liquidGlass-effect"></div>
                 <div className="liquidGlass-tint"></div>
