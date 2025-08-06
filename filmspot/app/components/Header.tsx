@@ -82,8 +82,9 @@ export default function Header(){
                     </a>
 
                     <div className="hidden md:flex items-center gap-7">
-                        <div className="relative">
+                        <div className="relative search">
                             <input 
+                                id="searchInput"
                                 ref={searchRef} 
                                 type="text" 
                                 placeholder="Search movies and tv shows" 
