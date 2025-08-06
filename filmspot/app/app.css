@@ -173,8 +173,8 @@ footer .followUs h2{
   filter: drop-shadow(0 0 5px #BFBFBF);
 }
 #top5 .movieHolder .topMovie:nth-child(3) h2{
-  background-image: linear-gradient(135deg, #FFFFFF, #C87125);
-  filter: drop-shadow(0 0 5px #C87125);
+  background-image: linear-gradient(135deg, #FFFFFF, #c77b38);
+  filter: drop-shadow(0 0 5px #c77b38);
 }
 #top5 .movieHolder .topMovie:nth-child(4) h2{
   background-image: linear-gradient(135deg, #FFFFFF, #C7FFFC);
@@ -535,15 +535,18 @@ main{
 }
 body:has(.movieInfoHolder .allCast.open) {
   overflow-y: hidden;
+  padding-right: 14px;
 }
 
 .similarMovies .content{
   display: flex;
   gap: 20px;
   width: 100%;
+  max-width: 100%;
   justify-content: flex-start;
   overflow-x: scroll;
   border-radius: 20px;
+  padding-inline: 40px;
 }
 .fade-mask {
   mask-image: linear-gradient(to right, transparent 1%, black 15%, black 90%, transparent 99%);
@@ -555,7 +558,7 @@ body:has(.movieInfoHolder .allCast.open) {
   transition: mask-image 0.2s ease, -webkit-mask-image 0.2s ease;
 }
 
-.fade-mask.no-left {
+/* .fade-mask.no-left {
   mask-image: linear-gradient(to right, black 0%, black 90%, transparent 99%);
   -webkit-mask-image: linear-gradient(to right, black 0%, black 90%, transparent 99%);
 }
@@ -563,7 +566,7 @@ body:has(.movieInfoHolder .allCast.open) {
 .fade-mask.no-right {
   mask-image: linear-gradient(to right, transparent 1%, black 10%, black 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 1%, black 10%, black 100%);
-}
+} */
 
 .fade-mask.no-left.no-right {
   mask-image: none;
@@ -772,10 +775,41 @@ body:has(.movieInfoHolder .allCast.open) {
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid var(--borderColorSecondary);
+  max-width: 300px;
 }
 .personInfo img{
-  width: 270px;
-  max-height: 330px;
+  width: 300px;
+  max-height: 350px;
   border-bottom: 1px solid var(--borderColorSecondary);
+}
+
+.infoPart.tags .type{
+  font-size: .9rem;
+}
+
+.wishlistButtons{
+  display: flex;
+  gap: 15px;
+}
+.wishlistButtons button{
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 5px 15px;
+  background-color: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 50px;
+}
+.wishlistButtons button.remove{
+  border: none;
+  background-color: #DF354B;
+}
+.wishlistButtons button.rated{
+  color: black;
+  border: none;
+  background-color: #DFC843;
+}
+.wishlistButtons button.rated svg path{
+  stroke: #000000;
 }
 /* PERSON PAGE */

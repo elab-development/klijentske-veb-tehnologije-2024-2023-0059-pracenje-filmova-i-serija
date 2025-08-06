@@ -44,7 +44,7 @@ function SimilarOrRecommended({props}: {props: Props}){
             <div className="similarMovies mt-[50px] z-1">
                 <ButtonWithArrow title={props.title}/>
 
-                <MovieSlider props={{content: more, scrollValue: 1000}} />
+                <MovieSlider props={{content: more}} />
             </div>
         }
     </>;

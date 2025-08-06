@@ -33,7 +33,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
         if(props.runtime){
             const hours = Math.floor(props.runtime / 60);
             const minutes = props.runtime % 60;
-            setPreGenres(prev => [...prev, (hours > 0 ? hours + 'h' : '') + ' ' + (minutes > 0 ? minutes +'m' : '')]);
+            setPreGenres(prev => [...prev, (hours > 0 ? hours + 'h' : '') + ' ' + (minutes > 0 ? minutes + 'm' : '')]);
         }
 
         for(let i = 0; (i < 3 && props.genres[i]); i++)

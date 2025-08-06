@@ -2,6 +2,7 @@ import LightRays from "~/components/ReachBitsLightRays";
 import type { Route } from "./+types/profile";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
+import ProfileWatchlist from "~/components/profilePage/profileWatchlist";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,67 +12,47 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Profile(){
-    return (
-      <>
-        <LightRays raysOrigin="top-center" raysColor="#00ffff" raysSpeed={0.5} lightSpread={1} rayLength={5} followMouse mouseInfluence={0.025} noiseAmount={0.1} distortion={0.1} className="custom-rays !fixed brightness-170" />
+    return <>
+        <LightRays raysOrigin="left" raysColor="#00ffff" raysSpeed={0.25} lightSpread={1} rayLength={5} followMouse mouseInfluence={0.1} noiseAmount={0.1} distortion={0.4} className="custom-rays !fixed brightness-170" />
+        
         <Header />
-        <main className="min-h-[100dvh] max-w-[1400px] mx-auto z-3 relative">
+
+        <main className="w-full min-h-[100dvh] max-w-[1400px] mx-auto z-3 relative">
           <h2 className="text-3xl font-bold mb-2">Profile</h2>
+          
           <div className="profile-info w-fit flex bg-white/10 overflow-hidden rounded-3xl border border-[var(--borderColorPrimary)]">
-            <img className="w-[250px] h-[250px]" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?cs=srgb&dl=pexels-stefan-stefancik-91227.jpg&fm=jpg" alt="Profile Photo" />
-            <section className="profile-details p-6 border-l border-[var(--borderColorSecondary)]">
-              <h2 className="text-2xl font-bold mb-[-5px]">Test Profile</h2>
-              <p className="text-[var(--textSecondaryColor)] text-lg">email@test.com</p>
-              <span className="flex gap-3 mt-2">
-                <button className="button bg-[#43DFD7] text-black px-5 py-1 rounded-full">Edit Profile</button>
-                <button className="button bg-[#DF354B] text-white px-5 py-1 rounded-full">Logout</button>
+            <img className="w-[180px] h-[180px]" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?cs=srgb&dl=pexels-stefan-stefancik-91227.jpg&fm=jpg" alt="Profile Photo" />
+            
+            <section className="profile-details p-6 border-l border-[var(--borderColorSecondary)] place-content-center">
+              <h2 className="text-[1.8rem] font-medium mb-[-10px] max-w-[40dvw] overflow-hidden text-ellipsis whitespace-nowrap">Test Profile</h2>
+              <p className="text-[var(--textSecondaryColor)] text-lg font-light">email@test.com</p>
+              <span className="flex gap-3 mt-3">
+                <button className="button bg-[#43DFD7] text-black pl-4 pr-5 py-1 rounded-full flex items-center gap-2">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.1667 5.27273L17.0455 8M1.5 20V17.2727L16.2596 3.28998C17.0232 2.56654 18.2192 2.56654 18.9829 3.28998V3.28998C19.8072 4.0709 19.8072 5.38365 18.9829 6.16457L4.37879 20H1.5Z" stroke="black" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Edit Profile
+                  </button>
+                <button className="button bg-[#DF354B] text-white pl-4 pr-5 py-1 rounded-full flex items-center gap-2">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 20H6C4.89543 20 4 19.1046 4 18L4 6C4 4.89543 4.89543 4 6 4H14M10 12H21M21 12L18 15M21 12L18 9" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Logout
+                </button>
               </span>
             </section>
-            <section className="profile-stats p-6 border-l border-[var(--borderColorSecondary)] flex flex-col gap-2">
-                <p className="text-[var(--textSecondaryColor)]">Movies Watched: <span className="text-white font-bold float-end ml-7">120</span></p>
-                <p className="text-[var(--textSecondaryColor)]">Member Since: <span className="text-white font-bold float-end ml-7">Aug 2025</span></p>
-                <p className="text-[var(--textSecondaryColor)]">Movies Rated: <span className="text-white font-bold float-end ml-7">19</span></p>
+
+            <section className="profile-stats p-6 border-l border-[var(--borderColorSecondary)] flex justify-center flex-col gap-1.5 shrink-0">
+              <p className="text-[var(--textSecondaryColor)] font-light">Movies Watched: <span className="text-white font-medium float-end ml-7">120</span></p>
+              <p className="text-[var(--textSecondaryColor)]">Member Since: <span className="text-white font-medium float-end ml-7">Aug 2025</span></p>
+              <p className="text-[var(--textSecondaryColor)]">Movies Rated: <span className="text-white font-medium float-end ml-7">19</span></p>
             </section>
           </div>
 
           <h2 className="text-3xl font-bold mb-2 mt-10">My Watchlist</h2>
-          <div id="searchResults" className="flex flex-col gap-6 mt-6">
-            <a href="#" className="searchResult movieSearchResult flex gap-4">
-                  <img className="w-[120px] rounded-xl border border-[var(--borderColorPrimary)]" src={`https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?cs=srgb&dl=pexels-stefan-stefancik-91227.jpg&fm=jpg`} alt="test" />
-                  <div>
-                    <h2>Test title</h2>
-                    <div className="tags flex flex-wrap gap-2 mt-1">
-                      <span className="genreTag">Genre1</span>
-                      <span className="genreTag">Genre2</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam aut, magnam natus quis dignissimos architecto quidem distinctio dolor rerum laboriosam expedita veritatis explicabo corrupti reprehenderit placeat minima, voluptates ab nostrum.</p>
-                  </div>
-            </a>
-            <a href="#" className="searchResult movieSearchResult flex gap-4">
-                  <img className="w-[120px] rounded-xl border border-[var(--borderColorPrimary)]" src={`https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?cs=srgb&dl=pexels-stefan-stefancik-91227.jpg&fm=jpg`} alt="test" />
-                  <div>
-                    <h2>Test title</h2>
-                    <div className="tags flex flex-wrap gap-2 mt-1">
-                      <span className="genreTag">Genre1</span>
-                      <span className="genreTag">Genre2</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam aut, magnam natus quis dignissimos architecto quidem distinctio dolor rerum laboriosam expedita veritatis explicabo corrupti reprehenderit placeat minima, voluptates ab nostrum.</p>
-                  </div>
-            </a>
-            <a href="#" className="searchResult movieSearchResult flex gap-4">
-                  <img className="w-[120px] rounded-xl border border-[var(--borderColorPrimary)]" src={`https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?cs=srgb&dl=pexels-stefan-stefancik-91227.jpg&fm=jpg`} alt="test" />
-                  <div>
-                    <h2>Test title</h2>
-                    <div className="tags flex flex-wrap gap-2 mt-1">
-                      <span className="genreTag">Genre1</span>
-                      <span className="genreTag">Genre2</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam aut, magnam natus quis dignissimos architecto quidem distinctio dolor rerum laboriosam expedita veritatis explicabo corrupti reprehenderit placeat minima, voluptates ab nostrum.</p>
-                  </div>
-            </a>
-          </div>
+          <ProfileWatchlist />
         </main>
+
         <Footer />
-      </>
-    );
+    </>;
 }
