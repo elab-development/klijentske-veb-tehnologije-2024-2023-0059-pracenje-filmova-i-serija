@@ -8,9 +8,8 @@ import NoBanner from "app/assets/NoBanner.png";
 import ContentType from "../ContentType";
 
 function PersonHolder({props}: {props: {id: string}}){
-    const { status: castStatus, error: castError, data: personInfo } = useQuery<PersonInfo>({queryKey: [`person${props.id}`], queryFn: () => fetchActorDetails({id: props.id})})
+    const { status: castStatus, error: castError, data: personInfo } = useQuery<PersonInfo>({queryKey: [`person${props.id}`], queryFn: () => fetchActorDetails({id: props.id})});
     
-    console.log(personInfo);
     const starringList = personInfo?.credits?.cast?.map(item => {
         return (
             <a key={item.id} href={`/content/${item.media_type}.${item.id}`} className="contentItem snap-center">

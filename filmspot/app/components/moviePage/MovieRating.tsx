@@ -1,6 +1,3 @@
-// CircularRating.tsx
-import React from 'react';
-
 type CircularRatingProps = {
   value: number; // Expected between 0 and 10
 };
@@ -28,7 +25,7 @@ export default function CircularRating({ value }: CircularRatingProps) {
     }
 
   return (
-    <svg height={radius * 2} width={radius * 2} style={{ boxShadow: '-5px 5px 30px ' + color }}>
+    <svg height={radius * 2} width={radius * 2} style={{ boxShadow: '-5px 5px 30px ' + color }} >
       <circle
         stroke="#2b2b2b"
         fill="#121212"

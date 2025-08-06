@@ -629,9 +629,6 @@ body:has(.movieInfoHolder .allCast.open) {
   pointer-events: all;
   transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
 }
-.similarMovies .content .contentItem *{
-  pointer-events: none;
-}
 .similarMovies .content .contentItem img{
   position: absolute;
   top: 0;
