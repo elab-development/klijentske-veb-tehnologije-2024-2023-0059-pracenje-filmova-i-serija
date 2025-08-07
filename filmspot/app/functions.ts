@@ -37,28 +37,30 @@ export function handleMovieSliderScroll(scrollRef: RefObject<HTMLSpanElement | n
     scrollRef.current.classList.toggle("no-right", atEnd);
 }
 
-export function saveToWatchlist(itemId: MovieInfo["id"]){
+export function saveToWatchlist(itemId: MovieInfo["id"], rating?: number){
     if(!itemId)
         return;
 
-    // localStorage.clear();
+    const type = !rating ? "wishlist" : "rating";
+    let currentList = JSON.parse(localStorage.getItem(type) ?? "null");
 
-    let currentWishlist = JSON.parse(localStorage.wishlist ?? "null");
-    if(currentWishlist?.[itemId]?.["wishlist"]){
+    if(currentList?.[itemId]?.[type]){
         console.log("Obrisi")
-        delete currentWishlist[itemId]["wishlist"];
+        delete currentList[itemId][type];
         
-        if(Object.keys(currentWishlist[itemId]).length === 0)
-            delete currentWishlist[itemId];
+        if(Object.keys(currentList[itemId]).length === 0)
+            delete currentList[itemId];
 
         document.getElementsByName(`movie${itemId}`).forEach(element => {
             element.classList.remove("open");
-            if(element.querySelector("p"))
-                element.querySelector("p")!.innerHTML = "Add to Watchlist";
+            if(!element.querySelector("p"))
+                return;
+
+            element.querySelector("p")!.innerHTML = "Add to Watchlist";
         })
-    }else if(currentWishlist?.[itemId]){
-        console.log("Postavi u wishlist");
-        currentWishlist[itemId]["wishlist"] = true;
+    }else if(currentList?.[itemId]){
+        console.log("Postavi u listu");
+        currentList[itemId][type] = !rating ? true : rating;
 
         document.getElementsByName(`movie${itemId}`).forEach(element => {
             element.classList.add("open");
@@ -66,7 +68,7 @@ export function saveToWatchlist(itemId: MovieInfo["id"]){
                 element.querySelector("p")!.innerHTML = "In Watchlist";
         })
     }else{
-        currentWishlist = {[itemId]: {wishlist: true}};
+        currentList = {[itemId]: {[type]: !rating ? true : rating}};
 
         document.getElementsByName(`movie${itemId}`).forEach(element => {
             element.classList.add("open");
@@ -75,5 +77,5 @@ export function saveToWatchlist(itemId: MovieInfo["id"]){
         })
     }
 
-    localStorage.wishlist = JSON.stringify(currentWishlist);
+    localStorage.wishlist = JSON.stringify(currentList);
 }

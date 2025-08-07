@@ -12,19 +12,22 @@ import MoreCast from "./MoreCast";
 import { saveToWatchlist, toggleElementWD } from "~/functions";
 
 function MovieInfoHolder({props}: {props: MovieHolderInfo}){
-    const { status: castStatus, data: castInfo } = useQuery({queryKey: [`cast${props.type}${props.id}`], queryFn: () => getSingleCast({id: props.id, type: props.type})})
+    const { status: castStatus, data: castInfo } = useQuery({queryKey: [`cast${props.type}${props.id}`], queryFn: () => getSingleCast({id: props.id, type: props.type})});
     const cast = castInfo?.cast?.slice(0, 6)?.map((item: CastInfo) => {
-        return <CastItem key={item.id} props={item}></CastItem>
+        return <CastItem key={item.id} props={item}></CastItem>;
     });
 
-    const { data: trailer } = useQuery({queryKey: [`videos${props.type}${props.id}`], queryFn: () => getSingleTrailer({id: props.id, type: props.type})})
+    const { data: trailer } = useQuery({queryKey: [`videos${props.type}${props.id}`], queryFn: () => getSingleTrailer({id: props.id, type: props.type})});
 
     const [preGenres, setPreGenres] = useState<string[]>([]);
     const [genres, setGenres] = useState<string[]>([]);
     let isInWishlist = useRef(false);
+    let isRated = useRef(false);
 
     useLayoutEffect(() => {
         isInWishlist.current = JSON.parse(localStorage.wishlist ?? "null")?.[props.id]?.["wishlist"];
+        isRated.current = JSON.parse(localStorage.wishlist ?? "null")?.[props.id]?.["rated"];
+        console.log(isInWishlist.current, isRated.current)
 
         document.title = props.title ?? props.name;
 
@@ -71,16 +74,16 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
                 }
 
                 <span className="buttonHolder">
-                    <button name={`movie${props.id}`} className={`addToWatchlist button ${isInWishlist.current ? "open" : ''}`} onClick={() => saveToWatchlist(props.id)} >
+                    <button name={`movie${props.id}`} className={`addToWatchlist button ${isInWishlist.current ? "open" : ''}`} onClick={() => saveToWatchlist(props.id)}>
                         <svg width="13" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd" d="M1 3C1 1.89543 1.89543 1 3 1H8C9.10457 1 10 1.89543 10 3V10.8165C10 11.6724 8.99479 12.1328 8.34677 11.5737L5.5 9.11765L2.65323 11.5737C2.00521 12.1328 1 11.6724 1 10.8165V3Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                         <p>Add to watchlist</p>
                     </button>
 
-                    <button className="rateMovie button">
+                    <button className={`rateMovie button ${isRated.current ? "open" : ''}`} onClick={() => saveToWatchlist(props.id, 3)}>
                         <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.53834 1.48741C7.70914 1.07676 8.29086 1.07676 8.46166 1.48741L9.96858 5.11048C10.0406 5.2836 10.2034 5.40188 10.3903 5.41687L14.3017 5.73044C14.745 5.76598 14.9248 6.31924 14.587 6.60857L11.6069 9.16133C11.4645 9.28331 11.4024 9.4747 11.4459 9.65708L12.3563 13.474C12.4595 13.9066 11.9889 14.2485 11.6093 14.0167L8.26063 11.9713C8.10062 11.8736 7.89938 11.8736 7.73937 11.9713L4.39066 14.0167C4.01111 14.2485 3.54048 13.9066 3.64367 13.474L4.55414 9.65708C4.59764 9.4747 4.53546 9.28331 4.39306 9.16133L1.41298 6.60857C1.07521 6.31924 1.25497 5.76598 1.6983 5.73044L5.60971 5.41687C5.79661 5.40188 5.95941 5.2836 6.03142 5.11048L7.53834 1.48741Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M7.53834 1.48741C7.70914 1.07676 8.29086 1.07676 8.46166 1.48741L9.96858 5.11048C10.0406 5.2836 10.2034 5.40188 10.3903 5.41687L14.3017 5.73044C14.745 5.76598 14.9248 6.31924 14.587 6.60857L11.6069 9.16133C11.4645 9.28331 11.4024 9.4747 11.4459 9.65708L12.3563 13.474C12.4595 13.9066 11.9889 14.2485 11.6093 14.0167L8.26063 11.9713C8.10062 11.8736 7.89938 11.8736 7.73937 11.9713L4.39066 14.0167C4.01111 14.2485 3.54048 13.9066 3.64367 13.474L4.55414 9.65708C4.59764 9.4747 4.53546 9.28331 4.39306 9.16133L1.41298 6.60857C1.07521 6.31924 1.25497 5.76598 1.6983 5.73044L5.60971 5.41687C5.79661 5.40188 5.95941 5.2836 6.03142 5.11048L7.53834 1.48741Z" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                         <p>Rate this movie</p>
                     </button>

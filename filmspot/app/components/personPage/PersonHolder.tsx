@@ -6,9 +6,10 @@ import Woman from "app/assets/Man.png";
 import MovieSlider from "../MovieSlider";
 import NoBanner from "app/assets/NoBanner.png";
 import ContentType from "../ContentType";
+import { useLayoutEffect } from "react";
 
 function PersonHolder({props}: {props: {id: string}}){
-    const { status: castStatus, error: castError, data: personInfo } = useQuery<PersonInfo>({queryKey: [`person${props.id}`], queryFn: () => fetchActorDetails({id: props.id})});
+    const { data: personInfo } = useQuery<PersonInfo>({queryKey: [`person${props.id}`], queryFn: () => fetchActorDetails({id: props.id})});
     
     const starringList = personInfo?.credits?.cast?.map(item => {
         return (
@@ -31,6 +32,11 @@ function PersonHolder({props}: {props: {id: string}}){
                 <span className="bottomShadow"></span>
             </a>
         );
+    })
+
+    useLayoutEffect(() => {
+        if(personInfo?.details)
+            document.title = personInfo.details.name;
     })
 
     return <>

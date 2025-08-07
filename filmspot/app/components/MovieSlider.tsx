@@ -23,7 +23,7 @@ function MovieSlider({props}: {props: {content: any, scrollValue?: number}}){
             </button>
             <button className="button right" onClick={() => buttonHandle('+')}>
                 <svg className="mr-[-2px]" width="15" height="20" viewBox="0 0 15 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.01672 23.1334L12.2834 12.8668L2.01672 2.6001" stroke="black" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path className="transition-[0.2]" d="M2.01672 23.1334L12.2834 12.8668L2.01672 2.6001" stroke="black" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </button>
         </span>
