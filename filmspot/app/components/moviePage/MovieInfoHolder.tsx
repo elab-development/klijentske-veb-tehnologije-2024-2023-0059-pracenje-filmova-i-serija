@@ -24,7 +24,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
     let isInWishlist = useRef(false);
 
     useLayoutEffect(() => {
-        isInWishlist.current = JSON.parse(localStorage.wishlist ?? "null")[props.id];
+        isInWishlist.current = JSON.parse(localStorage.wishlist ?? "null")?.[props.id]?.["wishlist"];
 
         document.title = props.title ?? props.name;
 
