@@ -7,6 +7,7 @@ import MovieSlider from "../MovieSlider";
 import NoBanner from "app/assets/NoBanner.png";
 import ContentType from "../ContentType";
 import { useLayoutEffect } from "react";
+import MovieInfoPart from "../moviePage/MovieInfoPart";
 
 function PersonHolder({props}: {props: {id: string}}){
     const { data: personInfo } = useQuery<PersonInfo>({queryKey: [`person${props.id}`], queryFn: () => fetchActorDetails({id: props.id})});
@@ -40,39 +41,44 @@ function PersonHolder({props}: {props: {id: string}}){
     })
 
     return <>
-        <main className="!pt-0 w-full max-w-[1400px] mx-auto flex gap-10 items-start">
-            <span className="personInfo w-fit shrink-0">
-                <img src={personInfo?.details.profile_path ? `${import.meta.env.VITE_TMDB_PROFILE_BASE_URL}${personInfo?.details.profile_path}` : personInfo?.details.gender === 1 ? Man : Woman} alt="Profile" />
-                <span className="flex flex-col gap-2 p-4">
-                    <h2 className="text-xl font-medium">Personal Information</h2>
-                    
-                    <PersonalInfoItem props={{title: "Known For", text: personInfo?.details.known_for_department}} />
-                    <PersonalInfoItem props={{title: "Known Credits", text: personInfo?.credits.cast.length.toString()}} />
-                    <PersonalInfoItem props={{title: "Gender", text: personInfo?.details.gender === 1 ? "Female" : personInfo?.details.gender === 2 ? "Male" : "Non binary"}} />
-                    <PersonalInfoItem props={{title: "Birthday", text: personInfo?.details.birthday}} />
-                    <PersonalInfoItem props={{title: "Place of Birth", text: personInfo?.details.place_of_birth}} />
-                </span>
-            </span>
+        <main className="!pt-0 w-full max-w-[1400px] mx-auto items-start">
+            <div className="flex gap-10">
+                <img className="w-[300px] aspect-[16/9] shrink-0" src={personInfo?.details.profile_path ? `${import.meta.env.VITE_TMDB_PROFILE_BASE_URL}${personInfo?.details.profile_path}` : personInfo?.details.gender === 1 ? Man : Woman} alt="Profile" />
 
-            <div className="personDetails mt-10 overflow-x-hidden">
-                <h1 className="text-3xl font-medium mb-5">{personInfo?.details.name}</h1>
+                <div className="personDetails mt-10 overflow-x-hidden">
+                    <h1 className="text-3xl font-medium">{personInfo?.details.name}</h1>
 
-                <span>
-                    <h2 className="font-medium">Biography</h2>
-                    <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] mt-1 max-h-[250px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.biography?.length > 0) ? personInfo?.details.biography : "No biography available"}</p>
-                </span>
+                    <span className="infoPartsHolder flex items-center mt-2">
+                        <MovieInfoPart items={[personInfo?.details.known_for_department || "No info available", personInfo?.details.gender === 1 ? "Female" : personInfo?.details.gender === 2 ? "Male" : "Non binary", personInfo?.credits.cast.length.toString() + " Known credits"]} additionalClasses="genre" />
+                    </span>
 
-                <div className="similarMovies mt-[50px] z-1">
-                    <h2 className="text-xl font-medium">Starring in</h2>
+                    <span>
+                        <h2 className="font-medium mt-5">Biography</h2>
+                        <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] mt-1 max-h-[250px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.biography?.length > 0) ? personInfo?.details.biography : "No biography available"}</p>
+                    </span>
 
-                    <span className="block px-[20px]">
-                        {starringList && 
-                            <div className="similarMovies mt-[10px] z-1">
-                                <MovieSlider props={{content: starringList}} />
-                            </div>
-                        }
+                    <span>
+                        <h2 className="font-medium mt-5">Birthday</h2>
+                        <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] mt-1 max-h-[250px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.birthday?.length > 0) ? personInfo?.details.birthday : "No birthday available"}</p>
+                    </span>
+
+                    <span>
+                        <h2 className="font-medium mt-5">Place of Birth</h2>
+                        <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] mt-1 max-h-[250px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.place_of_birth?.length > 0) ? personInfo?.details.place_of_birth : "No place of birth available"}</p>
                     </span>
                 </div>
+            </div>
+
+            <div className="similarMovies mt-[50px] z-1">
+                <h2 className="text-xl font-medium">Starring in</h2>
+
+                <span className="block px-[20px]">
+                    {starringList && 
+                        <div className="similarMovies mt-[10px] z-1">
+                            <MovieSlider props={{content: starringList}} />
+                        </div>
+                    }
+                </span>
             </div>
         </main>
     </>

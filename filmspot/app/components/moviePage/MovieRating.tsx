@@ -31,7 +31,7 @@ export default function CircularRating({ value }: CircularRatingProps) {
   const easeOutQuart = (t: number): number => 1 - Math.pow(1 - t, 4);
 
   useEffect(() => {
-    const duration = 800;
+    const duration = 1500;
     
     const animate = (currentTime: number) => {
       if (!startTimeRef.current) {
