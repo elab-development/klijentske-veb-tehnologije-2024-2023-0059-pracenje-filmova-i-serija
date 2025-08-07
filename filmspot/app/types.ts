@@ -109,3 +109,11 @@ export type PersonInfo = {
         profile_path: string
     }
 }
+
+export type watchlistItem = {
+    banner: string,
+    name: string,
+    year: string,
+    genres: string[],
+    description: string
+}

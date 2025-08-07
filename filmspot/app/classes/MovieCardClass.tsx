@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import ContentType from "~/components/ContentType";
+import { tmdbAllGenres } from "~/constants";
 import { saveToWatchlist } from "~/functions";
 import type { MovieInfo } from "~/types";
 
@@ -9,20 +10,25 @@ class MovieCard<P extends MovieInfo = MovieInfo> extends React.Component<P>{
         super(props);
     }
 
+    banner = `${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${this.props.poster_path}`;
+    genres: string[] = this.props.genre_ids.filter(id => id in tmdbAllGenres).slice(0, 3).map(id => tmdbAllGenres[id]);  
+
     render(){
         const isInSaved = () => {
-            const isSaved = JSON.parse(localStorage.wishlist ?? "null")?.[this.props.id]?.["wishlist"];
+            const isSaved = JSON.parse(localStorage.userActions ?? "null")?.[this.props.id]?.["wishlist"];
             if(!isSaved)
                 return false;
 
             return true;
         }
 
+        console.log(this.banner, this.genres)
+
         return (
             <div className="movieCard relative snap-center">
-                <img src={`${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${this.props.poster_path}`} alt="Background" />
+                <img src={this.banner} alt="Background" />
 
-                <button name={`movie${this.props.id}`} className={`bookmark absolute button z-1 ${isInSaved() ? "open" : ''}`} onClick={() => {saveToWatchlist(this.props.id)}}>
+                <button name={`movie${this.props.id}`} className={`bookmark absolute button z-1 ${isInSaved() ? "open" : ''}`} onClick={() => {saveToWatchlist(this.props.id, undefined, {banner: this.banner, name: this.props.title ?? this.props.name, year: this.props.release_date?.split('-')[0], genres: this.genres, description: this.props.overview})}}>
                     <svg className="pointer-events-none" width="15" height="15" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M1 3C1 1.89543 1.89543 1 3 1H12C13.1046 1 14 1.89543 14 3V17.6779C14 18.5555 12.9505 19.0074 12.3129 18.4045L7.5 13.8529L2.68711 18.4045C2.04954 19.0074 1 18.5555 1 17.6779V3Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
@@ -57,3 +63,7 @@ class MovieCard<P extends MovieInfo = MovieInfo> extends React.Component<P>{
 }
 
 export default MovieCard;
+
+function usEffect(arg0: () => void, arg1: never[]) {
+    throw new Error("Function not implemented.");
+}

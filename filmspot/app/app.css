@@ -576,7 +576,7 @@ main{
 }
 body:has(.movieInfoHolder .allCast.open) {
   overflow-y: hidden;
-  padding-right: 14px;
+  padding-right: 13px;
 }
 
 .similarMovies .content{
@@ -693,6 +693,56 @@ body:has(.movieInfoHolder .allCast.open) {
 .similarMovies > span > button.right{
   left: calc(100% - 30px);
 }
+
+.ratingPopup{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  opacity: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background-color: var(--backgroundTransparentPrimary);
+  transition: all .2s ease-in-out;
+  pointer-events: none;
+}
+.ratingPopup.open{
+  opacity: 1;
+  pointer-events: all;
+}
+.ratingPopup > span{
+  transform: scale3d(.3, .3, 1);
+  backdrop-filter: blur(7px);
+  background-color: var(--backgroundTransparentSecondary);
+  width: fit-content;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid var(--borderColorPrimary);
+  transition: transform .2s ease-in-out;
+}
+.ratingPopup.open > span{
+  transform: scale3d(1, 1, 1);
+}
+.ratingPopup .stars{
+  direction: rtl;
+}
+.ratingPopup span svg{
+  cursor: pointer;
+}
+.ratingPopup span svg path{
+  pointer-events: none;
+  transition: all .2s ease-in-out;
+}
+.ratingPopup .stars svg.open path, 
+.ratingPopup .stars svg.open ~ svg path, 
+.ratingPopup .stars svg.clicked path, 
+.ratingPopup .stars svg.clicked ~ svg path{
+  stroke: var(--textAccentColor);
+  fill: var(--textAccentColor);
+}
 /* MOVIE PAGE */
 
 /* SEARCH PAGE */
@@ -769,6 +819,7 @@ body:has(.movieInfoHolder .allCast.open) {
   border-radius: 20px;
   margin-top: 20px;
   overflow: hidden;
+  position: relative;
 }
 
 /* SEARCH RESULT */
@@ -836,7 +887,7 @@ body:has(.movieInfoHolder .allCast.open) {
   display: flex;
   gap: 15px;
 }
-.wishlistButtons button{
+.wishlistButtons > *{
   display: flex;
   gap: 6px;
   align-items: center;

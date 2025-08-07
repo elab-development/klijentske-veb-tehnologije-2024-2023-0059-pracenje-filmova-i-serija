@@ -18,7 +18,7 @@ function SimilarOrRecommended({props}: {props: Props}){
     const { status, data: moreContent } = useQuery({queryKey: [`${props.isSimilar ? "Similar" : "Recommended"}${props.type}${props.id}`], queryFn: () => getSimilarOrRecommended({id: props.id, type: props.type, isSimilar: props.isSimilar})})
     
     const isInWishlist = (id: number) => {
-        if(JSON.parse(localStorage.wishlist ?? "null")?.[id]?.["wishlist"])
+        if(JSON.parse(localStorage.userActions ?? "null")?.[id]?.["wishlist"])
             return true;
 
         return false;

@@ -1,11 +1,9 @@
 import type { RefObject } from "react";
-import type { MovieInfo, ToggleFnProps } from "./types";
+import type { MovieInfo, ToggleFnProps, watchlistItem } from "./types";
 
 let timeouts: { [id: string]: ReturnType<typeof setTimeout> } = {};
 
 export function toggleElementWD(props: ToggleFnProps){
-    console.log(props.element);
-
     if(props.element.classList.contains("open")){
         props.element.classList.remove("open");
 
@@ -37,45 +35,73 @@ export function handleMovieSliderScroll(scrollRef: RefObject<HTMLSpanElement | n
     scrollRef.current.classList.toggle("no-right", atEnd);
 }
 
-export function saveToWatchlist(itemId: MovieInfo["id"], rating?: number){
+export function saveToWatchlist(itemId: MovieInfo["id"], rating?: number, itemData?: watchlistItem){
     if(!itemId)
         return;
 
     const type = !rating ? "wishlist" : "rating";
-    let currentList = JSON.parse(localStorage.getItem(type) ?? "null");
+    let currentList = JSON.parse(localStorage.userActions ?? "null");
 
     if(currentList?.[itemId]?.[type]){
-        console.log("Obrisi")
-        delete currentList[itemId][type];
+        if(type === "wishlist"){
+            delete currentList[itemId][type];
         
-        if(Object.keys(currentList[itemId]).length === 0)
-            delete currentList[itemId];
+            const keys = Object.keys(currentList[itemId]);
+            if(keys.length === 1 && keys[0] === "details")
+                delete currentList[itemId];
 
-        document.getElementsByName(`movie${itemId}`).forEach(element => {
-            element.classList.remove("open");
-            if(!element.querySelector("p"))
-                return;
-
-            element.querySelector("p")!.innerHTML = "Add to Watchlist";
-        })
+            toggleBookmarks(`movie${itemId}`, false);
+        }else{
+            currentList[itemId][type] = rating;
+            toggleRating(`rating${itemId}`, rating);
+        }
     }else if(currentList?.[itemId]){
-        console.log("Postavi u listu");
         currentList[itemId][type] = !rating ? true : rating;
 
-        document.getElementsByName(`movie${itemId}`).forEach(element => {
-            element.classList.add("open");
-            if(element.querySelector("p"))
-                element.querySelector("p")!.innerHTML = "In Watchlist";
-        })
+        if(type === "wishlist")
+            toggleBookmarks(`movie${itemId}`, true);
+        else
+            toggleRating(`rating${itemId}`, rating);
     }else{
-        currentList = {[itemId]: {[type]: !rating ? true : rating}};
+        currentList = {[itemId]: {details: itemData, [type]: !rating ? true : rating}};
 
-        document.getElementsByName(`movie${itemId}`).forEach(element => {
-            element.classList.add("open");
-            if(element.querySelector("p"))
-                element.querySelector("p")!.innerHTML = "In Watchlist";
-        })
+        if(type === "wishlist")
+            toggleBookmarks(`movie${itemId}`, true);
+        else
+            toggleRating(`rating${itemId}`, rating);
     }
 
-    localStorage.wishlist = JSON.stringify(currentList);
+    localStorage.userActions = JSON.stringify(currentList);
+    // localStorage.clear();
+}
+
+function toggleBookmarks(name: string, option: boolean){
+    if(option)
+        document.getElementsByName(name).forEach(element => {
+            element.classList.add("open");
+            if(element.querySelector("p"))
+                element.querySelector("p")!.innerHTML = "In Watchlist";
+        })
+    else
+        document.getElementsByName(name).forEach(element => {
+            element.classList.remove("open");
+            if(element.querySelector("p"))
+                element.querySelector("p")!.innerHTML = "Add to Watchlist";
+        })
+}
+
+function toggleRating(name: string, rating?: number){
+    if(rating)
+        document.getElementsByName(name).forEach(element => {
+            element.classList.add("open");
+            if(element.querySelector("p"))
+                element.querySelector("p")!.innerHTML = `${rating}/10`;
+        })
+    else{
+        document.getElementsByName(name).forEach(element => {
+            element.classList.remove("open");
+            if(element.querySelector("p"))
+                element.querySelector("p")!.innerHTML = "Rate this movie";
+        })
+    }
 }
