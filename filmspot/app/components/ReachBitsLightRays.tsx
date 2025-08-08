@@ -92,6 +92,8 @@ const LightRays: React.FC<LightRaysProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
+  console.log("Rerendered")
+
   useEffect(() => {
     if (!containerRef.current) return;
 

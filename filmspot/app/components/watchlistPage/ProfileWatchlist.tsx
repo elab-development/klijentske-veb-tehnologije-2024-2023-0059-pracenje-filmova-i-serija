@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState, type ReactElement } from "react";
 import MovieInfoPart from "../moviePage/MovieInfoPart";
 import type { watchlistItem } from "~/types";
 import { saveToWatchlist } from "~/functions";
+import { Link } from "react-router";
 
 type ListItemProps = {
     details: watchlistItem & {id: number | string, rating: number | false}
@@ -43,21 +44,23 @@ function WatchlistItem({props}: {props: watchlistItem & {id: number | string, ra
 
         saveToWatchlist(Number(props.id));
     }
+
+    console.log("da: ", props)
         
     return <>
         <div ref={watchlistItemRef} className="searchResult movieSearchResult flex !gap-6 w-full">
-            <a href={`/content/movie.${props.id}`} className="absolute w-full h-full z-1"></a>
+            <Link to={`/content/${props.type}.${props.id}`} className="absolute w-full h-full z-1" />
             <img className="w-[120px] aspect-[3/4.3] rounded-xl border border-[var(--borderColorPrimary)]" src={props.banner} alt="test" />
             
             <div className={`w-full overflow-x-hidden ${props.description.length > 0 ? "content-center" : ''}`}>
                 <div className="flex justify-between w-full">
                     <span className="flex gap-1 max-w-[50%]">
                         <h2 className="text-ellipsis overflow-hidden whitespace-nowrap">{props.name}</h2>
-                        <p className="!text-xl !mt-0">({props.year})</p>
+                        <p className="!text-xl !mt-0">({props.year ?? props.name})</p>
                     </span>
                     
                     <span className="wishlistButtons shrink-0 z-2">
-                        <span className="flex items-center gap-2 rounded-full text-[.9rem] select-none">
+                        <span className={`flex items-center gap-2 rounded-full text-[.9rem] select-none ${props.rating && "rated"}`}>
                             {props.rating
                                 ? <>
                                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

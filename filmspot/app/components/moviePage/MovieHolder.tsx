@@ -7,7 +7,7 @@ import MovieHolderLoadingTemplate from "./MovieHolderLoadingTemplate";
 
 function MovieHolder({URLParams}: {URLParams: any}){
     const [type, id] = URLParams?.split(".") ?? [0, "movie"];
-    const { status, error, data: movieInfo } = useQuery({queryKey: [`${type}${id}`], queryFn: () => getSingle({id: id, type: type})})
+    const { data: movieInfo } = useQuery({queryKey: [`${type}${id}`], queryFn: () => getSingle({id: id, type: type})})
 
     return <>
         {movieInfo

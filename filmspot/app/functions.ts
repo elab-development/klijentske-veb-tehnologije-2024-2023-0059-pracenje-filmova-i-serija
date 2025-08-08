@@ -63,7 +63,7 @@ export function saveToWatchlist(itemId: MovieInfo["id"], rating?: number, itemDa
         else
             toggleRating(`rating${itemId}`, rating);
     }else{
-        currentList = {[itemId]: {details: itemData, [type]: !rating ? true : rating}};
+        currentList = {...currentList, ...{[itemId]: {details: itemData, [type]: !rating ? true : rating}}};
 
         if(type === "wishlist")
             toggleBookmarks(`movie${itemId}`, true);

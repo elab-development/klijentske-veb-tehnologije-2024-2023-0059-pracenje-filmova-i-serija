@@ -3,9 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getContent } from "../../APICalls";
 import MovieSection from "../MovieSection";
 
-function Top5(){
-    // const top5MoviesList = useContext(MovieContext);
-    const { status, error, data: top5MoviesList } = useQuery({queryKey: ["top5"], queryFn: () => getContent({type: "movie", content: "trending"})})
+function Top5({type}: {type: "movie" | "tv"}){
+    const { data: top5MoviesList } = useQuery({queryKey: [`top5${type}`], queryFn: () => getContent({type: type, content: "trending"})})
 
     const top5 = top5MoviesList?.slice(0, 5)?.map((item, index) => {
         return (

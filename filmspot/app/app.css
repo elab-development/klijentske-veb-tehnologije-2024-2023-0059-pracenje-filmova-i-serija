@@ -252,6 +252,7 @@ footer .followUs h2{
 .type.series{
   background-color: #03405A;
 }
+
 .movieCard .type{
   font-size: 10px;
 }
@@ -862,6 +863,8 @@ body:has(.movieInfoHolder .allCast.open) {
   margin-top: 5px;
   font-size: 1rem;
   color: var(--textSecondaryColor);
+  max-height: 100px;
+  overflow: hidden;
 }
 /* MOVIE SEARCH RESULT  */
 
@@ -878,9 +881,15 @@ body:has(.movieInfoHolder .allCast.open) {
   max-height: 350px;
   border-bottom: 1px solid var(--borderColorSecondary);
 }
-
 .infoPart.tags .type{
   font-size: .9rem;
+}
+.infoPart.person .type{
+  border: 1px solid var(--borderColorSecondary);
+}
+.infoPart.person .type:nth-child(n + 2){
+  background-color: rgba(255, 255, 255, .1);
+  margin-left: 5px;
 }
 
 .wishlistButtons{
@@ -900,12 +909,13 @@ body:has(.movieInfoHolder .allCast.open) {
   border: none;
   background-color: #DF354B;
 }
-.wishlistButtons button.rated{
+.wishlistButtons span.rated{
   color: black;
   border: none;
   background-color: #DFC843;
+  font-weight: 500;
 }
-.wishlistButtons button.rated svg path{
+.wishlistButtons span.rated svg path{
   stroke: #000000;
 }
 /* PERSON PAGE */

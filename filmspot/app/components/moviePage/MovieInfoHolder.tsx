@@ -63,7 +63,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
             </span>
 
             <span className="importantHolder z-1">
-                <h2 className="mb-2">{props.title}</h2>
+                <h2 className="mb-2">{props.title ?? props.name}</h2>
 
                 {castStatus === "success" && 
                     <span className="infoPartsHolder flex items-center">
@@ -74,7 +74,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
                 }
 
                 <span className="buttonHolder">
-                    <button name={`movie${props.id}`} className={`addToWatchlist button ${isInUserActions.current[0] ? "open" : ''}`} onClick={() => saveToWatchlist(props.id, undefined, {banner: banner.current, name: props.title ?? props.name, year: props.release_date?.split('-')[0], genres: genres, description: props.overview})}>
+                    <button name={`movie${props.id}`} className={`addToWatchlist button ${isInUserActions.current[0] ? "open" : ''}`} onClick={() => saveToWatchlist(props.id, undefined, {banner: banner.current, name: props.title ?? props.name, year: props.release_date ? props.release_date?.split('-')[0] : props.first_air_date?.split('-')[0], genres: genres, description: props.overview, type: props.type})}>
                         <svg width="13" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd" d="M1 3C1 1.89543 1.89543 1 3 1H8C9.10457 1 10 1.89543 10 3V10.8165C10 11.6724 8.99479 12.1328 8.34677 11.5737L5.5 9.11765L2.65323 11.5737C2.00521 12.1328 1 11.6724 1 10.8165V3Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>

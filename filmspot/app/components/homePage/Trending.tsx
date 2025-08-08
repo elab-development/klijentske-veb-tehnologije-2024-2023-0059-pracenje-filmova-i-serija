@@ -3,13 +3,13 @@ import MovieCard from "~/classes/MovieCardClass";
 import { getContent } from "../../APICalls";
 import MovieSection from "../MovieSection";
 
-function Trending(){
-    const { status, error, data: moviesList } = useQuery({queryKey: ["popular"], queryFn: () => getContent({type: "movie", content: "popular"})})
+function Trending({type}: {type: "movie" | "tv"}){
+    const { data: moviesList } = useQuery({queryKey: [`popular${type}`], queryFn: () => getContent({type: type, content: "popular"})})
 
     const movies = moviesList?.map(item => {
         return (
             <div key={item.id} className="topMovie">
-                <MovieCard {...{...item, media_type: "movie"}} />
+                <MovieCard {...{...item, media_type: type}} />
             </div>
         );
     })

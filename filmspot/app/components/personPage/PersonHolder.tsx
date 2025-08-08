@@ -8,19 +8,20 @@ import NoBanner from "app/assets/NoBanner.png";
 import ContentType from "../ContentType";
 import { useLayoutEffect } from "react";
 import MovieInfoPart from "../moviePage/MovieInfoPart";
+import { Link } from "react-router";
 
 function PersonHolder({props}: {props: {id: string}}){
     const { data: personInfo } = useQuery<PersonInfo>({queryKey: [`person${props.id}`], queryFn: () => fetchActorDetails({id: props.id})});
     
     const starringList = personInfo?.credits?.cast?.map(item => {
         return (
-            <a key={item.id} href={`/content/${item.media_type}.${item.id}`} className="contentItem snap-center">
+            <Link key={item.id} to={`/content/${item.media_type}.${item.id}`} className="contentItem snap-center">
                 <span className="topShadow"></span>
                 
                 <img src={item.poster_path?.length > 0 ? `${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${item.poster_path}` : NoBanner} alt="Banner" />
 
                 <span>
-                    <h3>{item.title}</h3>
+                    <h3>{item.title ?? item.name}</h3>
                     <ContentType type={item.media_type as "movie" | "tv"} />
                 </span>
 
@@ -31,7 +32,7 @@ function PersonHolder({props}: {props: {id: string}}){
                 </button>
 
                 <span className="bottomShadow"></span>
-            </a>
+            </Link>
         );
     })
 
@@ -43,28 +44,28 @@ function PersonHolder({props}: {props: {id: string}}){
     return <>
         <main className="!pt-0 w-full max-w-[1400px] mx-auto items-start">
             <div className="flex gap-10">
-                <img className="w-[300px] aspect-[16/9] shrink-0" src={personInfo?.details.profile_path ? `${import.meta.env.VITE_TMDB_PROFILE_BASE_URL}${personInfo?.details.profile_path}` : personInfo?.details.gender === 1 ? Man : Woman} alt="Profile" />
+                <img className="w-[300px] max-h-[420px] rounded-[20px] shrink-0" src={personInfo?.details.profile_path ? `${import.meta.env.VITE_TMDB_PROFILE_BASE_URL}${personInfo?.details.profile_path}` : personInfo?.details.gender === 1 ? Man : Woman} alt="Profile" />
 
                 <div className="personDetails mt-10 overflow-x-hidden">
                     <h1 className="text-3xl font-medium">{personInfo?.details.name}</h1>
 
                     <span className="infoPartsHolder flex items-center mt-2">
-                        <MovieInfoPart items={[personInfo?.details.known_for_department || "No info available", personInfo?.details.gender === 1 ? "Female" : personInfo?.details.gender === 2 ? "Male" : "Non binary", personInfo?.credits.cast.length.toString() + " Known credits"]} additionalClasses="genre" />
+                        <MovieInfoPart items={[personInfo?.details.known_for_department || "No info available", personInfo?.details.gender === 1 ? "Female" : personInfo?.details.gender === 2 ? "Male" : "Non binary", personInfo?.credits.cast.length.toString() + " Known credits"]} additionalClasses="person" />
                     </span>
 
                     <span>
-                        <h2 className="font-medium mt-5">Biography</h2>
-                        <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] mt-1 max-h-[250px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.biography?.length > 0) ? personInfo?.details.biography : "No biography available"}</p>
+                        <h2 className="text-lg font-medium mt-5">Biography</h2>
+                        <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] max-h-[200px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.biography?.length > 0) ? personInfo?.details.biography : "No biography available"}</p>
                     </span>
 
                     <span>
-                        <h2 className="font-medium mt-5">Birthday</h2>
-                        <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] mt-1 max-h-[250px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.birthday?.length > 0) ? personInfo?.details.birthday : "No birthday available"}</p>
+                        <h2 className="text-lg font-medium mt-5">Birthday</h2>
+                        <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] max-h-[250px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.birthday?.length > 0) ? personInfo?.details.birthday : "No birthday available"}</p>
                     </span>
 
                     <span>
-                        <h2 className="font-medium mt-5">Place of Birth</h2>
-                        <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] mt-1 max-h-[250px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.place_of_birth?.length > 0) ? personInfo?.details.place_of_birth : "No place of birth available"}</p>
+                        <h2 className="text-lg font-medium mt-5">Place of Birth</h2>
+                        <p className="break-all text-[.95rem] text-[var(--textSecondaryColor)] max-h-[250px] overflow-y-auto overflow-x-hidden">{(personInfo?.details && personInfo?.details?.place_of_birth?.length > 0) ? personInfo?.details.place_of_birth : "No place of birth available"}</p>
                     </span>
                 </div>
             </div>
@@ -81,15 +82,6 @@ function PersonHolder({props}: {props: {id: string}}){
                 </span>
             </div>
         </main>
-    </>
-}
-
-function PersonalInfoItem({props}: {props: {title: string, text?: string}}){
-    return <>
-        <span className="personalInfoItem">
-            <h2 className="text-[.85rem] font-bold">{props.title}</h2>
-            <p className="text-[.75rem] text-[var(--textSecondaryColor)]">{(props.text && props.text.length > 0) ? props.text : "No data available"}</p>
-        </span>
     </>
 }
 

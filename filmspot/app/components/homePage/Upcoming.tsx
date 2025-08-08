@@ -3,13 +3,13 @@ import { getContent } from "../../APICalls";
 import MovieCard from "~/classes/MovieCardClass";
 import MovieSection from "../MovieSection";
 
-function Upcoming(){
-    const { status, error, data: upcomingList } = useQuery({queryKey: ["upcoming"], queryFn: () => getContent({type: "movie", content: "upcoming"})})
+function Upcoming({type}: {type: "movie" | "tv"}){
+    const { data: upcomingList } = useQuery({queryKey: [`upcoming${type}`], queryFn: () => getContent({type: type, content: "upcoming"})})
 
     const upcoming = upcomingList?.slice(0, 10)?.map(item => {
         return (
             <div key={item.id} className="topMovie">
-                <MovieCard {...{...item, media_type: "movie"}}/>
+                <MovieCard {...{...item, media_type: type}}/>
             </div>
         );
     })
