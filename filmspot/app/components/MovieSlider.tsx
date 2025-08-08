@@ -11,7 +11,7 @@ function MovieSlider({props}: {props: {content: any, scrollValue?: number}}){
     }
     
     return <>
-        <span className="relative">
+        <span className="relative block">
             <span className="content fade-mask no-left snap-x snap-mandatory" ref={scrollRef} onScroll={() => {handleMovieSliderScroll(scrollRef); disableButtons.current = true;}} onScrollEnd={() => {disableButtons.current = false}} >
                 {props.content}
             </span>

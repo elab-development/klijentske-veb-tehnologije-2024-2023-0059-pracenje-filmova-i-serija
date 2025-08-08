@@ -78,7 +78,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
                         <svg width="13" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fillRule="evenodd" clipRule="evenodd" d="M1 3C1 1.89543 1.89543 1 3 1H8C9.10457 1 10 1.89543 10 3V10.8165C10 11.6724 8.99479 12.1328 8.34677 11.5737L5.5 9.11765L2.65323 11.5737C2.00521 12.1328 1 11.6724 1 10.8165V3Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        <p>Add to watchlist</p>
+                        <p>{isInUserActions.current[0] ? "In Watchlist" : "Add to watchlist"}</p>
                     </button>
 
                     <button name={`rating${props.id}`} className={`rateMovie button ${isInUserActions.current[1] ? "open" : ''}`} onClick={() => toggleElementWD({element: ratingPopupRef.current!, time: 200})}>

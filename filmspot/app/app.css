@@ -23,6 +23,11 @@ body {
   }
 }
 
+*{
+  color: white;
+  box-sizing: border-box;
+}
+
 body{
   background-color: #11151C;
   min-height: 100dvh;
@@ -452,6 +457,10 @@ main{
 }
 .movieInfoHolder .importantHolder .buttonHolder button.addToWatchlist{
   background-color: var(--textAccentColor);
+  color: black;
+}
+.movieInfoHolder .importantHolder .buttonHolder button.addToWatchlist p{
+  color: black;
 }
 .movieInfoHolder .importantHolder .buttonHolder button.addToWatchlist svg path{
   transition: all .2s ease-in-out;
@@ -501,6 +510,7 @@ main{
   border-radius: 10px;
   cursor: pointer;
   transition: all .15s ease-in-out;
+  padding-right: 10px;
 }
 .movieInfoHolder .castItem:hover{
   background-color: rgba(255, 255, 255, .1);
@@ -692,7 +702,8 @@ body:has(.movieInfoHolder .allCast.open) {
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
 }
 .similarMovies > span > button.right{
-  left: calc(100% - 30px);
+  left: auto;
+  right: -15px;
 }
 
 .ratingPopup{
