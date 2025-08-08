@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import LightRays from "app/components/ReachBitsLightRays";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
@@ -240,7 +240,7 @@ function SearchPage() {
             const link = selectedType == "person" ? `/person/${item.id}` : `/content/${selectedType}.${item.id}`;
 
             return (
-              <a key={item.id} href={link} className="searchResult movieSearchResult flex gap-4">
+              <Link key={item.id} to={link} className="searchResult movieSearchResult flex gap-4">
                   <img className="w-[120px] rounded-xl border border-[var(--borderColorPrimary)]" src={image ? `https://image.tmdb.org/t/p/w500${image}` : NoBanner} alt={title} />
                   <div>
                     <h2>{title}</h2>
@@ -257,7 +257,7 @@ function SearchPage() {
                       <p>{item.known_for?.map(k => k.title || k.name).join(", ")}</p>
                     )}
                   </div>
-                </a>
+                </Link>
             );
           })}
         </div>
