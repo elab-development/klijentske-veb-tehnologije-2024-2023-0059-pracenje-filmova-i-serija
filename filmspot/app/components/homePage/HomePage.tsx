@@ -11,24 +11,20 @@ const queryClient = new QueryClient();
 
 export default function HomePage(){
     const [type, setType] = useState<"movie" | "tv">("movie");
-    const typeSwitchRef = useRef<HTMLSpanElement>(null);
+    const typeSwitchRef = useRef<HTMLButtonElement>(null);
     const typeSwitchBgRef = useRef<HTMLSpanElement>(null);
-    const movieButtonRef = useRef<HTMLButtonElement>(null);
-    const tvButtonRef = useRef<HTMLButtonElement>(null);
+    const movieButtonRef = useRef<HTMLParagraphElement>(null);
+    const tvButtonRef = useRef<HTMLParagraphElement>(null);
 
-    const setMovies = useCallback(() => {
+    const typeHandle = useCallback(() => {
         if(type !== "movie"){
             setType("movie");
             typeSwitchRef.current?.classList.remove("open");
-            typeSwitchBgRef.current?.setAttribute("data-width", `${movieButtonRef.current?.offsetWidth! + 35}`);
-        }
-    }, [type])
-
-    const setTV = useCallback(() => {
-        if(type !== "tv"){
+            typeSwitchBgRef.current?.setAttribute("data-width", `${movieButtonRef.current?.offsetWidth! + 34}`);
+        }else{
             setType("tv");
             typeSwitchRef.current?.classList.add("open");
-            typeSwitchBgRef.current?.setAttribute("data-width", `${tvButtonRef.current?.offsetWidth! + 33}`);
+            typeSwitchBgRef.current?.setAttribute("data-width", `${tvButtonRef.current?.offsetWidth! + 31}`);
         }
     }, [type])
 
@@ -50,16 +46,16 @@ export default function HomePage(){
             <Header />
 
             <main id="moviesHolder" className="w-full max-w-[1400px] mx-auto">
-                <span ref={typeSwitchRef} id="typeSwitch" className="flex relative gap-[25px] z-40">
+                <button ref={typeSwitchRef} id="typeSwitch" className="flex relative gap-[25px] z-40" onClick={typeHandle}>
                     <span className="indicatorHolder">
                         <div>
-                            <span ref={typeSwitchBgRef} data-width="80"></span>
+                            <span ref={typeSwitchBgRef} data-width="79"></span>
                         </div>
                     </span>
 
-                    <button ref={movieButtonRef} className="z-1 pt-[1px] text-[.8rem] font-light" onClick={setMovies}>MOVIES</button>
-                    <button ref={tvButtonRef} className="z-1 pt-[1px] text-[.8rem] font-light" onClick={setTV}>TV SHOWS</button>
-                </span>
+                    <p ref={movieButtonRef} className="z-1 pt-[1px] text-[.8rem] font-light">MOVIES</p>
+                    <p ref={tvButtonRef} className="z-1 pt-[1px] text-[.8rem] font-light">TV SHOWS</p>
+                </button>
 
                 <Top5 type={type} />
 
