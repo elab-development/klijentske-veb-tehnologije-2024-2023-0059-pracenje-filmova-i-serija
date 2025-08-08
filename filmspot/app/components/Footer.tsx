@@ -7,17 +7,17 @@ function Footer(){
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-4">
                     <Link to="/" className="font-medium text-xl md:text-2xl">
-                        <span className="font-bold text-[var(--textAccentColor)]">Film</span>Spot
+                        <span className="font-bold !text-[var(--textAccentColor)]">Film</span>Spot
                     </Link>
                     
                     <nav className="flex flex-wrap gap-4 md:gap-7">
-                        <Link to="#searchInput" className="button text-sm md:text-base hover:text-[var(--textAccentColor)] transition-colors">
+                        <Link to="#searchInput" className="button text-sm md:text-base hover:!text-[var(--textAccentColor)] transition-colors">
                             Search
                         </Link>
-                        <Link to="/about" className="button text-sm md:text-base hover:text-[var(--textAccentColor)] transition-colors">
+                        <Link to="/about" className="button text-sm md:text-base hover:!text-[var(--textAccentColor)] transition-colors">
                             About
                         </Link>
-                        <Link to="/watchlist" className="button text-sm md:text-base hover:text-[var(--textAccentColor)] transition-colors">
+                        <Link to="/watchlist" className="button text-sm md:text-base hover:!text-[var(--textAccentColor)] transition-colors">
                             Watchlist
                         </Link>
                     </nav>
@@ -117,7 +117,7 @@ function Footer(){
             {/* Copyright Section */}
             <div className="w-full p-3 md:p-4 text-center text-white font-light bg-[#11151C]">
                 <p className="text-xs md:text-sm">
-                    Copyright © 2025 | <span className="text-[var(--textAccentColor)] font-medium">Film</span>Spot | All Rights Reserved
+                    Copyright © 2025 | <span className="!text-[var(--textAccentColor)] font-medium">Film</span>Spot | All Rights Reserved
                 </p>
             </div>
         </footer>
