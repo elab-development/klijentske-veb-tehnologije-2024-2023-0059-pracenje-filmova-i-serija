@@ -50,7 +50,7 @@ export default function HomePage(){
             <Header />
 
             <main id="moviesHolder" className="w-full max-w-[1400px] mx-auto">
-                <span ref={typeSwitchRef} id="typeSwitch" className="flex relative gap-[25px]">
+                <span ref={typeSwitchRef} id="typeSwitch" className="flex relative gap-[25px] z-40">
                     <span className="indicatorHolder">
                         <div>
                             <span ref={typeSwitchBgRef} data-width="80"></span>

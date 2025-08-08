@@ -222,7 +222,7 @@ function SearchPage() {
               >
                 <option value="">All Ratings</option>
                 {Array.from({ length: 10 }, (_, i) => 10 - i).map(rating => (
-                  <option key={rating} value={rating}>{rating}+</option>
+                  <option key={rating} value={rating}>{rating < 10 ? `${rating}+` : rating}</option>
                 ))}
               </select>
             </>

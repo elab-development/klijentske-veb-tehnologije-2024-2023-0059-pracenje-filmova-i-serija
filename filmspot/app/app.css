@@ -141,12 +141,6 @@ footer .followUs h2{
   min-width: 200px;
   aspect-ratio: 3/4.4;
 }
-.movieInfoHolder .importantHolder > h2{
-  max-width: none;
-  white-space: wrap;
-  line-height: 2.2rem;
-  margin-bottom: 15px;
-}
 #top5 .movieHolder .topMovie h2{
   position: absolute;
   right: -15px;
@@ -339,7 +333,7 @@ footer .followUs h2{
 
 /* MOVIES HOLDER */
 #typeSwitch{
-  background-color: var(--backgroundTransparentPrimary);
+  background-color: var(--backgroundTransparentSecondary);
   border-radius: calc(infinity * 1px);
   padding: 10px 25px;
   width: fit-content;
@@ -1109,6 +1103,12 @@ body:has(.movieInfoHolder .allCast.open) {
   }
   #top5 .movieHolder .topMovie{
     min-width: calc(100vw - 120px);
+  }
+  .movieInfoHolder .importantHolder > h2{
+    max-width: none;
+    white-space: wrap;
+    line-height: 2.2rem;
+    margin-bottom: 15px;
   }
   .movieInfoHolder > div:nth-child(1){
     align-items: center;

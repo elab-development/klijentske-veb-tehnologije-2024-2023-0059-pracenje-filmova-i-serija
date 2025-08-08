@@ -71,6 +71,7 @@ const RatingPopup = forwardRef<HTMLDivElement, Props>(({props}, ref) => {
                     Rate
                 </button>
             </span>
+            <div className="w-full h-full fixed top-0 left-0 z-[-1]" onClick={handleClick}></div>
         </div>
     );
 })
