@@ -625,7 +625,7 @@ main{
 .movieInfoHolder .allCast .castItem{
   height: fit-content;
 }
-body:has(.movieInfoHolder .allCast.open) {
+body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
   overflow-y: hidden;
   padding-right: 13px;
 }
@@ -742,7 +742,7 @@ body:has(.movieInfoHolder .allCast.open) {
   display: grid;
   place-items: center;
   background-color: var(--backgroundTransparentPrimary);
-  transition: all .2s ease-in-out;
+  transition: opacity .2s ease-in-out;
   pointer-events: none;
 }
 .ratingPopup.open{
@@ -750,10 +750,14 @@ body:has(.movieInfoHolder .allCast.open) {
   pointer-events: all;
 }
 .ratingPopup > span{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
   transform: scale3d(.3, .3, 1);
   backdrop-filter: blur(7px);
   background-color: var(--backgroundTransparentSecondary);
-  width: fit-content;
+  width: calc(100% - 40px);
+  max-width: 450px;
   height: fit-content;
   padding: 20px;
   border-radius: 20px;
@@ -765,6 +769,8 @@ body:has(.movieInfoHolder .allCast.open) {
 }
 .ratingPopup .stars{
   direction: rtl;
+  display: flex;
+  justify-content: end;
 }
 .ratingPopup span svg{
   cursor: pointer;
@@ -1141,6 +1147,9 @@ body:has(.movieInfoHolder .allCast.open) {
   .personInfoHolder{
     align-items: center;
   }
+  .ratingPopup span svg{
+    width: 6vw;
+  }
 }
 @media (max-width: 330px) {
   .movieHolder{
@@ -1153,5 +1162,12 @@ body:has(.movieInfoHolder .allCast.open) {
   .similarMovies .content .contentItem{
     width: 170px;
     height: 270px;
+  }
+  .infoPartsHolder > span{
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .movieInfoHolder .castItem h3{
+    max-width: 50vw;
   }
 }
