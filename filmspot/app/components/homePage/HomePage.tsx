@@ -13,18 +13,14 @@ export default function HomePage(){
     const [type, setType] = useState<"movie" | "tv">("movie");
     const typeSwitchRef = useRef<HTMLButtonElement>(null);
     const typeSwitchBgRef = useRef<HTMLSpanElement>(null);
-    const movieButtonRef = useRef<HTMLParagraphElement>(null);
-    const tvButtonRef = useRef<HTMLParagraphElement>(null);
 
     const typeHandle = useCallback(() => {
         if(type !== "movie"){
             setType("movie");
             typeSwitchRef.current?.classList.remove("open");
-            typeSwitchBgRef.current?.setAttribute("data-width", `${movieButtonRef.current?.offsetWidth! + 34}`);
         }else{
             setType("tv");
             typeSwitchRef.current?.classList.add("open");
-            typeSwitchBgRef.current?.setAttribute("data-width", `${tvButtonRef.current?.offsetWidth! + 31}`);
         }
     }, [type])
 
@@ -49,12 +45,12 @@ export default function HomePage(){
                 <button ref={typeSwitchRef} id="typeSwitch" className="flex relative gap-[25px] z-40" onClick={typeHandle}>
                     <span className="indicatorHolder">
                         <div>
-                            <span ref={typeSwitchBgRef} data-width="79"></span>
+                            <span ref={typeSwitchBgRef}></span>
                         </div>
                     </span>
 
-                    <p ref={movieButtonRef} className="z-1 pt-[1px] text-[.8rem] font-light">MOVIES</p>
-                    <p ref={tvButtonRef} className="z-1 pt-[1px] text-[.8rem] font-light">TV SHOWS</p>
+                    <p className="z-1 pt-[1px] w-[70px] text-[.8rem] font-light">MOVIES</p>
+                    <p className="z-1 pt-[1px] w-[70px] text-[.8rem] font-light">TV SHOWS</p>
                 </button>
 
                 <Top5 type={type} />

@@ -14,8 +14,6 @@ class MovieCard<P extends MovieInfo> extends React.Component<P>{
     genres: string[] = this.props.genre_ids.filter(id => id in tmdbAllGenres).slice(0, 3).map(id => tmdbAllGenres[id]);
 
     render(){
-        console.log(this.props);
-
         const isInSaved = () => {
             const isSaved = JSON.parse(localStorage.userActions ?? "null")?.[this.props.id]?.["wishlist"];
             if(!isSaved)
