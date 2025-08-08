@@ -12,8 +12,8 @@ function ProfileWatchlist(){
     const [content, setContent] = useState<ReactElement[]>([]);
     
     useLayoutEffect(() => {
-        const elements = Object?.entries<ListItemProps & {rating: number | false, wishlist: boolean}>(JSON.parse(localStorage.userActions ?? '{}'))?.map(([id, item]) => {
-            if(item.wishlist)
+        const elements = Object?.entries<ListItemProps & {rating: number | false, watchlist: boolean}>(JSON.parse(localStorage.userActions ?? '{}'))?.map(([id, item]) => {
+            if(item.watchlist && item.details)
                 return <WatchlistItem key={id} props={{...item.details, id: id, rating: item.rating ?? false}}/>
         });
 
@@ -46,8 +46,6 @@ function WatchlistItem({props}: {props: watchlistItem & {id: number | string, ra
 
         saveToWatchlist(Number(props.id));
     }
-
-    console.log("da: ", props)
         
     return <>
         <div ref={watchlistItemRef} className="searchResult movieSearchResult flex !gap-6 w-full">

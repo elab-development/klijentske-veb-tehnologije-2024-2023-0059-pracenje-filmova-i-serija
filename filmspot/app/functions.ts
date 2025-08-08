@@ -39,11 +39,12 @@ export function saveToWatchlist(itemId: MovieInfo["id"], rating?: number, itemDa
     if(!itemId)
         return;
 
-    const type = !rating ? "wishlist" : "rating";
+    const type = !rating ? "watchlist" : "rating";
     let currentList = JSON.parse(localStorage.userActions ?? "null");
 
+
     if(currentList?.[itemId]?.[type]){
-        if(type === "wishlist"){
+        if(type === "watchlist"){
             delete currentList[itemId][type];
         
             const keys = Object.keys(currentList[itemId]);
@@ -56,21 +57,23 @@ export function saveToWatchlist(itemId: MovieInfo["id"], rating?: number, itemDa
             toggleRating(`rating${itemId}`, rating);
         }
     }else if(currentList?.[itemId]){
-        currentList[itemId][type] = !rating ? true : rating;
-
-        if(type === "wishlist")
+        if(type === "watchlist"){
+            currentList[itemId] = {...currentList[itemId], ...{details: itemData, "watchlist": true}};
             toggleBookmarks(`movie${itemId}`, true);
-        else
+        } 
+        else{
+            currentList[itemId][type] = rating;
             toggleRating(`rating${itemId}`, rating);
+        }
     }else{
-        currentList = {...currentList, ...{[itemId]: {details: itemData, [type]: !rating ? true : rating}}};
+        currentList = {...currentList, [itemId]: {details: itemData, [type]: !rating ? true : rating}};
 
-        if(type === "wishlist")
+        if(type === "watchlist")
             toggleBookmarks(`movie${itemId}`, true);
         else
             toggleRating(`rating${itemId}`, rating);
     }
-
+    
     localStorage.userActions = JSON.stringify(currentList);
     // localStorage.clear();
 }
