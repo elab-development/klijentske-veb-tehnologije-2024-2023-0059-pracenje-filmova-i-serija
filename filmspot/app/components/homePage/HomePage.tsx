@@ -20,7 +20,7 @@ export default function HomePage(){
         if(type !== "movie"){
             setType("movie");
             typeSwitchRef.current?.classList.remove("open");
-            typeSwitchBgRef.current?.setAttribute("data-width", `${movieButtonRef.current?.offsetWidth! + 33}`);
+            typeSwitchBgRef.current?.setAttribute("data-width", `${movieButtonRef.current?.offsetWidth! + 35}`);
         }
     }, [type])
 
@@ -28,7 +28,7 @@ export default function HomePage(){
         if(type !== "tv"){
             setType("tv");
             typeSwitchRef.current?.classList.add("open");
-            typeSwitchBgRef.current?.setAttribute("data-width", `${tvButtonRef.current?.offsetWidth! + 31}`);
+            typeSwitchBgRef.current?.setAttribute("data-width", `${tvButtonRef.current?.offsetWidth! + 33}`);
         }
     }, [type])
 
@@ -53,7 +53,7 @@ export default function HomePage(){
                 <span ref={typeSwitchRef} id="typeSwitch" className="flex relative gap-[25px]">
                     <span className="indicatorHolder">
                         <div>
-                            <span ref={typeSwitchBgRef} data-width="85"></span>
+                            <span ref={typeSwitchBgRef} data-width="80"></span>
                         </div>
                     </span>
 
