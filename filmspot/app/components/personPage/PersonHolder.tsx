@@ -43,7 +43,7 @@ function PersonHolder({props}: {props: {id: string}}){
 
     return <>
         <main className="!pt-0 w-full max-w-[1400px] mx-auto items-start">
-            <div className="flex gap-10">
+            <div className="personInfoHolder flex gap-10">
                 <img className="w-[300px] max-h-[420px] rounded-[20px] shrink-0" src={personInfo?.details.profile_path ? `${import.meta.env.VITE_TMDB_PROFILE_BASE_URL}${personInfo?.details.profile_path}` : personInfo?.details.gender === 1 ? Man : Woman} alt="Profile" />
 
                 <div className="personDetails mt-10 overflow-x-hidden">
