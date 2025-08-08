@@ -12,11 +12,13 @@ function ProfileWatchlist(){
     const [content, setContent] = useState<ReactElement[]>([]);
     
     useLayoutEffect(() => {
-        const elements = Object?.entries<ListItemProps & {rating: number | false}>(JSON.parse(localStorage.userActions ?? '{}'))?.map(([id, item]) => {
-            return <WatchlistItem key={id} props={{...item.details, id: id, rating: item.rating ?? false}}/>
-        })
+        const elements = Object?.entries<ListItemProps & {rating: number | false, wishlist: boolean}>(JSON.parse(localStorage.userActions ?? '{}'))?.map(([id, item]) => {
+            if(item.wishlist)
+                return <WatchlistItem key={id} props={{...item.details, id: id, rating: item.rating ?? false}}/>
+        });
 
-        setContent(elements);
+        if(elements)
+            setContent(elements);
     }, [])
 
     return <>

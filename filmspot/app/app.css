@@ -475,8 +475,10 @@ main{
   transition: all .2s ease-in-out;
 }
 .movieInfoHolder .importantHolder .buttonHolder button.rateMovie.open{
-  color: black;
   background-color: #DFCD43;
+}
+.movieInfoHolder .importantHolder .buttonHolder button.rateMovie.open p{
+  color: black;
 }
 .movieInfoHolder .importantHolder .buttonHolder button.rateMovie.open svg path{
   stroke: black;
@@ -739,6 +741,10 @@ body:has(.movieInfoHolder .allCast.open) {
 .ratingPopup .stars svg.clicked ~ svg path{
   stroke: var(--textAccentColor);
   fill: var(--textAccentColor);
+}
+
+.ratingPopup button{
+  color: black;
 }
 /* MOVIE PAGE */
 
