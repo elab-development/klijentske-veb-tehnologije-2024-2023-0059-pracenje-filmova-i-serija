@@ -57,8 +57,8 @@ export default function HomePage(){
                         </div>
                     </span>
 
-                    <button ref={movieButtonRef} className="z-1 text-[.8rem] font-light" onClick={setMovies}>MOVIES</button>
-                    <button ref={tvButtonRef} className="z-1 text-[.8rem] font-light" onClick={setTV}>TV SHOWS</button>
+                    <button ref={movieButtonRef} className="z-1 pt-[1px] text-[.8rem] font-light" onClick={setMovies}>MOVIES</button>
+                    <button ref={tvButtonRef} className="z-1 pt-[1px] text-[.8rem] font-light" onClick={setTV}>TV SHOWS</button>
                 </span>
 
                 <Top5 type={type} />
