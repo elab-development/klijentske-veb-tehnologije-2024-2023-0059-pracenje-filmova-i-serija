@@ -332,6 +332,44 @@ footer .followUs h2{
 /* MOVIE CARD */
 
 /* MOVIES HOLDER */
+#typeSwitch{
+  background-color: var(--backgroundTransparentPrimary);
+  border-radius: calc(infinity * 1px);
+  padding: 10px 25px;
+  width: fit-content;
+  border: 1px solid var(--borderColorSecondary);
+  margin-bottom: 20px;
+}
+#typeSwitch .indicatorHolder{
+  position: absolute;
+  width: calc(100% - 10px);
+  top: 5px;
+  left: 5px;
+  height: calc(100% - 10px);
+}
+#typeSwitch .indicatorHolder div{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#typeSwitch .indicatorHolder span{
+  border: 1px solid var(--borderColorSecondary);
+  position: absolute;
+  left: 0;
+  height: 100%;
+  background-color: #5B3B02;
+  border-radius: 30px 10px 10px 30px;
+  transition: all .2s ease-in-out;
+  width: attr(data-width px);
+}
+#typeSwitch.open .indicatorHolder span{
+  background-color: #03405A;
+  border-radius: 10px 30px 30px 10px;
+  margin-left: auto;
+  margin-left: 0;
+  left: calc(100% - attr(data-width px));
+}
+
 main{
   height: fit-content;
   padding-block: 100px;

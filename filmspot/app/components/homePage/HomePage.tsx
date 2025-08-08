@@ -5,12 +5,32 @@ import LightRays from 'app/components/ReachBitsLightRays';
 import Trending from "./Trending";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Upcoming from "./Upcoming";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 const queryClient = new QueryClient();
 
 export default function HomePage(){
     const [type, setType] = useState<"movie" | "tv">("movie");
+    const typeSwitchRef = useRef<HTMLSpanElement>(null);
+    const typeSwitchBgRef = useRef<HTMLSpanElement>(null);
+    const movieButtonRef = useRef<HTMLButtonElement>(null);
+    const tvButtonRef = useRef<HTMLButtonElement>(null);
+
+    const setMovies = useCallback(() => {
+        if(type !== "movie"){
+            setType("movie");
+            typeSwitchRef.current?.classList.remove("open");
+            typeSwitchBgRef.current?.setAttribute("data-width", `${movieButtonRef.current?.offsetWidth! + 33}`);
+        }
+    }, [type])
+
+    const setTV = useCallback(() => {
+        if(type !== "tv"){
+            setType("tv");
+            typeSwitchRef.current?.classList.add("open");
+            typeSwitchBgRef.current?.setAttribute("data-width", `${tvButtonRef.current?.offsetWidth! + 31}`);
+        }
+    }, [type])
 
     return <>
         <LightRays
@@ -29,9 +49,18 @@ export default function HomePage(){
         <QueryClientProvider client={queryClient}>
             <Header />
 
-            <input className="mt-20 w-20 h-20" type="checkbox" onChange={() => setType(prev => prev === "movie" ? "tv" : "movie")}/>
-
             <main id="moviesHolder" className="w-full max-w-[1400px] mx-auto">
+                <span ref={typeSwitchRef} id="typeSwitch" className="flex relative gap-[25px]">
+                    <span className="indicatorHolder">
+                        <div>
+                            <span ref={typeSwitchBgRef} data-width="85"></span>
+                        </div>
+                    </span>
+
+                    <button ref={movieButtonRef} className="z-1 text-[.8rem] font-light" onClick={setMovies}>MOVIES</button>
+                    <button ref={tvButtonRef} className="z-1 text-[.8rem] font-light" onClick={setTV}>TV SHOWS</button>
+                </span>
+
                 <Top5 type={type} />
 
                 <Upcoming type={type} />
