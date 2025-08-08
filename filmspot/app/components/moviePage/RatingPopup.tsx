@@ -65,7 +65,7 @@ const RatingPopup = forwardRef<HTMLDivElement, Props>(({props}, ref) => {
                 </span>
 
                 <button 
-                    className="button mt-5 px-15 py-1 bg-white text-black font-medium rounded-[5px]" 
+                    className="button mt-5 px-15 py-1 bg-white !text-black font-medium rounded-[5px]" 
                     onClick={handleClick}
                 >
                     Rate

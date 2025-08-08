@@ -31,7 +31,7 @@ export default function Header(){
                             <path d="M12.1308 16.5956C12.0235 14.3752 13.7408 12.4902 15.9612 12.3828L38.1586 11.3565C40.379 11.2491 42.264 12.9664 42.3647 15.1869L43.3977 37.3843C43.4983 39.6047 41.781 41.4897 39.5606 41.5903L17.3699 42.6234C15.1495 42.724 13.2645 41.0067 13.1571 38.7863L12.1308 16.5956Z" fill="#43DFD7"/>
                             <path d="M16.9406 19.46C22.4413 18.4448 29.4737 17.6868 38.0379 17.1859C38.4135 21.4613 38.4717 24.6454 38.2123 26.7384C34.961 26.8099 31.7746 27.0022 28.6531 27.3153L28.8476 29.4955C31.1731 29.2495 33 29.093 34.3282 29.0259C34.4579 30.4346 34.4512 32.854 34.3081 36.2842C32.6176 36.4273 30.9495 36.5838 29.3038 36.7537C29.344 38.9361 29.4447 41.369 29.6057 44.0523C26.7211 44.5352 23.9685 44.7767 21.3479 44.7767C21.2361 44.258 20.97 38.6611 20.5496 27.9861L17.437 28.3752C17.2089 25.598 17.0434 22.6263 16.9406 19.46Z" fill="white"/>
                         </svg>
-                        <h1 className="font-medium text-white"><span className="text-[#43DFD7] font-bold">Film</span>Spot</h1>
+                        <h1 className="font-medium text-white"><span className="!text-[#43DFD7] font-bold">Film</span>Spot</h1>
                     </Link>
                     
                     <button onClick={toggleMobileMenu} className="text-white p-2">
@@ -54,7 +54,7 @@ export default function Header(){
                                 }
                             }} 
                         />
-                        <button onClick={() => search(true)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#43DFD7]">
+                        <button onClick={() => search(true)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:!text-[#43DFD7]">
                             <svg width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15.5558 15.5558L20 20M10.7692 17.5385C14.5078 17.5385 17.5385 14.5078 17.5385 10.7692C17.5385 7.03069 14.5078 4 10.7692 4C7.03069 4 4 7.03069 4 10.7692C4 14.5078 7.03069 17.5385 10.7692 17.5385Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
@@ -62,8 +62,8 @@ export default function Header(){
                     </div>
 
                     <nav className="flex flex-col gap-6">
-                        <Link to="/about" className="text-white text-lg hover:text-[#43DFD7] transition-colors" onClick={closeMobileMenu}>About</Link>
-                        <Link to="/watchlist" className="text-white text-lg hover:text-[#43DFD7] transition-colors" onClick={closeMobileMenu}>Watchlist</Link>
+                        <Link to="/about" className="text-white text-lg hover:!text-[#43DFD7] transition-colors" onClick={closeMobileMenu}>About</Link>
+                        <Link to="/watchlist" className="text-white text-lg hover:!text-[#43DFD7] transition-colors" onClick={closeMobileMenu}>Watchlist</Link>
                     </nav>
                 </div>
             </div>
@@ -79,7 +79,7 @@ export default function Header(){
                             <path d="M12.1308 16.5956C12.0235 14.3752 13.7408 12.4902 15.9612 12.3828L38.1586 11.3565C40.379 11.2491 42.264 12.9664 42.3647 15.1869L43.3977 37.3843C43.4983 39.6047 41.781 41.4897 39.5606 41.5903L17.3699 42.6234C15.1495 42.724 13.2645 41.0067 13.1571 38.7863L12.1308 16.5956Z" fill="#43DFD7"/>
                             <path d="M16.9406 19.46C22.4413 18.4448 29.4737 17.6868 38.0379 17.1859C38.4135 21.4613 38.4717 24.6454 38.2123 26.7384C34.961 26.8099 31.7746 27.0022 28.6531 27.3153L28.8476 29.4955C31.1731 29.2495 33 29.093 34.3282 29.0259C34.4579 30.4346 34.4512 32.854 34.3081 36.2842C32.6176 36.4273 30.9495 36.5838 29.3038 36.7537C29.344 38.9361 29.4447 41.369 29.6057 44.0523C26.7211 44.5352 23.9685 44.7767 21.3479 44.7767C21.2361 44.258 20.97 38.6611 20.5496 27.9861L17.437 28.3752C17.2089 25.598 17.0434 22.6263 16.9406 19.46Z" fill="white"/>
                         </svg>
-                        <h1 className="font-medium text-sm md:text-base"><span className="text-[var(--textAccentColor)] font-bold">Film</span>Spot</h1>
+                        <h1 className="font-medium text-sm md:text-base"><span className="!text-[var(--textAccentColor)] font-bold">Film</span>Spot</h1>
                     </Link>
 
                     <div className="hidden md:flex items-center gap-7">
@@ -102,8 +102,8 @@ export default function Header(){
                                 </svg>
                             </button>
                         </div>
-                        <Link to="/about" className="button text-white hover:text-[var(--textAccentColor)] transition-colors">About</Link>
-                        <Link to="/watchlist" className="button text-white hover:text-[var(--textAccentColor)] transition-colors">Watchlist</Link>
+                        <Link to="/about" className="button text-white hover:!text-[var(--textAccentColor)] transition-colors">About</Link>
+                        <Link to="/watchlist" className="button text-white hover:!text-[var(--textAccentColor)] transition-colors">Watchlist</Link>
                     </div>
 
                     <button onClick={toggleMobileMenu} className="md:hidden text-white p-2">

@@ -4,6 +4,7 @@ import LightRays from "app/components/ReachBitsLightRays";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
 import type { MovieInfo } from "~/types";
+import NoBanner from "app/assets/NoBanner.png";
 
 interface SearchInfo extends MovieInfo {
   profile_path?: string;
@@ -87,6 +88,7 @@ async function fetchAllPages(type: string, searchParams: string, selectedYear: n
       if (!data.results?.length) break;
       results.push(...data.results);
       
+      console.log(data.results);
       if (page >= data.total_pages) break;
     } catch (error) {
       console.error(`Error fetching page ${page}:`, error);
@@ -238,9 +240,8 @@ function SearchPage() {
             const link = selectedType == "person" ? `/person/${item.id}` : `/content/${selectedType}.${item.id}`;
 
             return (
-              image && (
-                <a key={item.id} href={link} className="searchResult movieSearchResult flex gap-4">
-                  <img className="w-[120px] rounded-xl border border-[var(--borderColorPrimary)]" src={`https://image.tmdb.org/t/p/w500${image}`} alt={title} />
+              <a key={item.id} href={link} className="searchResult movieSearchResult flex gap-4">
+                  <img className="w-[120px] rounded-xl border border-[var(--borderColorPrimary)]" src={image ? `https://image.tmdb.org/t/p/w500${image}` : NoBanner} alt={title} />
                   <div>
                     <h2>{title}</h2>
                     {selectedType !== "person" ? (
@@ -257,7 +258,6 @@ function SearchPage() {
                     )}
                   </div>
                 </a>
-              )
             );
           })}
         </div>
@@ -279,7 +279,7 @@ function SearchPage() {
                 <button
                   key={page}
                   onClick={() => dispatch({ type: "SET_PAGE", payload: page })}
-                  className={`px-3 py-1 border rounded-md ${currentPage === page ? "bg-white text-black font-bold" : "text-white border-white hover:bg-white/20"}`}
+                  className={`px-3 py-1 border rounded-md ${currentPage === page ? "bg-white !text-black font-bold" : "text-white border-white hover:bg-white/20"}`}
                 >
                   {page}
                 </button>
