@@ -5,7 +5,7 @@ import LightRays from 'app/components/ReachBitsLightRays';
 import Trending from "./Trending";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Upcoming from "./Upcoming";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +23,10 @@ export default function HomePage(){
             typeSwitchRef.current?.classList.add("open");
         }
     }, [type])
+
+    useLayoutEffect(() => {
+        document.title = "FilmSpot";
+    }, [])
 
     return <>
         <LightRays
