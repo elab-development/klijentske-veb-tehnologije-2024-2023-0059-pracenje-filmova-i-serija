@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Link } from "react-router";
 
 function Footer(){
@@ -11,9 +12,9 @@ function Footer(){
                     </Link>
                     
                     <nav className="flex flex-wrap gap-4 md:gap-7">
-                        <Link to="#searchInput" className="button text-sm md:text-base hover:!text-[var(--textAccentColor)] transition-colors">
+                        <a href="#searchInput" className="button text-sm md:text-base hover:!text-[var(--textAccentColor)] transition-colors">
                             Search
-                        </Link>
+                        </a>
                         <Link to="/about" className="button text-sm md:text-base hover:!text-[var(--textAccentColor)] transition-colors">
                             About
                         </Link>
@@ -124,4 +125,4 @@ function Footer(){
     );
 }
 
-export default Footer;
+export default memo(Footer);

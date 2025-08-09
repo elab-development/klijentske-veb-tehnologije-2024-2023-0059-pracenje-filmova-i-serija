@@ -5,7 +5,7 @@ import LightRays from 'app/components/ReachBitsLightRays';
 import Trending from "./Trending";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Upcoming from "./Upcoming";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +14,7 @@ export default function HomePage(){
     const typeSwitchRef = useRef<HTMLButtonElement>(null);
     const typeSwitchBgRef = useRef<HTMLSpanElement>(null);
 
-    const typeHandle = useCallback(() => {
+    const typeHandle = () => {
         if(type !== "movie"){
             setType("movie");
             typeSwitchRef.current?.classList.remove("open");
@@ -22,7 +22,7 @@ export default function HomePage(){
             setType("tv");
             typeSwitchRef.current?.classList.add("open");
         }
-    }, [type])
+    }
 
     useLayoutEffect(() => {
         document.title = "FilmSpot";
@@ -58,9 +58,7 @@ export default function HomePage(){
                 </button>
 
                 <Top5 type={type} />
-
                 <Upcoming type={type} />
-
                 <Trending type={type} />
             </main>
 

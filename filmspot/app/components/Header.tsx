@@ -1,25 +1,25 @@
-import { useRef, useState } from "react"
+import { memo, useCallback, useRef, useState } from "react"
 import { Link } from "react-router";
 
-export default function Header(){
+function Header(){
     const searchRef = useRef<HTMLInputElement>(null);
     const mobileSearchRef = useRef<HTMLInputElement>(null);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    function search(isMobile = false){
+    const search = useCallback((isMobile = false) => {
         const currentRef = isMobile ? mobileSearchRef : searchRef;
         if(!currentRef.current || currentRef.current.value.trim() == "") return;
         window.location.href = `/search/${currentRef.current?.value.trim()}`;
         if(isMobile) setIsMobileMenuOpen(false);
-    }
+    }, [isMobileMenuOpen])
 
-    function toggleMobileMenu(){
+    const toggleMobileMenu = useCallback(() => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
-    }
+    }, [isMobileMenuOpen])
 
-    function closeMobileMenu(){
+    const closeMobileMenu = useCallback(() => {
         setIsMobileMenuOpen(false);
-    }
+    }, [])
 
     return (
         <header className="fixed top-0 left-0 w-full h-fit z-102">
@@ -167,3 +167,5 @@ export default function Header(){
         </header>
     )
 }
+
+export default memo(Header);
