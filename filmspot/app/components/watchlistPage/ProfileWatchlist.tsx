@@ -60,7 +60,7 @@ function WatchlistItem({props}: {props: watchlistItem & {id: number | string, ra
             
             <div className={`w-full overflow-x-hidden ${props.description.length > 0 ? "content-center" : ''}`}>
                 <div className="flex justify-between w-full">
-                    <span className="flex gap-1 max-w-[50%]">
+                    <span className="flex gap-1 max-w-[50%] items-center">
                         <h2 className="text-ellipsis overflow-hidden whitespace-nowrap">{props.name}</h2>
                         <p className="!text-xl !mt-0">({props.year ?? props.name})</p>
                     </span>

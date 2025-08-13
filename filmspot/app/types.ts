@@ -119,3 +119,10 @@ export type watchlistItem = {
     description: string,
     type: "movie" | "tv"
 }
+
+export type ProfileInfoProps = {
+    Name: string,
+    PhotoURL: string,
+    Email: string,
+    Since: string
+}

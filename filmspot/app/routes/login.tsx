@@ -27,6 +27,8 @@ export default function FilmSpotAuth() {
     setIsSignUp(false);
   };
 
+  document.title = "Login";
+
   return (
     <div className="min-h-screen flex items-start lg:items-center justify-center p-4 max-[600px]:px-0">
       
@@ -65,7 +67,7 @@ export default function FilmSpotAuth() {
                   New user?{' '}
                   <button 
                     onClick={switchToSignUp}
-                    className="text-[#43DFD7] hover:brightness-120 transition-all"
+                    className="!text-[#43DFD7] hover:brightness-120 transition-all"
                   >
                     Create an account
                   </button>
@@ -109,7 +111,7 @@ export default function FilmSpotAuth() {
             <button
               type="button"
               onClick={handleSubmit}
-              className="w-full bg-[#43DFD7] hover:bg-[#a1fffa] text-slate-900 font-semibold py-3 px-4 rounded-lg transition-all transform hover:scale-[1.02]"
+              className="w-full bg-[#43DFD7] hover:bg-[#a1fffa] !text-slate-900 font-semibold py-3 px-4 rounded-lg transition-all transform hover:brightness-90"
             >
               {isSignUp ? 'Start your journey' : 'Sign in'}
             </button>
@@ -127,7 +129,7 @@ export default function FilmSpotAuth() {
 
             <button
               onClick={handleGoogleSignIn}
-              className="w-full mt-4 bg-[#ffffff10] hover:bg-[#ffffff20] text-white font-medium py-3 px-4 rounded-lg border border-slate-600 transition-all flex items-center justify-center space-x-2 transform hover:scale-[1.02]"
+              className="w-full mt-4 bg-[#ffffff10] hover:bg-[#ffffff20] text-white font-medium py-3 px-4 rounded-lg border border-slate-600 transition-all flex items-center justify-center space-x-2 transform hover:brightness-90"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
@@ -171,7 +173,7 @@ export default function FilmSpotAuth() {
             </p>
             <p className="text-sm text-slate-400 max-[600px]:hidden transition-all duration-300">
               By signing in you accept our{' '}
-              <a href='/about' className="text-[#43DFD7] hover:text-cyan-300 transition-colors underline">
+              <a href='/about' className="!text-[#43DFD7] hover:!text-cyan-300 transition-colors underline">
                 Terms of Use
               </a>
             </p>
