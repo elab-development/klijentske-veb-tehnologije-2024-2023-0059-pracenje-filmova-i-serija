@@ -21,14 +21,14 @@ function ProfileInfo(){
     return (
         <div>
             <h2 className="text-3xl font-bold mb-2 mt-10">Profile</h2>
-            <span className="w-fit flex overflow-hidden rounded-[20px] bg-[var(--backgroundTransparentSecondary)]">
+            <span className="w-fit flex overflow-hidden rounded-[20px] bg-[#ffffff12] border-1 border-[var(--borderColorSecondary)]">
                 {userInfo?.Name
                     ? <img className="w-[180px] h-[180px]" src={userInfo.PhotoURL} alt="Photo" />
                     : <img className="w-[180px] h-[180px]" src={Man} alt="" />
                 }
 
                 <span className="flex flex-col gap-3 px-7 py-5">
-                    <h2 className="text-2xl font-semibold">{userInfo?.Name ?? "Anoniman korisnik"}</h2>
+                    <h2 className="text-2xl font-semibold">{userInfo?.Name ?? "Anonymous user"}</h2>
                     {userInfo
                         ? <p className="mt-[-10px]">{userInfo.Email}</p>
                         : <Link className="button w-fit flex items-center gap-2 py-1.5 px-7 bg-[var(--textAccentColor)] rounded-full !text-black font-medium" to="/login">Sign in</Link>
