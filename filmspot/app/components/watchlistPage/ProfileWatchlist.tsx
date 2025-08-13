@@ -3,6 +3,7 @@ import MovieInfoPart from "../moviePage/MovieInfoPart";
 import type { watchlistItem } from "~/types";
 import { saveToWatchlist } from "~/functions";
 import { Link } from "react-router";
+import EmptyWatchlist from "app/assets/EmptyWatchlist.png";
 
 type ListItemProps = {
     details: watchlistItem & {id: number | string, rating: number | false}
@@ -23,7 +24,7 @@ function ProfileWatchlist(){
 
     return <>
         <div id="searchResults" className="flex flex-col gap-6 mt-6">
-            {content}
+            {content.length > 0 ? content : <img className="w-full max-w-[400px] mx-auto p-5 pointer-events-none" src={EmptyWatchlist} alt="Empty Watchlist"/>}
         </div>
     </>;
 }
@@ -41,8 +42,13 @@ function WatchlistItem({props}: {props: watchlistItem & {id: number | string, ra
     }, []);
 
     const handleRemove = () => {
-        if(watchlistItemRef.current)
-            watchlistItemRef.current.parentElement?.removeChild(watchlistItemRef.current);
+        if(watchlistItemRef.current){
+            const parent = watchlistItemRef.current.parentElement;
+            parent?.removeChild(watchlistItemRef.current);
+            if(parent?.children.length! <= 0){
+                parent!.innerHTML = `<img class="w-full max-w-[400px] mx-auto p-5 pointer-events-none" src="${EmptyWatchlist}" alt="Empty Watchlist">`;
+            }
+        }
 
         saveToWatchlist(Number(props.id));
     }
