@@ -30,3 +30,13 @@ export const tmdbAllGenres: { [id: number]: string } = {
   10767: "Talk",
   10768: "War & Politics"
 };
+
+export const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: "laptop-centar.firebaseapp.com",
+  projectId: "laptop-centar",
+  storageBucket: "laptop-centar.firebasestorage.app",
+  messagingSenderId: "1040074510089",
+  appId: "1:1040074510089:web:26157161cd8e2ca0844dd8",
+  measurementId: "G-XW1GRLK7S7"
+}

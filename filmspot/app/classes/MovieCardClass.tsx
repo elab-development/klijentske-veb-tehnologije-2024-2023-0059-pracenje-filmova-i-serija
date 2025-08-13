@@ -15,7 +15,7 @@ class MovieCard<P extends MovieInfo> extends React.Component<P>{
 
     render(){
         const isInSaved = () => {
-            const isSaved = JSON.parse(localStorage.userActions ?? "null")?.[this.props.id]?.["wishlist"];
+            const isSaved = JSON.parse(localStorage.userActions ?? "null")?.[this.props.id]?.["watchlist"];
             if(!isSaved)
                 return false;
 

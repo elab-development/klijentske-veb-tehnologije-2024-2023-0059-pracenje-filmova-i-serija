@@ -25,7 +25,7 @@ function MovieInfoHolder({props}: {props: MovieHolderInfo}){
     let isInUserActions = useRef<[boolean, number | false]>([false, false]);
 
     useLayoutEffect(() => {
-        isInUserActions.current = [JSON.parse(localStorage.userActions ?? "null")?.[props.id]?.["wishlist"], JSON.parse(localStorage.userActions ?? "null")?.[props.id]?.["rating"]];
+        isInUserActions.current = [JSON.parse(localStorage.userActions ?? "null")?.[props.id]?.["watchlist"], JSON.parse(localStorage.userActions ?? "null")?.[props.id]?.["rating"]];
 
         document.title = props.title ?? props.name;
 
