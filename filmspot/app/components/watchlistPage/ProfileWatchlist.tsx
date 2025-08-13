@@ -18,7 +18,7 @@ function ProfileWatchlist(){
         });
 
         if(elements)
-            setContent(elements);
+            setContent(elements as ReactElement[]);
     }, [])
 
     return <>
