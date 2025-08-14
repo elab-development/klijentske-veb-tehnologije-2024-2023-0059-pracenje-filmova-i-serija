@@ -4,13 +4,14 @@ import ContentType from "~/components/ContentType";
 import { tmdbAllGenres } from "~/constants";
 import { saveToWatchlist } from "~/functions";
 import type { MovieInfo } from "~/types";
+import NoBanner from "app/assets/NoBanner.png";
 
 class MovieCard<P extends MovieInfo> extends React.Component<P>{
     constructor(props: P){
         super(props);
     }
 
-    banner = `${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${this.props.poster_path}`;
+    banner = this.props.poster_path ? `${import.meta.env.VITE_TMDB_POSTER_BASE_URL}/${this.props.poster_path}` : NoBanner;
     genres: string[] = this.props.genre_ids.filter(id => id in tmdbAllGenres).slice(0, 3).map(id => tmdbAllGenres[id]);
 
     render(){
