@@ -4,7 +4,7 @@ import { getContent } from "../../APICalls";
 import MovieSection from "../MovieSection";
 
 function Top5({type}: {type: "movie" | "tv"}){
-    const { data: top5MoviesList } = useQuery({queryKey: [`top5${type}`], queryFn: () => getContent({type: type, content: "trending"})})
+    const { data: top5MoviesList } = useQuery({queryKey: [`top5${type}`], queryFn: () => getContent({type: type, content: "trending", page: 1})})
 
     const top5 = top5MoviesList?.slice(0, 5)?.map((item, index) => {
         return (

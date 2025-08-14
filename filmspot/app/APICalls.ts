@@ -2,11 +2,11 @@ import type { MovieInfo, VideoInfo } from "~/types";
 
 const urlBase = import.meta.env.VITE_TMDB_BASE_URL;
 const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-export function getContent({type, content}: {type: "movie" | "tv", content: "trending" | "upcoming" | "popular"}){
+export function getContent({type, content, page}: {type: "movie" | "tv", content: "trending" | "upcoming" | "popular", page: number}){
     // apiKey
 
     let fetchURL = urlBase;
-    const filter = "&language=en-US&page=1&include_adult=false";
+    const filter = `&language=en-US&page=${page}&include_adult=false`;
     if(type === "movie"){
         switch(content){
             case "popular": case "upcoming": {
