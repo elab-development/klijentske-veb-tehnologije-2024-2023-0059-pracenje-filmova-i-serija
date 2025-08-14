@@ -1,4 +1,10 @@
-import type { MovieInfo, VideoInfo } from "~/types";
+import { useQuery, type UseQueryResult } from "@tanstack/react-query";
+import type { MovieInfo, ProfileInfoProps, VideoInfo } from "~/types";
+import { auth, db } from "./firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import { toggleCustomPopup } from "./functions";
+import type { NavigateFunction } from "react-router";
 
 const urlBase = import.meta.env.VITE_TMDB_BASE_URL;
 const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -106,4 +112,94 @@ export function fetchActorDetails({id}: {id: string}) {
           return { details, credits };
         });
     });
+}
+
+export function getProfileFromFirebase(): UseQueryResult<ProfileInfoProps | null, Error>{
+    return useQuery<ProfileInfoProps | null>(
+        {queryKey: [`firebaseProfile`], 
+        queryFn: async () => {
+            if(!auth.currentUser)
+                return null;
+
+            const result = await getDoc(doc(db, `FilmSpot/${auth.currentUser.uid}`));
+            return result.exists() ? result.data() as ProfileInfoProps : null;
+        },
+        enabled: !!auth.currentUser
+    })
+}
+
+export function createUser({email, password, username}: {email: string, password: string, username: string}){
+    return new Promise(complete => {
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+            const user = userCredential.user;
+
+            setDoc(doc(db, `FilmSpot/${user.uid}`), {
+                Name: username,
+                Email: email,
+                PhotoURL: null,
+            })
+            .then(() => {
+                toggleCustomPopup({text: `Welcome ${username}, You can sign in now!`, time: 3000});
+                return complete(true);
+            })
+            .catch(() => {
+                toggleCustomPopup({text: `Plase check!`, time: 3000});
+                return complete(false);
+            })
+        })
+        .catch(error => {
+            if(error.code === "auth/email-already-in-use")
+                toggleCustomPopup({text: `Account with this email already exists!`, time: 3000});
+            else
+                toggleCustomPopup({text: `Please check credentials that You entered!`, time: 3000});
+
+            return complete(error.code);
+        });
+    })
+}
+
+export function loginUser({type, navigate, email, password}: {type: "google" | "email", navigate: NavigateFunction, email?: string, password?: string}){
+    return new Promise(complete => {
+        if(type === "email")
+            signInWithEmailAndPassword(auth, email!, password!)
+            .then(() => {
+                navigate("/");
+                return complete(true);
+            })
+            .catch(() => {
+                toggleCustomPopup({text: `Credentials that you entered don't match!`, time: 3000});
+                return complete(false);
+            })
+        else
+            signInWithPopup(auth, new GoogleAuthProvider())
+            .then(userCredential => {
+                const user = userCredential.user;
+
+                setDoc(doc(db, `FilmSpot/${user.uid}`), {
+                Name: user.email?.split('@')[0],
+                Email: user.email,
+                PhotoURL: user.photoURL,
+                })
+                .then(() => {
+                    navigate("/");
+                    return complete(true);
+                })     
+            })
+            .catch(error => {
+                if(error.code !== "auth/popup-closed-by-user")
+                    toggleCustomPopup({text: `Error with Google sign in!`, time: 3000});
+                return complete(false);
+            })
+    })
+}
+
+export function userSignOut(){
+    signOut(auth);
+}
+
+export function trackAuthState(refetch: any){
+    onAuthStateChanged(auth, () => {
+        refetch();
+    })
 }

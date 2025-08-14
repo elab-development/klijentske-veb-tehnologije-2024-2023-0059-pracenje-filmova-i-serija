@@ -1,29 +1,28 @@
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "~/firebase";
-import type { ProfileInfoProps } from "~/types";
-import { useQuery } from "@tanstack/react-query";
 import Man from "app/assets/Man.png";
+import { useCallback, useRef } from "react";
 import { Link } from "react-router";
+import { getProfileFromFirebase, trackAuthState, userSignOut } from "~/APICalls";
 
 function ProfileInfo(){
-    const { data: userInfo } = useQuery<ProfileInfoProps | null>(
-        {queryKey: [`firebaseProfile`], 
-        queryFn: async () => {
-            if(!auth.currentUser)
-                return null;
+    const firstLoad = useRef(true);
+    const { data: userInfo, refetch } = getProfileFromFirebase();
 
-            const result = await getDoc(doc(db, `FilmSpot/${auth.currentUser}`));
-            // const result = await getDoc(doc(db, `FilmSpot/nRwWPESnQmwfYJMjsAe0`));
-            return result.exists() ? result.data() as ProfileInfoProps : null;
-        }}
-    )
+    const handleSignOut = useCallback(() => {
+        userSignOut();
+    }, []);
+
+    if(firstLoad.current === true){
+        trackAuthState(refetch);
+
+        firstLoad.current = false;
+    }
 
     return (
         <div>
             <h2 className="text-3xl font-bold mb-2 mt-10">Profile</h2>
             <span className="w-fit flex overflow-hidden rounded-[20px] bg-[#ffffff12] border-1 border-[var(--borderColorSecondary)]">
-                {userInfo?.Name
-                    ? <img className="w-[180px] h-[180px]" src={userInfo.PhotoURL} alt="Photo" />
+                {userInfo?.PhotoURL
+                    ? <img className="w-[180px] h-[180px]" src={userInfo.PhotoURL} alt="Photo" crossOrigin="anonymous" referrerPolicy="no-referrer" />
                     : <img className="w-[180px] h-[180px]" src={Man} alt="" />
                 }
 
@@ -42,7 +41,7 @@ function ProfileInfo(){
                                 Edit Profile
                             </button>
 
-                            <button className="button flex items-center gap-2 py-1.5 px-4 bg-[#DF354B] rounded-full font-medium">
+                            <button className="button flex items-center gap-2 py-1.5 px-4 bg-[#DF354B] rounded-full font-medium" onClick={handleSignOut}>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M14 20H6C4.89543 20 4 19.1046 4 18L4 6C4 4.89543 4.89543 4 6 4H14M10 12H21M21 12L18 15M21 12L18 9" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>

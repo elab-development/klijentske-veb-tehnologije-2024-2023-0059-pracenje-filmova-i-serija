@@ -9,7 +9,7 @@ export function toggleElementWD(props: ToggleFnProps){
 
         timeouts[`${props.element.id}open`] = setTimeout(() => {
             props.element.classList.add("hidden");
-        }, props.time);
+        }, props.time ?? 200);
     }else{
         if(timeouts[`${props.element.id}close`])
             clearTimeout(timeouts[`${props.element.id}close`]);
@@ -107,4 +107,21 @@ function toggleRating(name: string, rating?: number){
                 element.querySelector("p")!.innerHTML = "Rate this movie";
         })
     }
+}
+
+let timeout: ReturnType<typeof setTimeout>;
+export function toggleCustomPopup({text, time}: {text: string, time?: number}){
+    const customPopup = document.getElementById("customPopup") as HTMLSpanElement;
+
+    if(customPopup && !customPopup.classList.contains("open"))
+        toggleElementWD({element: customPopup});
+
+    customPopup.querySelector("h2")!.innerHTML = text;
+
+    if(timeout)
+        clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+        toggleElementWD({element: customPopup});
+    }, time ?? 2000);
 }

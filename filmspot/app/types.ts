@@ -57,7 +57,7 @@ export type VideoInfo = {
 
 export type ToggleFnProps = {
     element: HTMLElement | HTMLSpanElement, 
-    time: number
+    time?: number
 }
 
 export type PersonXMovie = {

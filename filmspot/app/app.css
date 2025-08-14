@@ -966,8 +966,32 @@ body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
 }
 /* PERSON PAGE */
 
-/* RESPONSIVE */
+/* CUSTOM POPUP */
+#customPopup{
+  position: fixed;
+  inset-inline: 0;
+  top: 80px;
+  margin-inline: auto;
+  z-index: 100;
+  transform: translate3d(0, calc(-100% - 80px), 0);
+  transition: transform .2s ease-in-out;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid var(--borderColorPrimary);
+  background-color: var(--backgroundTransparentPrimary);
+}
+#customPopup.open{
+  transform: translate3d(0, 0, 0);
+}
+#customPopup h2{
+  font-weight: 500;
+  font-size: clamp(18px, 1.1rem, 1.3rem);
+  color: var(--textAccentColor);
+}
+/* CUSTOM POPUP */
 
+/* RESPONSIVE */
 @media (max-width: 1250px) {
   .movieHolder{
     grid-template-columns: 1fr 1fr 1fr 1fr;

@@ -1,4 +1,7 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { createUser, loginUser } from '~/APICalls';
+import CustomPopup from '~/components/CustomPopup';
 import LightRays from '~/components/ReachBitsLightRays';
 
 export default function FilmSpotAuth() {
@@ -7,31 +10,20 @@ export default function FilmSpotAuth() {
   const email = useRef('');
   const password = useRef('');
 
-  const handleSubmit = () => {
-    if (isSignUp) {
-      console.log('Sign up attempt:', { username, email, password });
-    } else {
-      console.log('Login attempt:', { username, password });
-    }
-  };
+  const navigate = useNavigate();
 
-  const handleGoogleSignIn = () => {
-    console.log('Google sign in clicked');
-  };
-
-  const switchToSignUp = () => {
-    setIsSignUp(true);
-  };
-
-  const switchToLogin = () => {
-    setIsSignUp(false);
+  const handleSubmit = async () => {
+    if (isSignUp){
+      if(await createUser({email: email.current, password: password.current, username: username.current}) === true)
+        setIsSignUp(false);
+    }else 
+      loginUser({type: "email", navigate: navigate, email: email.current, password: password.current});
   };
 
   document.title = "Login";
 
-  return (
+  return <>
     <div className="min-h-screen flex items-start lg:items-center justify-center p-4 max-[600px]:px-0">
-      
       <LightRays
         raysOrigin="right"
         raysColor="#00ffff"
@@ -56,8 +48,8 @@ export default function FilmSpotAuth() {
                 <>
                   Have an account?{' '}
                   <button 
-                    onClick={switchToLogin}
-                    className="text-[#43DFD7] hover:brightness-120 transition-all"
+                    onClick={() => setIsSignUp(false)}
+                    className="!text-[#43DFD7] hover:brightness-120 transition-all"
                   >
                     Log in
                   </button>
@@ -66,7 +58,7 @@ export default function FilmSpotAuth() {
                 <>
                   New user?{' '}
                   <button 
-                    onClick={switchToSignUp}
+                    onClick={() => setIsSignUp(true)}
                     className="!text-[#43DFD7] hover:brightness-120 transition-all"
                   >
                     Create an account
@@ -79,9 +71,9 @@ export default function FilmSpotAuth() {
           <div className="space-y-6">
             <div className="transform transition-all duration-500 ease-in-out">
               <input
-                type="text"
-                placeholder="Username"
-                onChange={e => username.current = e.target.value}
+                type="email"
+                placeholder="Email"
+                onChange={e => email.current = e.target.value}
                 className="w-full px-4 py-3 bg-[var(--backgroundTransparentSecondary)] border border-[var(--borderColorSecondary)] rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#43DFD7] focus:border-transparent transition-all"
               />
             </div>
@@ -92,9 +84,9 @@ export default function FilmSpotAuth() {
                 : 'opacity-0 max-h-0 -translate-y-4 my-[-0.1rem]'
             }`}>
               <input
-                type="email"
-                placeholder="Email"
-                onChange={e => email.current = e.target.value}
+                type="text"
+                placeholder="Username"
+                onChange={e => username.current = e.target.value}
                 className="w-full px-4 py-3 bg-[var(--backgroundTransparentSecondary)] border border-[var(--borderColorSecondary)] rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#43DFD7] focus:border-transparent transition-all"
               />
             </div>
@@ -128,7 +120,7 @@ export default function FilmSpotAuth() {
             </div>
 
             <button
-              onClick={handleGoogleSignIn}
+              onClick={() => loginUser({type: "google", navigate: navigate})}
               className="w-full mt-4 bg-[#ffffff10] hover:bg-[#ffffff20] text-white font-medium py-3 px-4 rounded-lg border border-slate-600 transition-all flex items-center justify-center space-x-2 transform hover:brightness-90"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -181,5 +173,7 @@ export default function FilmSpotAuth() {
         </div>
       </div>
     </div>
-  );
+
+    <CustomPopup />
+  </>;
 }
