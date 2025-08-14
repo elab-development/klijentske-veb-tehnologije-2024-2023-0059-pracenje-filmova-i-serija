@@ -1056,7 +1056,7 @@ body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
 }
 @media (max-width: 750px) {
   main{
-    padding-bottom: 40px;
+    padding-block: 40px;
   }
 
   .movieInfoHolder > div{
@@ -1108,6 +1108,35 @@ body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
   }
   .movieInfoHolder .allCast > span > span{
     grid-template-columns: 1fr;
+  }
+
+  .profileInfo{
+    width: 100%;
+    padding: 0;
+  }
+  .profileInfo img{
+    width: 100px;
+    height: 100px;
+  }
+  .profileInfo > span{
+    padding: 5px 10px;
+  }
+  .profileInfo h2{
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .profileInfo p{
+    font-size: 13px;
+  }
+  .profileInfo button, .profileInfo a{
+    font-size: 10px;
+  }
+  .profileInfo button svg{
+    width: 10px;
+    height: 10px;
+  }
+  .profileInfo > span > span{
+    margin: 0;
   }
 }
 @media (max-width: 500px) {
@@ -1173,6 +1202,27 @@ body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
   }
   .ratingPopup span svg{
     width: 6vw;
+  }
+}
+@media (max-width: 360px) {
+  .profileInfo h2{
+    font-size: 14px;
+    line-height: 16px;
+  }
+  .profileInfo p{
+    line-height: 12px;
+    font-size: 10px;
+  }
+  .profileInfo img{
+    width: 70px;
+    height: 70px;
+  }
+  .profileInfo button, .profileInfo a{
+    margin-top: -5px;
+    padding: 3px 10px;
+  }
+  .profileInfo > span > span{
+    margin: 0;
   }
 }
 @media (max-width: 330px) {

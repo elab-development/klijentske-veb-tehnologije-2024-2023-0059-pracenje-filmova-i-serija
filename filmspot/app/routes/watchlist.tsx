@@ -21,7 +21,7 @@ export default function Watchlist(){
       
       <Header />
 
-      <main className="w-full min-h-[100dvh] max-w-[1400px] mx-auto z-3 relative">
+      <main className="w-full max-w-[1400px] mx-auto z-3 relative">
         <QueryClientProvider client={queryClient}>
           <ProfileInfo />
         </QueryClientProvider>
