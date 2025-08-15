@@ -34,7 +34,7 @@ function Person(){
         <QueryClientProvider client={queryClient}>
             <Header />
 
-            <main className="movieInfoHolder w-full max-w-[1400px] mx-auto mt-10 z-40">
+            <main className="movieInfoHolder w-full max-w-[1400px] mt-5 mx-auto z-40">
                 {id && <PersonHolder props={{id}} />}
             </main>
 
