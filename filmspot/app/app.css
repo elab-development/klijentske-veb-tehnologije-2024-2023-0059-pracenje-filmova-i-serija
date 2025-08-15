@@ -897,7 +897,9 @@ body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
 
 /* MOVIE SEARCH RESULT */
 .movieSearchResult .tags{
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
 }
 
@@ -906,6 +908,7 @@ body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
 }
 
 .movieSearchResult p{
+  flex-shrink: 0;
   margin-top: 5px;
   font-size: 1rem;
   color: var(--textSecondaryColor);
@@ -1076,7 +1079,7 @@ body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
     margin-bottom: 0px;
     width: 100%;
   }
-  .movieSearchResult p{
+  .movieSearchResult > div > p{
     height: 100px;
     overflow: hidden;
   }
@@ -1243,5 +1246,9 @@ body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
   }
   .movieInfoHolder .castItem h3{
     max-width: 50vw;
+  }
+  .wishlistButtons{
+    flex-direction: column;
+    width: calc(100% - 1.5rem);
   }
 }

@@ -58,15 +58,15 @@ function WatchlistItem({props}: {props: watchlistItem & {id: number | string, ra
             <Link to={`/content/${props.type}.${props.id}`} className="absolute w-full h-full z-1" />
             <img className="w-[120px] aspect-[3/4.3] rounded-xl border border-[var(--borderColorPrimary)]" src={props.banner} alt="test" />
             
-            <div className={`w-full overflow-x-hidden ${props.description.length > 0 ? "content-center" : ''}`}>
+            <div className={`w-full overflow-x-hidden" ${props.description.length > 0 ? "content-start" : ''}`}>
                 <div className="flex justify-between w-full">
-                    <span className="flex gap-1 max-w-[50%] items-center">
+                    <span className="flex gap-1 max-w-[50%] max-md:max-w-[95%] items-center">
                         <h2 className="text-ellipsis overflow-hidden whitespace-nowrap">{props.name}</h2>
                         <p className="!text-xl !mt-0">({props.year ?? props.name})</p>
                     </span>
                     
-                    <span className="wishlistButtons shrink-0 z-2">
-                        <span className={`flex items-center gap-2 rounded-full text-[.9rem] select-none ${props.rating && "rated"}`}>
+                    <span className="wishlistButtons shrink-0 z-2 max-md:absolute max-md:bottom-3 max-md:left-3 max-sm:w-[calc(100%-1.5rem)]">
+                        <span className={`flex grow items-center gap-2 rounded-full text-[.9rem] select-none ${props.rating && "rated"}`}>
                             {props.rating
                                 ? <>
                                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +79,7 @@ function WatchlistItem({props}: {props: watchlistItem & {id: number | string, ra
                             
                         </span>
 
-                        <button className="flex items-center gap-2 rounded-full text-[.9rem] button remove" onClick={handleRemove}>
+                        <button className="flex grow items-center gap-2 rounded-full text-[.9rem] button remove" onClick={handleRemove}>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6 6L18 18M18 6L6 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
@@ -89,7 +89,7 @@ function WatchlistItem({props}: {props: watchlistItem & {id: number | string, ra
                 </div>
 
                 {genres?.length > 0 && <MovieInfoPart items={genres} additionalClasses="tags" />}
-                <p>{props.description}</p>
+                <p className="max-md:mb-10 max-[330px]:!mb-21">{props.description}</p>
             </div>
         </div>
     </>;
