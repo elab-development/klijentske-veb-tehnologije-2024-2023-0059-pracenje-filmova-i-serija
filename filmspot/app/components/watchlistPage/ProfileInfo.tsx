@@ -19,7 +19,7 @@ function ProfileInfo(){
 
     return (
         <div>
-            <h2 className="text-3xl font-bold mb-2 mt-10">Profile</h2>
+            <h2 className="text-3xl font-bold mb-2">Profile</h2>
             <span className="profileInfo w-fit flex overflow-hidden rounded-[20px] bg-[#ffffff12] border-1 border-[var(--borderColorSecondary)]">
                 {userInfo?.PhotoURL
                     ? <img className="w-[180px] h-[180px]" src={userInfo.PhotoURL} alt="Photo" crossOrigin="anonymous" referrerPolicy="no-referrer" />

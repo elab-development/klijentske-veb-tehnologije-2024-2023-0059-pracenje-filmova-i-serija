@@ -1059,7 +1059,8 @@ body:has(.movieInfoHolder .allCast.open, .movieInfoHolder .ratingPopup.open) {
 }
 @media (max-width: 750px) {
   main{
-    padding-block: 40px;
+    padding-top: 80px;
+    padding-bottom: 40px;
   }
 
   .movieInfoHolder > div{
