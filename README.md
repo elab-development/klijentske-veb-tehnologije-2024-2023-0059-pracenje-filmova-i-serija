@@ -22,7 +22,7 @@ Projekat je preporučljivo povući na računar pomoću modernog okruženja kao �
     ```bash
     npm i
     ```
-3. Kreirajte env fajl u filmspot folderu:
+3. Kreirajte .env fajl u filmspot folderu:
     ```bash
     VITE_TMDB_API_KEY='TMBD_API_KEY'
     VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
