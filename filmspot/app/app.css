@@ -330,7 +330,7 @@ footer .followUs h2{
 }
 @keyframes removea {
   0% { transform: scale3d(1, 1, 1) rotateZ(0deg); }
-  30% { transform: scale3d(0.92, 0.92, 1) rotateZ(-15deg); opacity: 0.5; }
+  30% { transform: scale3d(0.92, 0.92, 1) rotateZ(-15deg); background-color: #43dfd7b9; }
   60% { transform: scale3d(1.04, 1.04, 1) rotateZ(4deg); }
   100% { transform: scale3d(1, 1, 1) rotateZ(0deg); }
 }
